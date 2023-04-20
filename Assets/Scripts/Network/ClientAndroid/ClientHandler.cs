@@ -2,10 +2,14 @@ using Unity.Netcode;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+
 public class ClientHandler : NetworkBehaviour
 {
+    [SerializeField] private GameObject joystickCanvas;
+
     private string clientName; //Client's name
     private Camera cameraAR;
+
 
     void Start()
     {
@@ -13,8 +17,10 @@ public class ClientHandler : NetworkBehaviour
         {
             this.gameObject.SetActive(false);
         }
+
         if (!IsOwner)
         {
+            joystickCanvas.SetActive(false);
             cameraAR = Camera.main;
             cameraAR.gameObject.GetComponent<Camera>().enabled = false;
             cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
@@ -22,7 +28,7 @@ public class ClientHandler : NetworkBehaviour
             cameraAR.gameObject.GetComponent<ARCameraBackground>().enabled = false;
             cameraAR.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
             cameraAR.gameObject.GetComponent<AudioListener>().enabled = false;
-        } 
+        }
         else
         {
             GameObject cameraVR = GameObject.FindGameObjectWithTag("CameraVR");
