@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.XR;
 public class ClientHandler : NetworkBehaviour
 {
     private string clientName; //Client's name
+    private Camera cameraAR;
 
     void Start()
     {
@@ -14,12 +15,15 @@ public class ClientHandler : NetworkBehaviour
         }
         if (!IsOwner)
         {
-            this.gameObject.GetComponent<Camera>().enabled = false;
-            this.gameObject.GetComponent<ARPoseDriver>().enabled = false;
-            this.gameObject.GetComponent<ARCameraManager>().enabled = false;
-            this.gameObject.GetComponent<ARCameraBackground>().enabled = false;
-            this.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
-        } else
+            cameraAR = Camera.main;
+            cameraAR.gameObject.GetComponent<Camera>().enabled = false;
+            cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
+            cameraAR.gameObject.GetComponent<ARCameraManager>().enabled = false;
+            cameraAR.gameObject.GetComponent<ARCameraBackground>().enabled = false;
+            cameraAR.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
+            cameraAR.gameObject.GetComponent<AudioListener>().enabled = false;
+        } 
+        else
         {
             GameObject cameraVR = GameObject.FindGameObjectWithTag("CameraVR");
             cameraVR.GetComponent<Camera>().enabled = false;

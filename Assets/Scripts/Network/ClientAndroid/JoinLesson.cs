@@ -13,8 +13,9 @@ public class JoinLesson : MonoBehaviour
 
     async public void Join()
     {
-        //We create the client that we spawn
-       androidClientPrefab.GetComponent<ClientHandler>().SetPlayerName(namePlayer.text);
+        //SET NAME AND THEN SPAWN
+        // Debug.Log(namePlayer.text);
+        // androidClientPrefab.GetComponent<ClientHandler>().SetPlayerName(namePlayer.text);
 
         bool connectionOK = await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text);
 
