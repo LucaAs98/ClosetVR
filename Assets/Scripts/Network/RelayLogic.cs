@@ -5,10 +5,14 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using Unity.Services.Vivox;
 using UnityEngine;
 
 public class RelayLogic : MonoBehaviour
 {
+    [SerializeField] private GameObject voiceChatManager;
+    [SerializeField] private GameObject startServerBtn;
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -19,10 +23,14 @@ public class RelayLogic : MonoBehaviour
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        //We initialize the voice chat service (Vivox)
+        VivoxService.Instance.Initialize();
     }
 
     public async Task<string> CreateRelay()
     {
+        startServerBtn.gameObject.SetActive(false);
         try
         {
             //We take the lesson code
@@ -42,7 +50,10 @@ public class RelayLogic : MonoBehaviour
             //We start the server returning the lesson code
             NetworkManager.Singleton.StartServer();
 
-            //Retrun the code for joining the lesson
+            //We login the server for using the voice chat
+            voiceChatManager.GetComponent<VoiceChatManager>().Login("Server");
+
+            //Return the code for joining the lesson
             return joinCode;
         }
         catch (RelayServiceException e)
@@ -53,7 +64,7 @@ public class RelayLogic : MonoBehaviour
         return null;
     }
 
-    public async Task<bool> JoinRelay(string joinCode)
+    public async Task<bool> JoinRelay(string joinCode, string clientName)
     {
         try
         {
@@ -68,6 +79,9 @@ public class RelayLogic : MonoBehaviour
                 joinAllocation.HostConnectionData
             );
             NetworkManager.Singleton.StartClient();
+
+            //We login the client for using the voice chat. The clientName should be unique!!
+            voiceChatManager.GetComponent<VoiceChatManager>().Login(clientName);
 
             //Return true if the connection is OK
             return true;

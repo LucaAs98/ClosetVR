@@ -13,15 +13,11 @@ public class JoinLesson : MonoBehaviour
 
     async public void Join()
     {
-        //SET NAME AND THEN SPAWN
-        // Debug.Log(namePlayer.text);
-        // androidClientPrefab.GetComponent<ClientHandler>().SetPlayerName(namePlayer.text);
-
         GameObject spawner = GameObject.Find("Spawner");
         spawner.GetComponent<Spawner>().SetPlayerName(namePlayer.text);
 
         bool connectionOK =
-            await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text);
+            await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text, namePlayer.text);
 
         if (connectionOK)
         {
