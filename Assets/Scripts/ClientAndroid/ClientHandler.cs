@@ -10,10 +10,14 @@ public class ClientHandler : NetworkBehaviour
 
     private string clientName; //Client's name
     private Camera cameraAR;
+    private Vector3 startingPosition;
 
-
+    //We activate/deactivate objects depending on IsOwner or not
     void Start()
     {
+        cameraAR = Camera.main;
+        startingPosition = this.gameObject.transform.position;
+
         if (!IsOwner && !IsServer)
         {
             this.gameObject.SetActive(false);
@@ -23,7 +27,7 @@ public class ClientHandler : NetworkBehaviour
         {
             joystickCanvas.SetActive(false);
             eventSystem.SetActive(false);
-            cameraAR = Camera.main;
+
             cameraAR.gameObject.GetComponent<Camera>().enabled = false;
             cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
             cameraAR.gameObject.GetComponent<ARCameraManager>().enabled = false;
@@ -38,6 +42,16 @@ public class ClientHandler : NetworkBehaviour
             cameraVR.GetComponent<TrackedPoseDriver>().enabled = false;
         }
     }
+
+
+    //Useful for resetting the client position in the scene
+    public void ResetClientPosition()
+    {
+        this.GetComponent<CharacterController>().enabled = false;
+        this.transform.position = startingPosition;
+        this.GetComponent<CharacterController>().enabled = true;
+    }
+
 
     public string GetPlayerName()
     {
