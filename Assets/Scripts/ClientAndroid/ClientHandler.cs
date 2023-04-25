@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.XR;
 public class ClientHandler : NetworkBehaviour
 {
     [SerializeField] private GameObject joystickCanvas;
+    [SerializeField] private GameObject eventSystem;
 
     private string clientName; //Client's name
     private Camera cameraAR;
@@ -21,6 +22,7 @@ public class ClientHandler : NetworkBehaviour
         if (!IsOwner)
         {
             joystickCanvas.SetActive(false);
+            eventSystem.SetActive(false);
             cameraAR = Camera.main;
             cameraAR.gameObject.GetComponent<Camera>().enabled = false;
             cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;

@@ -11,13 +11,12 @@ public class InitSceneForDevice : MonoBehaviour
     {
         bool isAndroid = Application.platform == RuntimePlatform.Android;
 
+        arSession.gameObject.SetActive(isAndroid);
+        VRStuffs.gameObject.SetActive(!isAndroid);
+
         if (isAndroid)
         {
             Instantiate(canvasAnd);
-            Destroy(GameObject.Find("EventSystem"));
         }
-
-        arSession.gameObject.SetActive(isAndroid);
-        VRStuffs.gameObject.SetActive(!isAndroid);
     }
 }

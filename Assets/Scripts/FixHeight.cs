@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FixHeight : MonoBehaviour
@@ -17,21 +15,20 @@ public class FixHeight : MonoBehaviour
         time += Time.deltaTime;
         if (!isTheCorrectOne)
         {
-            if(gameObject.transform.position.y <= plane.transform.position.y)
+            if (gameObject.transform.position.y <= plane.transform.position.y)
             {
-                Player.transform.localScale -= new Vector3(0.001f, 0.001f,0.001f);
+                Player.transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
             }
-            else if(gameObject.transform.position.y >= plane.transform.position.y)
+            else if (gameObject.transform.position.y >= plane.transform.position.y)
             {
                 Player.transform.localScale += new Vector3(0.001f, 0.001f, 0.001f);
             }
         }
-
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(time >= 7)
+        if (time >= 7)
         {
             isTheCorrectOne = true;
             MainPlayer.transform.localScale = Player.transform.localScale;

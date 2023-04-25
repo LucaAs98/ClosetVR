@@ -17,7 +17,11 @@ public class JoinLesson : MonoBehaviour
         // Debug.Log(namePlayer.text);
         // androidClientPrefab.GetComponent<ClientHandler>().SetPlayerName(namePlayer.text);
 
-        bool connectionOK = await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text);
+        GameObject spawner = GameObject.Find("Spawner");
+        spawner.GetComponent<Spawner>().SetPlayerName(namePlayer.text);
+
+        bool connectionOK =
+            await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text);
 
         if (connectionOK)
         {
