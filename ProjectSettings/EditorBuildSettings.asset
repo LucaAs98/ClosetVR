@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AndroidVR.unity
     guid: 1b912b5f9b8954e4e8d05e6a5696937b
-  - enabled: 0
-    path: Assets/Scenes/VoiceChat.unity
-    guid: 55fb84a02cc8de849b58b4336cbac825
+  - enabled: 1
+    path: Assets/Scenes/TestVRBody.unity
+    guid: 0b49413ee2bedc94cb9d007982d4407d
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 1ba647527f3ff784692030b306e8ea30, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cb9959d7ca86d264fb11a07a8c03ecc1, type: 2}

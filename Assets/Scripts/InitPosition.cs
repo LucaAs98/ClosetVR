@@ -29,14 +29,17 @@ public class InitPosition : MonoBehaviour
     public Vector3 offset;
     public Vector3 offsetPoint;
 
+    /*
     void Start()
     {
         headBodyOffset = transform.position - (headOffset.transform.position);
     }
+    */
+
 
     void Update()
     {
-        transform.position = cameraOffset.position + headBodyOffset + offset;
+        //transform.position = cameraOffset.position + headBodyOffset + offset;
 
 
         middlePoint = Vector3.Lerp(controllerRight.forward * 100, controllerLeft.forward * 100, 0.5f);
@@ -49,7 +52,7 @@ public class InitPosition : MonoBehaviour
         newMiddleFeet = new Vector3(middlePointFeet.x, transform.position.y, middlePointFeet.z);
 
         spine.LookAt(newMiddle);
-        transform.LookAt(newMiddleFeet);
+        //transform.LookAt(newMiddleFeet);
 
     }
 

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class FixHeight : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
-    [SerializeField] GameObject MainPlayer;
-    [SerializeField] GameObject Dresses;
+    [SerializeField] GameObject mannequine;
+    [SerializeField] GameObject playerVrPrefab;
     [SerializeField] GameObject plane;
 
     private bool isTheCorrectOne = false;
+    private bool isFirstOne = true;
     private float time = 0f;
 
     void Update()
@@ -17,24 +17,26 @@ public class FixHeight : MonoBehaviour
         {
             if (gameObject.transform.position.y <= plane.transform.position.y)
             {
-                Player.transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
+                mannequine.transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
             }
             else if (gameObject.transform.position.y >= plane.transform.position.y)
             {
-                Player.transform.localScale += new Vector3(0.001f, 0.001f, 0.001f);
+                mannequine.transform.localScale += new Vector3(0.001f, 0.001f, 0.001f);
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (time >= 7)
+        if (time >= 2 && isFirstOne)
         {
             isTheCorrectOne = true;
-            MainPlayer.transform.localScale = Player.transform.localScale;
-            MainPlayer.SetActive(true);
-            Dresses.GetComponent<InitPosition>().enabled = true;
-            //Player.SetActive(false);
+
+            GameObject playerVR = Instantiate(playerVrPrefab);
+            playerVR.GetComponent<InitHeight>().Init(mannequine.transform.localScale);
+            isFirstOne = false;
+            //Destroy(mannequine.gameObject);
+            Destroy(this.transform.root.gameObject);
         }
     }
 }
