@@ -1,10 +1,14 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
-public class FixHeight : MonoBehaviour
+public class CalculateHeight : MonoBehaviour
 {
     [SerializeField] GameObject mannequine;
     [SerializeField] GameObject playerVrPrefab;
     [SerializeField] GameObject plane;
+    [SerializeField] GameObject root;
+
+    [SerializeField] GameObject CameraOffset;
 
     private bool isTheCorrectOne = false;
     private bool isFirstOne = true;
@@ -32,11 +36,12 @@ public class FixHeight : MonoBehaviour
         {
             isTheCorrectOne = true;
 
+            root.GetComponent<XROrigin>().enabled = false;
+
             GameObject playerVR = Instantiate(playerVrPrefab);
             playerVR.GetComponent<InitHeight>().Init(mannequine.transform.localScale);
             isFirstOne = false;
-            //Destroy(mannequine.gameObject);
-            Destroy(this.transform.root.gameObject);
+            Destroy(root.gameObject);
         }
     }
 }

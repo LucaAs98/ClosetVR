@@ -49,13 +49,13 @@ public class VRRig : MonoBehaviour
     void Update()
     {
         transform.position = headConstraint.position + headBodyOffset;
-        //transform.forward = Vector3.Lerp(transform.forward, Vector3.ProjectOnPlane(headConstraint.forward, Vector3.up).normalized, Time.deltaTime * smoothness);
+        transform.forward = Vector3.Lerp(transform.forward, Vector3.ProjectOnPlane(headConstraint.forward, Vector3.up).normalized, Time.deltaTime * smoothness);
 
 
         middlePoint = Vector3.Lerp(leftController.transform.forward * 100, leftController.transform.forward * 100, 0.5f);
         newMiddle = new Vector3(middlePoint.x, spine.transform.position.y, middlePoint.z);
 
-        spine.transform.forward = Vector3.Lerp(spine.transform.forward, Vector3.ProjectOnPlane(newMiddle, Vector3.up).normalized, Time.deltaTime * smoothness);
+        //spine.transform.forward = Vector3.Lerp(spine.transform.forward, Vector3.ProjectOnPlane(newMiddle, Vector3.up).normalized, Time.deltaTime * smoothness);
 
         head.Map();
         leftHand.Map();
