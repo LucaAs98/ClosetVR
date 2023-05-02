@@ -26,18 +26,17 @@ public class Spawner : NetworkBehaviour
     }
 
 
+    //Spawn prefab as player. We need it to spawn different prefabs depending on the platform where we are running the application
     public override void OnNetworkSpawn()
     {
         if (IsServer) return;
 
-        //Spawn prefab as player. We need it to spawn different prefabs depending on the platform where we are running the application
-        GameObject spawner = GameObject.Find("Spawner");
         ulong clientId = NetworkManager.Singleton.LocalClientId;
 
         if (Application.platform == RuntimePlatform.Android)
         {
             //Android client spawn
-            spawner.GetComponent<Spawner>().JoinServerRpc(clientId, (int)Devices.Android, auxPlayerName);
+            JoinServerRpc(clientId, (int)Devices.Android, auxPlayerName);
         }
         // else if (Application.platform == RuntimePlatform.WSAPlayerARM)
         // {
