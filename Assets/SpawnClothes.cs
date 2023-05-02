@@ -1,43 +1,87 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SpawnClothes : MonoBehaviour
 {
-    [SerializeField] private GameObject[] clothesList;
-    [SerializeField] private GameObject prefabToSpawn;
-    [SerializeField] private Transform containerCards;
-    private RenderTexture rt;
+    [SerializeField] private GameObject[] t_shirtsList; //List of t-shirts to add
+    [SerializeField] private GameObject[] trousersList; //List of trousers to add
+    [SerializeField] private GameObject[] shoesList; //List of shoes to add
+    [SerializeField] private GameObject cardBtnCompletePrefab; //Prefab of the card button complete to instantiate
+    [SerializeField] private Transform containerTShirts; //Container of all the t-shirts in the menu
+    [SerializeField] private Transform containerTrousers; //Container of all the trousers in the menu
+    [SerializeField] private Transform containerShoes; //Container of all the shoes in the menu
+
+    private RenderTexture renderTexture; //Render texture for the visualization of the camera in the raw image
+    private GameObject cardTextGameObj; //Text of the cardBtnComplete
+    private GameObject cardBtnGameObj; //Card button we are instantiating
+    private Transform prefabToComplete; //"3DRepresentation"
+    private Transform parent3dModel; //"3DModelParent"
+    private Transform camera; //Camera where we visualize the 3D obj that we want to put in the scroll menu
+    private Transform representation2D; //Raw image where we visualize in 2D what the camera is seeing
 
     void Start()
     {
-        foreach (var cloth in clothesList)
+        Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
+        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
+        int i = 0;
+
+        foreach (var container in allContainers)
         {
-            //Instantiate base prefab
-            GameObject btn = Instantiate(prefabToSpawn, containerCards);
-            Transform prefabToComplete = btn.transform.GetChild(0);
+            if (container != null)
+            {
+                GameObject[] currentListOfClothes = allLists[i];
 
-            //Set correct tag to prefab
-            cloth.layer = LayerMask.NameToLayer("UICamera");
+                foreach (var cloth in currentListOfClothes)
+                {
+                    AddCardBtn(container, cloth);
+                }
 
-            //Instantiate it in the correct parent
-            Transform parent3dModel = prefabToComplete.GetChild(1);
-            Instantiate(cloth, parent3dModel);
+                i++;
+            }
+        }
+    }
 
-            //Create render texture
-            rt = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
-            rt.name = cloth.name + "RenderTexture";
+    //Add the specific cloth to the specific container
+    private void AddCardBtn(Transform container, GameObject cloth)
+    {
+        //Instantiate base prefab
+        cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
+        prefabToComplete = cardBtnGameObj.transform.GetChild(0);
 
-            //Take the camera and set the render texture
-            Transform camera = prefabToComplete.GetChild(0);
-            camera.GetComponent<Camera>().targetTexture = rt;
+        //Set correct tag to the prefab and its children
+        SetCorrectLayer(cloth, "UICamera");
 
-            //Take the raw image and set the render texture
-            Transform representation2D = prefabToComplete.GetChild(2);
-            representation2D.GetComponent<RawImage>().texture = rt;
+        //Instantiate it in the correct parent
+        parent3dModel = prefabToComplete.GetChild(1);
+        Instantiate(cloth, parent3dModel);
 
+        //Set the text in the card with the name of the cloth
+        cardTextGameObj = cardBtnGameObj.transform.GetChild(1).gameObject;
+        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = cloth.name;
 
+        //Create render texture
+        renderTexture = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
+        renderTexture.name = cloth.name + "RenderTexture";
+
+        //Take the camera and set the render texture
+        camera = prefabToComplete.GetChild(0);
+        camera.GetComponent<Camera>().targetTexture = renderTexture;
+
+        //Take the raw image and set the render texture
+        representation2D = prefabToComplete.GetChild(2);
+        representation2D.GetComponent<RawImage>().texture = renderTexture;
+    }
+
+    private void SetCorrectLayer(GameObject prefab, string layerName)
+    {
+        //Set layer to the parent
+        prefab.layer = LayerMask.NameToLayer(layerName);
+
+        //Set layer to the children
+        foreach (Transform child in prefab.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
         }
     }
 }
