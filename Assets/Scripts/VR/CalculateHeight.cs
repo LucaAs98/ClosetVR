@@ -8,8 +8,6 @@ public class CalculateHeight : MonoBehaviour
     [SerializeField] GameObject plane;
     [SerializeField] GameObject root;
 
-    [SerializeField] GameObject CameraOffset;
-
     private bool isTheCorrectOne = false;
     private bool isFirstOne = true;
     private float time = 0f;

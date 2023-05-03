@@ -12,6 +12,7 @@ public class InitHeight : MonoBehaviour
     {
         checkingPlane = GameObject.Find("PlaneView");
     }
+
     public void Init(Vector3 newScale)
     {
         this.transform.localScale = newScale;
@@ -22,9 +23,6 @@ public class InitHeight : MonoBehaviour
 
     private void FixCameraOffset()
     {
-        Debug.Log("Sto eseguendo con invoke");
-
-
         Vector3 spherePosition = referenceSphere.transform.position;
         Vector3 planePosition = checkingPlane.transform.position;
 
@@ -33,7 +31,8 @@ public class InitHeight : MonoBehaviour
 
         if (differenceY < 0.01)
         {
-            CancelInvoke(); 
+            CancelInvoke();
+            Destroy(checkingPlane.transform.parent.gameObject);
             gameObject.GetComponent<InitHeight>().enabled = false;
         }
         else

@@ -39,6 +39,11 @@ public class VRRig : MonoBehaviour
 
     public float smoothness = 5f;
 
+
+    //------------------------------------
+    private float maximumY;
+    //------------------------------------
+
     void Start()
     {
         headBodyOffset = transform.position - headConstraint.position;
@@ -48,7 +53,28 @@ public class VRRig : MonoBehaviour
 
     void Update()
     {
+
+
+        //------------------------------------
+        /*
+        maximumY = GameObject.Find("NewPlane").transform.position.y;
+
+        Vector3 newPosition = headConstraint.position + headBodyOffset;
+        if(transform.position.y > newPosition.y)
+        {
+            transform.position = new Vector3(newPosition.x, maximumY, newPosition.z);
+        }
+        else
+        {
+            transform.position = newPosition;
+        }*/
+        //------------------------------------
+
+        float initPositionY = transform.position.y;
         transform.position = headConstraint.position + headBodyOffset;
+        transform.position = new Vector3(transform.position.x, initPositionY, transform.position.z);
+
+
         transform.forward = Vector3.Lerp(transform.forward, Vector3.ProjectOnPlane(headConstraint.forward, Vector3.up).normalized, Time.deltaTime * smoothness);
 
 
