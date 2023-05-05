@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraVR
   - StopFix
+  - Floor
   layers:
   - Default
   - TransparentFX
