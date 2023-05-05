@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SpawnClothes : MonoBehaviour
 {
-    [SerializeField] private GameObject[] t_shirtsList; //List of t-shirts to add
+    private GameObject[] t_shirtsList; //List of t-shirts to add
     [SerializeField] private GameObject[] trousersList; //List of trousers to add
     [SerializeField] private GameObject[] shoesList; //List of shoes to add
     [SerializeField] private GameObject cardBtnCompletePrefab; //Prefab of the card button complete to instantiate
@@ -22,8 +22,15 @@ public class SpawnClothes : MonoBehaviour
 
     void Start()
     {
-        Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
-        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
+        t_shirtsList = GameObject.Find("TShirtsContainer").GetComponent<ManageCloset>().GetTShirtsGameObjects();
+
+        //Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
+        Transform[] allContainers = { containerTShirts };
+
+        //GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
+        GameObject[][] allLists = { t_shirtsList };
+       
+        
         int i = 0;
 
         foreach (var container in allContainers)

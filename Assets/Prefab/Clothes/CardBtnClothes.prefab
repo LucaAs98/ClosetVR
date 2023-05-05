@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3890779543129985376}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3453314540278808096}
+        m_TargetAssemblyTypeName: SendClothNameToRecommend, Assembly-CSharp
+        m_MethodName: RecommendCloth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4848599780644935121
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3224898064827076065}
+  - component: {fileID: 3453314540278808096}
   m_Layer: 6
   m_Name: 3DModelParent
   m_TagString: Untagged
@@ -296,6 +309,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3453314540278808096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382759842501391475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e8f26ada0b09e40bb01900f3a6a5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8597707502274938396
 GameObject:
   m_ObjectHideFlags: 0
