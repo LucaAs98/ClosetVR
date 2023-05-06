@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Netcode;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine;
@@ -7,8 +8,8 @@ public class ClientHandler : NetworkBehaviour
 {
     [SerializeField] private GameObject joystickCanvas;
     [SerializeField] private GameObject eventSystem;
+    [SerializeField] private GameObject clientName;
 
-    private string clientName; //Client's name
     private Camera cameraAR;
     private Vector3 startingPosition;
 
@@ -37,9 +38,14 @@ public class ClientHandler : NetworkBehaviour
         }
         else
         {
+            clientName.SetActive(false);
+            
             GameObject cameraVR = GameObject.FindGameObjectWithTag("CameraVR");
-            cameraVR.GetComponent<Camera>().enabled = false;
-            cameraVR.GetComponent<TrackedPoseDriver>().enabled = false;
+            if (cameraVR != null)
+            {
+                cameraVR.GetComponent<Camera>().enabled = false;
+                cameraVR.GetComponent<TrackedPoseDriver>().enabled = false;
+            }
         }
     }
 
@@ -55,11 +61,11 @@ public class ClientHandler : NetworkBehaviour
 
     public string GetPlayerName()
     {
-        return clientName;
+        return clientName.GetComponent<TextMeshProUGUI>().text;
     }
 
     public void SetPlayerName(string name)
     {
-        clientName = name;
+        clientName.GetComponent<TextMeshProUGUI>().text = name;
     }
 }

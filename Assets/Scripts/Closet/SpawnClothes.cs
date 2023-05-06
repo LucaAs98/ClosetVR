@@ -22,7 +22,7 @@ public class SpawnClothes : MonoBehaviour
 
     void Start()
     {
-        t_shirtsList = GameObject.Find("TShirtsContainer").GetComponent<ManageCloset>().GetTShirtsGameObjects();
+        t_shirtsList = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>().GetTShirtsGameObjects();
 
         //Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
         Transform[] allContainers = { containerTShirts };

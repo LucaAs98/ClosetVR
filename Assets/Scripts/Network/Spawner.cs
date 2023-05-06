@@ -18,9 +18,11 @@ public class Spawner : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void JoinServerRpc(ulong clientId, int platform, string playerName)
     {
-        GameObject tempGO = (GameObject)Instantiate(listClientPrefabs[platform]);
+        var tempGO = (GameObject)Instantiate(listClientPrefabs[platform]);
+
         tempGO.GetComponent<ClientHandler>().SetPlayerName(playerName);
-        NetworkObject netObj = tempGO.GetComponent<NetworkObject>();
+
+        var netObj = tempGO.GetComponent<NetworkObject>();
 
         netObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
@@ -31,13 +33,12 @@ public class Spawner : NetworkBehaviour
     {
         if (IsServer) return;
 
-        ulong clientId = NetworkManager.Singleton.LocalClientId;
+        var clientId = NetworkManager.Singleton.LocalClientId;
 
         if (Application.platform == RuntimePlatform.Android)
-        {
             //Android client spawn
             JoinServerRpc(clientId, (int)Devices.Android, auxPlayerName);
-        }
+
         // else if (Application.platform == RuntimePlatform.WSAPlayerARM)
         // {
         //     //Hololens client spawn

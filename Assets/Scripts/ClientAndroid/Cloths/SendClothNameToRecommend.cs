@@ -14,6 +14,6 @@ public class SendClothNameToRecommend : MonoBehaviour
 
     public void RecommendCloth()
     {
-        rootNetworkObj.GetComponent<RecommendCloth>().Recommend(this.transform.GetChild(0).name);
+        rootNetworkObj.GetComponent<RecommendCloth>().RecommendClothServerRpc(this.transform.GetChild(0).name);
     }
 }

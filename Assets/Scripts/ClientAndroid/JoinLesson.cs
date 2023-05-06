@@ -9,7 +9,6 @@ public class JoinLesson : MonoBehaviour
     [SerializeField] private GameObject errorImage;
     [SerializeField] private TextMeshProUGUI placeholder;
     [SerializeField] private TMP_InputField namePlayer;
-    [SerializeField] private GameObject androidClientPrefab;
 
     async public void Join()
     {

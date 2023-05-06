@@ -6,16 +6,16 @@ public class ManageCloset : MonoBehaviour
 {
     [SerializeField] private float tShirtDistance = 0.3f;
     [SerializeField] private float maxDistance = 3.9f;
+    [SerializeField] private Transform tShirtContainer;
     [SerializeField] private Transform crouchPrefab;
     [SerializeField] private Transform[] tShirtList;
 
-    private Transform tShirtContainer;
+
     private Transform currentCrouchTShirtContainer;
     private List<GameObject> crouchList = new();
 
     void Start()
     {
-        tShirtContainer = this.transform;
         float newDistance = 0;
 
         foreach (var tShirt in tShirtList)
