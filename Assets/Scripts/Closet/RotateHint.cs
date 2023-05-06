@@ -1,17 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateHint : MonoBehaviour
 {
-    [SerializeField] private float velocity = 2f;
-    [SerializeField] private bool upAndDown = true;
+    [SerializeField] private float rotationVelocity = 2f;
+    [SerializeField] private bool upAndDown = true; //Activate or deactivate the up and down animation
+    [SerializeField] private float amplitude = 0.001f; //Amplitude of the sin
+    [SerializeField] private float frequency = 3; //Frequency of the sin
 
-    [SerializeField] private float amplitude = 0.001f;
-    [SerializeField] private float frequency = 3;
-
-    private Vector3 initPos;
+    private Vector3 initPos; //Init position from where we have to move up and down
 
 
     void Start()
@@ -22,10 +18,14 @@ public class RotateHint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime * velocity);
+        //Rotation around y axis
+        transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime * rotationVelocity);
+        
+        //Up and down animation
         if (upAndDown)
         {
-            transform.localPosition = new Vector3(initPos.x, initPos.y + (Mathf.Sin(Time.time * frequency) * amplitude), initPos.z);
+            transform.localPosition = new Vector3(initPos.x, initPos.y + (Mathf.Sin(Time.time * frequency) * amplitude),
+                initPos.z);
         }
     }
 }

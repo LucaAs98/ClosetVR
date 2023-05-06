@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class SpawnClothes : MonoBehaviour
 {
     private GameObject[] t_shirtsList; //List of t-shirts to add
-    [SerializeField] private GameObject[] trousersList; //List of trousers to add
-    [SerializeField] private GameObject[] shoesList; //List of shoes to add
+    private GameObject[] trousersList; //List of trousers to add
+    private GameObject[] shoesList; //List of shoes to add
+
     [SerializeField] private GameObject cardBtnCompletePrefab; //Prefab of the card button complete to instantiate
     [SerializeField] private Transform containerTShirts; //Container of all the t-shirts in the menu
     [SerializeField] private Transform containerTrousers; //Container of all the trousers in the menu
@@ -20,33 +21,45 @@ public class SpawnClothes : MonoBehaviour
     private Transform camera; //Camera where we visualize the 3D obj that we want to put in the scroll menu
     private Transform representation2D; //Raw image where we visualize in 2D what the camera is seeing
 
+
+    private GameObject[] currentListOfClothes; //List of clothes we are iterating
+
     void Start()
     {
-        t_shirtsList = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>().GetTShirtsGameObjects();
+        TakeClothes(); //Get the clothes from the closet
+        AddClothes(); //Add the clothes to the menu
+    }
 
-        //Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
-        Transform[] allContainers = { containerTShirts };
+    //Add the clothes to the menu
+    private void AddClothes()
+    {
+        //We create the group of containers and clothes list we want to add at the android menu
+        Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
+        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
 
-        //GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
-        GameObject[][] allLists = { t_shirtsList };
-       
-        
-        int i = 0;
+        int i = 0; //Used to iterate allLists at the same time of allContainers
 
         foreach (var container in allContainers)
         {
-            if (container != null)
+            currentListOfClothes = allLists[i]; //We take the right list of clothes
+
+            //We add every cloth to the menu
+            foreach (var cloth in currentListOfClothes)
             {
-                GameObject[] currentListOfClothes = allLists[i];
-
-                foreach (var cloth in currentListOfClothes)
-                {
-                    AddCardBtn(container, cloth);
-                }
-
-                i++;
+                AddCardBtn(container, cloth);
             }
+
+            i++;
         }
+    }
+
+    //Get the clothes from the closet
+    private void TakeClothes()
+    {
+        ManageCloset manageCloset = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>();
+        t_shirtsList = manageCloset.GetTShirtsGameObjects();
+        trousersList = manageCloset.GetTrousersGameObjects();
+        shoesList = manageCloset.GetShoesGameObjects();
     }
 
     //Add the specific cloth to the specific container
@@ -80,6 +93,7 @@ public class SpawnClothes : MonoBehaviour
         representation2D.GetComponent<RawImage>().texture = renderTexture;
     }
 
+    //Set the correct layer to the prefab and its children
     private void SetCorrectLayer(GameObject prefab, string layerName)
     {
         //Set layer to the parent

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,10 +10,11 @@ public class RecommendCloth : NetworkBehaviour
         closet = GameObject.FindGameObjectWithTag("Closet");
     }
 
+    //Done in the server. We activate the hint of the corresponding cloth
     [ServerRpc]
     public void RecommendClothServerRpc(string clothName)
     {
         Debug.Log("Recommend " + clothName);
-        closet.GetComponent<ManageCloset>().ActiveCrouchHint(clothName);
+        closet.GetComponent<ManageCloset>().ActiveHangerHint(clothName);
     }
 }
