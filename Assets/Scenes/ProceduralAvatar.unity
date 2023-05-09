@@ -5007,7 +5007,7 @@ MonoBehaviour:
   distanceForStep: 0.2
   stepLenght: 2
   footSpacing: 0.1
-  stepHeight: 1
+  stepHeight: 0.2
   stepSpeed: 1
   YOffsetForFoot: 0.1
   footOffset: {x: 0, y: 0, z: 0}

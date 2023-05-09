@@ -19,6 +19,7 @@ public class ProceduralWalking : MonoBehaviour
     private Vector3 tempRightPosition;
 
     private Vector3 newFootRightPosition;
+    private Vector3 oldFootRightPosition;
 
     //Parameters of left position 
     private Vector3 currentLeftPosition;
@@ -48,6 +49,7 @@ public class ProceduralWalking : MonoBehaviour
     public float stepSpeed;
 
     Vector3 tempCurrentRight;
+    Vector3 tempPos;
 
     //Offset betwen ground and feet
     public float YOffsetForFoot;
@@ -62,7 +64,7 @@ public class ProceduralWalking : MonoBehaviour
 
     private void Awake()
     {
-        currentRightPosition = RightFoot.transform.position;
+        oldFootRightPosition = currentRightPosition = RightFoot.transform.position;
         currentRightRotation = RightFoot.transform.rotation;
         standingRightPosition = RightFoot.transform.localPosition;
         initialYRightRotation = RightFoot.transform.rotation.eulerAngles.y;
@@ -77,6 +79,7 @@ public class ProceduralWalking : MonoBehaviour
 
         lerpRightFoot = 1f;
         tempCurrentRight = new Vector3();
+        tempPos = new Vector3();
     }
 
     private void Update()
@@ -85,8 +88,10 @@ public class ProceduralWalking : MonoBehaviour
         timerForResettingTransform += Time.deltaTime;
         timeForNextStep += Time.deltaTime;
 
+        /*
         SetFootOnGround(RightFoot);
         SetFootOnGround(LeftFoot);
+        */
 
         LeftFoot.transform.position = currentLeftPosition;
         LeftFoot.transform.rotation = currentLeftRotation;
@@ -94,7 +99,7 @@ public class ProceduralWalking : MonoBehaviour
         RightFoot.transform.position = currentRightPosition;
         RightFoot.transform.rotation = currentRightRotation;
 
-        RotateFeet();
+        //RotateFeet();
 
         FeetMovement(RightFoot);
 
@@ -122,9 +127,7 @@ public class ProceduralWalking : MonoBehaviour
         //Set new position of foot
         if (Vector3.Distance(newFootRightPosition, currentRightPosition) > distanceForStep && lerpRightFoot >= 1)
         {
-            Debug.Log("Fai passo");
             lerpRightFoot = 0f;
-
             Vector3 directionOfStep = (newFootRightPosition - currentRightPosition);
             tempCurrentRight = currentRightPosition + (directionOfStep * stepLenght);
             //timerForResettingTransform = 0f;
@@ -132,10 +135,15 @@ public class ProceduralWalking : MonoBehaviour
 
         if (lerpRightFoot < 1)
         {
-            Vector3 tempPos = Vector3.Lerp(currentRightPosition, tempCurrentRight, lerpRightFoot);
+            Vector3 tempPos = Vector3.Lerp(oldFootRightPosition, tempCurrentRight, lerpRightFoot);
             tempPos.y += Mathf.Sin(lerpRightFoot * Mathf.PI) * stepHeight;
+            Debug.Log(Mathf.Sin(lerpRightFoot * Mathf.PI) * stepHeight);
             currentRightPosition = tempPos;
             lerpRightFoot += Time.deltaTime * stepSpeed;
+        }
+        else
+        {
+            oldFootRightPosition = tempCurrentRight;
         }
   
         /*
@@ -222,7 +230,9 @@ public class ProceduralWalking : MonoBehaviour
         Gizmos.color = Color.yellow;
         //Gizmos.DrawSphere(newFootForward, 0.1f);
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(gameObject.transform.position, transform.forward * 100);
+        Gizmos.DrawSphere(tempCurrentRight,0.1f);
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(tempPos,0.1f);
 
         Gizmos.DrawLine(headTransform.position, headTransform.transform.forward * 100);
     }
