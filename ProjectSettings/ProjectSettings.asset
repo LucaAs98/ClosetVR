@@ -914,11 +914,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: d9b22ce4-ca88-47b6-b3d5-9424e4370b3e
+  cloudProjectId: 2393bbc4-1fd9-494d-82cc-7b2e17b1a064
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ClothesVR
-  organizationId: lucaasu
+  projectName: ClothesVR2
+  organizationId: ulderico-vagnoni-studio-unibo-it
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

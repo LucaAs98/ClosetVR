@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VivoxUnity;
 
 public class ProceduralWalking : MonoBehaviour
 {
@@ -18,8 +19,6 @@ public class ProceduralWalking : MonoBehaviour
     private Vector3 tempRightPosition;
 
     private Vector3 newFootRightPosition;
-    private Vector3 newFootRightForward;
-
 
     //Parameters of left position 
     private Vector3 currentLeftPosition;
@@ -27,12 +26,6 @@ public class ProceduralWalking : MonoBehaviour
     private Vector3 tempLeftPosition;
 
     private Vector3 newFootLeftPosition;
-    private Vector3 newFootLeftForward;
-
-
-    private float headYRotation;
-    [SerializeField] Transform forwardRotation;
-    [SerializeField] GameObject forwardRotationGameObject;
 
     //Parameters of right rotation
     private Quaternion currentRightRotation;
@@ -50,18 +43,21 @@ public class ProceduralWalking : MonoBehaviour
     public float distanceForStep;
     public float stepLenght;
     public float footSpacing;
-    public float speed;
+    private float lerpRightFoot;
+    public float stepHeight;
+    public float stepSpeed;
 
+    Vector3 tempCurrentRight;
 
     //Offset betwen ground and feet
     public float YOffsetForFoot;
     public Vector3 footOffset;
 
     //Timer value
-    private float timerForRightResetting;
-    private bool stepHappensRight = false;
-    private float timerForLeftResetting;
-    private bool stepHappensLeft = false;
+    private float timerForResettingTransform;
+
+
+    private float timeForNextStep;
 
 
     private void Awake()
@@ -77,35 +73,32 @@ public class ProceduralWalking : MonoBehaviour
         initialYLeftRotation = LeftFoot.transform.rotation.eulerAngles.y;
 
         whichOneIsMoving = true;
+        timeForNextStep = 0f;
+
+        lerpRightFoot = 1f;
+        tempCurrentRight = new Vector3();
     }
 
     private void Update()
     {
 
-        timerForRightResetting += Time.deltaTime;
-        timerForLeftResetting += Time.deltaTime;
+        timerForResettingTransform += Time.deltaTime;
+        timeForNextStep += Time.deltaTime;
 
         SetFootOnGround(RightFoot);
         SetFootOnGround(LeftFoot);
 
-        if (whichOneIsMoving)
-        {
-            //Vector3.Lerp(gameObject.transform.position, currentPosition, Time.deltaTime);
-            RightFoot.transform.position = currentRightPosition;
-            RightFoot.transform.rotation = currentRightRotation;
+        LeftFoot.transform.position = currentLeftPosition;
+        LeftFoot.transform.rotation = currentLeftRotation;
 
-            FeetMovement(RightFoot);
-        }
-        else
-        {
-            //Vector3.Lerp(gameObject.transform.position, currentPosition, Time.deltaTime);
-            LeftFoot.transform.position = currentLeftPosition;
-            LeftFoot.transform.rotation = currentLeftRotation;
+        RightFoot.transform.position = currentRightPosition;
+        RightFoot.transform.rotation = currentRightRotation;
 
-            FeetMovement(LeftFoot);
-        }
+        RotateFeet();
 
-        ReturnToDefaultPosition(RightFoot);
+        FeetMovement(RightFoot);
+
+        //ReturnToDefaultTransform();
     }
 
 
@@ -123,89 +116,105 @@ public class ProceduralWalking : MonoBehaviour
 
     private void FeetMovement(GameObject WhichFeet)
     {
-        if(WhichFeet == RightFoot)
+        tempRightPosition = headTransform.position + (headTransform.right * footSpacing);
+        newFootRightPosition = new Vector3(tempRightPosition.x, currentRightPosition.y, tempRightPosition.z);
+
+        //Set new position of foot
+        if (Vector3.Distance(newFootRightPosition, currentRightPosition) > distanceForStep && lerpRightFoot >= 1)
         {
-            tempRightPosition = headTransform.position + (headTransform.right * footSpacing);
-            newFootRightPosition = new Vector3(tempRightPosition.x, currentRightPosition.y, tempRightPosition.z);
+            Debug.Log("Fai passo");
+            lerpRightFoot = 0f;
 
-
-            //Rotate feet
-            headYRotation = forwardRotation.rotation.eulerAngles.y;
-            currentRightRotation = Quaternion.Euler(currentRightRotation.eulerAngles.x, headYRotation + initialYRightRotation, currentRightRotation.eulerAngles.z);
-
-
-            //Set new position of foot
-            if (Vector3.Distance(newFootRightPosition, currentRightPosition) > distanceForStep)
-            {
-                Vector3 directionOfStep = (newFootRightPosition - currentRightPosition);
-                currentRightPosition = currentRightPosition + (directionOfStep * stepLenght);
-                forwardRotationGameObject.GetComponent<ChangeBodyRotation>().timeForResetting = 0;
-                stepHappensRight = true;
-            }
-
-            whichOneIsMoving = false;
+            Vector3 directionOfStep = (newFootRightPosition - currentRightPosition);
+            tempCurrentRight = currentRightPosition + (directionOfStep * stepLenght);
+            //timerForResettingTransform = 0f;
         }
+
+        if (lerpRightFoot < 1)
+        {
+            Vector3 tempPos = Vector3.Lerp(currentRightPosition, tempCurrentRight, lerpRightFoot);
+            tempPos.y += Mathf.Sin(lerpRightFoot * Mathf.PI) * stepHeight;
+            currentRightPosition = tempPos;
+            lerpRightFoot += Time.deltaTime * stepSpeed;
+        }
+  
+        /*
+        tempRightPosition = headTransform.position + (headTransform.right * footSpacing);
+        newFootRightPosition = new Vector3(tempRightPosition.x, currentRightPosition.y, tempRightPosition.z);
+
+        //Set new position of foot
+        if (Vector3.Distance(newFootRightPosition, currentRightPosition) > distanceForStep && lerpRightFoot >= 1)
+        {
+            lerpRightFoot = 0f;
+
+            Vector3 directionOfStep = (newFootRightPosition - currentRightPosition);
+            tempCurrentRight = currentRightPosition + (directionOfStep * stepLenght);
+            //timerForResettingTransform = 0f;
+        }
+
+        if (lerpRightFoot < 1)
+        {
+            Vector3 tempPos = Vector3.Lerp(currentRightPosition, tempCurrentRight, lerpRightFoot);
+            tempPos.y += Mathf.Sin(lerpRightFoot * Mathf.PI) * stepHeight;
+            currentRightPosition = tempPos;
+            lerpRightFoot += Time.deltaTime * stepSpeed;
+        }
+            /*
         else
         {
             tempLeftPosition = headTransform.position + (headTransform.right * (-footSpacing));
             newFootLeftPosition = new Vector3(tempLeftPosition.x, currentLeftPosition.y, tempLeftPosition.z);
-
-
-            //Rotate feet
-            headYRotation = forwardRotation.rotation.eulerAngles.y;
-            currentLeftRotation = Quaternion.Euler(currentLeftRotation.eulerAngles.x, headYRotation + initialYLeftRotation, currentLeftRotation.eulerAngles.z);
-
 
             //Set new position of foot
             if (Vector3.Distance(newFootLeftPosition, currentLeftPosition) > distanceForStep)
             {
                 Vector3 directionOfStep = (newFootLeftPosition - currentLeftPosition);
                 currentLeftPosition = currentLeftPosition + (directionOfStep * stepLenght);
-                forwardRotationGameObject.GetComponent<ChangeBodyRotation>().timeForResetting = 0;
-                stepHappensLeft = true;
+                whichOneIsMoving = true;
+                timeForNextStep = 0f;
+                timerForResettingTransform = 0f;
             }
-
-            whichOneIsMoving = true;
-        }
-
-
+        }*/
     }
-    private void ReturnToDefaultPosition(GameObject WhichFeet)
+
+    private void RotateFeet()
     {
-        /*
-        //--------------------------------------------------------------------------
-        //Return to standing position if no movement (STEP)
-        if (timerForResetting > 1f && stepHappens == true)
-        {
-            isMoving = true;
-            gameObject.transform.localPosition = standingPosition;
-            currentPosition = gameObject.transform.position;
+        Quaternion temp1 = Quaternion.Euler(0, RightFoot.transform.rotation.eulerAngles.y, 0);
+        Quaternion temp2 = Quaternion.Euler(0, headTransform.transform.rotation.eulerAngles.y, 0);
+        float difference = Quaternion.Angle(temp1,temp2);
 
-            stepHappens = false;
-            timerForResetting = 0f;
-            forwardRotationGameObject.GetComponent<ChangeBodyRotation>().timeForResetting = 0;
-            isMoving = false;
+
+        if (difference >= 30 || difference <= -30)
+        {
+            currentRightRotation = Quaternion.Euler(currentRightRotation.eulerAngles.x, headTransform.transform.rotation.eulerAngles.y + initialYRightRotation, currentRightRotation.eulerAngles.z);
+            currentLeftRotation = Quaternion.Euler(currentLeftRotation.eulerAngles.x, headTransform.transform.rotation.eulerAngles.y + initialYLeftRotation, currentLeftRotation.eulerAngles.z);
         }
+    }
 
+
+    private void ReturnToDefaultTransform()
+    {
         //Return to standing position if no movement (IDLE)
-        if (timerForResetting > 2f && gameObject.transform.localPosition != standingPosition)
+        if (timerForResettingTransform > 2f)
         {
-            isMoving = true;
-            gameObject.transform.localPosition = standingPosition;
-            currentPosition = gameObject.transform.position;
+            RightFoot.transform.localPosition = standingRightPosition;
+            LeftFoot.transform.localPosition = standingLeftPosition;
+            currentRightPosition = RightFoot.transform.position;
+            currentLeftPosition = LeftFoot.transform.position;
 
-            timerForResetting = 0f;
-            forwardRotationGameObject.GetComponent<ChangeBodyRotation>().timeForResetting = 0;
-            isMoving = false;
+
+            currentRightRotation = Quaternion.Euler(currentRightRotation.eulerAngles.x, headTransform.transform.rotation.eulerAngles.y + initialYRightRotation, currentRightRotation.eulerAngles.z);
+            currentLeftRotation = Quaternion.Euler(currentLeftRotation.eulerAngles.x, headTransform.transform.rotation.eulerAngles.y + initialYLeftRotation, currentLeftRotation.eulerAngles.z);
+
+
+            timerForResettingTransform = 0f;
         }
 
         //If the position is the same reset timer
-        if (gameObject.transform.localPosition == standingPosition)
+        if ((RightFoot.transform.localPosition == standingRightPosition) && (LeftFoot.transform.localPosition == standingLeftPosition))
         {
-            timerForResetting = 0f;
-            forwardRotationGameObject.GetComponent<ChangeBodyRotation>().timeForResetting = 0;
+            timerForResettingTransform = 0f;
         }
-        */
     }
 
     private void OnDrawGizmos()
@@ -216,6 +225,5 @@ public class ProceduralWalking : MonoBehaviour
         Gizmos.DrawLine(gameObject.transform.position, transform.forward * 100);
 
         Gizmos.DrawLine(headTransform.position, headTransform.transform.forward * 100);
-        Gizmos.DrawLine(forwardRotation.transform.position, forwardRotation.transform.forward * 100);
     }
 }
