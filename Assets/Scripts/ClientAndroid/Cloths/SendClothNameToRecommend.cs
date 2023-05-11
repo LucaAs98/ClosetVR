@@ -12,8 +12,10 @@ public class SendClothNameToRecommend : MonoBehaviour
         rootNetworkObj = this.transform.root.gameObject;
     }
 
+    //We take the name of the cloth and we call the serverRpc for activate the hint at the specific cloth
     public void RecommendCloth()
     {
-        rootNetworkObj.GetComponent<RecommendCloth>().RecommendClothServerRpc(this.transform.GetChild(0).name);
+        string clothName = this.transform.GetChild(0).name;
+        rootNetworkObj.GetComponent<RecommendCloth>().RecommendClothServerRpc(clothName);
     }
 }

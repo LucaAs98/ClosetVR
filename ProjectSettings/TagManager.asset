@@ -8,6 +8,8 @@ TagManager:
   - StopFix
   - Floor
   - Closet
+  - SpecificClothMenu
+  - GeneralClothMenu
   layers:
   - Default
   - TransparentFX

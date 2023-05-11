@@ -81,7 +81,7 @@ public class SpawnClothes : MonoBehaviour
         cardTextGameObj.GetComponent<TextMeshProUGUI>().text = cloth.name;
 
         //Create render texture
-        renderTexture = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
+        renderTexture = new RenderTexture(1920, 1080, 16, RenderTextureFormat.ARGB32);
         renderTexture.name = cloth.name + "RenderTexture";
 
         //Take the camera and set the render texture

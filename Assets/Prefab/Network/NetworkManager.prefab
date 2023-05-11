@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2789179359037838682
+--- !u!1 &3421556258390541567
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2789179359037838681}
-  - component: {fileID: 2789179359037838680}
-  - component: {fileID: 2789179359037838683}
-  - component: {fileID: 2789179359037838502}
-  - component: {fileID: 2789179359037838503}
-  - component: {fileID: 2789179359037838500}
+  - component: {fileID: 3421556258390541564}
+  - component: {fileID: 3421556258390541565}
+  - component: {fileID: 3421556258390541566}
+  - component: {fileID: 3421556258390541571}
+  - component: {fileID: 3421556258390541570}
+  - component: {fileID: 3421556258390541569}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2789179359037838681
+--- !u!4 &3421556258390541564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.362864, y: -5.0994, z: -11.015945}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,13 +36,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2789179359037838680
+--- !u!114 &3421556258390541565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
@@ -52,26 +52,26 @@ MonoBehaviour:
   LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 2789179359037838683}
+    NetworkTransport: {fileID: 3421556258390541566}
     PlayerPrefab: {fileID: 0}
     NetworkPrefabs:
     - Override: 0
-      Prefab: {fileID: 4582863061588531355, guid: 23e987b9d5b9c8042bc2acb83efd0118, type: 3}
+      Prefab: {fileID: 2338089489687627524, guid: d58eab34a29203e4d9bc3e969995c125, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 1744686732892007517, guid: 0434181d88f228349b4d1fa6efbe564d, type: 3}
+      Prefab: {fileID: 4549779430173125640, guid: 8e2e80cee81d1ef4a9e797475e886e7a, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 0}
+      Prefab: {fileID: 7077514327824886954, guid: d0cc0f028397c0f498b2d0f1374c3eac, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 0}
+      Prefab: {fileID: 6722182802853100350, guid: 138fed90034da4041bbb56ede26069d7, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
@@ -90,13 +90,13 @@ MonoBehaviour:
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
     EnableNetworkLogs: 1
---- !u!114 &2789179359037838683
+--- !u!114 &3421556258390541566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
@@ -118,13 +118,13 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
---- !u!114 &2789179359037838502
+--- !u!114 &3421556258390541571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53fad9c995df7b145bbeb2731ece5a7a, type: 3}
@@ -133,26 +133,26 @@ MonoBehaviour:
   arSession: {fileID: 0}
   canvasAnd: {fileID: 8248891161921964834, guid: 753eae49ae8ea014184d7afd1545bf26, type: 3}
   VRStuffs: {fileID: 0}
---- !u!114 &2789179359037838503
+--- !u!114 &3421556258390541570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3eb20e55b48db6459b1e8806218de3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyCodeText: {fileID: 0}
---- !u!114 &2789179359037838500
+--- !u!114 &3421556258390541569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789179359037838682}
+  m_GameObject: {fileID: 3421556258390541567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3496b499923d5034da0c601cf1bd55b2, type: 3}
