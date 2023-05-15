@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,21 @@ public class ManageCloset : NetworkBehaviour
     [SerializeField] private Transform shoesSpace;
     [SerializeField] private Transform shoesHangerPrefab;
     [SerializeField] private Transform[] shoesList;
+
+    //---------------------- CAPS -------------------------------
+    [SerializeField] private Transform capsSpace;
+    [SerializeField] private Transform capsHangerPrefab;
+    [SerializeField] private Transform[] capsList;
+
+    //---------------------- GLASSES -------------------------------
+    [SerializeField] private Transform glassesSpace;
+    [SerializeField] private Transform glassesHangerPrefab;
+    [SerializeField] private Transform[] glassesList;
+
+    //---------------------- WATCHES -------------------------------
+    [SerializeField] private Transform watchesSpace;
+    [SerializeField] private Transform watchesHangerPrefab;
+    [SerializeField] private Transform[] watchesList;
 
 
     //List of all the hangers, useful for the Activation/Deactivation of the hints
@@ -44,9 +60,14 @@ public class ManageCloset : NetworkBehaviour
     private void InitCloset()
     {
         //We create all the arrays and the lists we need
-        Transform[] clothsSpaces = { tShirtSpace, trousersSpace, shoesSpace };
-        List<Transform[]> clothLists = new List<Transform[]>() { tShirtList, trousersList, shoesList };
-        Transform[] clothHangers = { tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab };
+        Transform[] clothsSpaces = { tShirtSpace, trousersSpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
+        List<Transform[]> clothLists = new List<Transform[]>()
+            { tShirtList, trousersList, shoesList, capsList, glassesList, watchesList };
+        Transform[] clothHangers =
+        {
+            tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
+            watchesHangerPrefab
+        };
 
         //We iterate all the lists of clothes
         foreach (var clothList in clothLists)
@@ -89,8 +110,12 @@ public class ManageCloset : NetworkBehaviour
                 //We pass to the next cloth
                 numberOfCloth++;
 
-                //Check if another cloth fits
-                CheckIfThereIsSpace();
+                //Check if we are not at the last one cloth
+                if (cloth != clothList.Last())
+                {
+                    //Check if another cloth fits
+                    CheckIfThereIsSpace();
+                }
             }
         }
 
@@ -111,7 +136,8 @@ public class ManageCloset : NetworkBehaviour
             {
                 Debug.LogErrorFormat(
                     "Massima quantità di vestiti raggiunta nel container!" +
-                    "\n ----- typeOfCloth (1_tshirt, 2_trousers, 3_shoes) -> " + typeOfClothIndex +
+                    "\n ----- typeOfCloth (0_tshirt, 1_trousers, 2_shoes, 3_caps, 4_glasses, 5_watches) -> " +
+                    typeOfClothIndex +
                     "\n ----- current container -> " + currentContainer +
                     "\n ----- Non sono stati spawnati tutti i vestiti!");
 
@@ -216,6 +242,47 @@ public class ManageCloset : NetworkBehaviour
         for (int i = 0; i < shoesList.Length; i++)
         {
             newList[i] = shoesList[i].gameObject;
+        }
+
+        return newList;
+    }
+
+    //Return all the caps of the closet
+    public GameObject[] GetCapsGameObjects()
+    {
+        GameObject[] newList = new GameObject[capsList.Length];
+
+        for (int i = 0; i < capsList.Length; i++)
+        {
+            newList[i] = capsList[i].gameObject;
+        }
+
+        return newList;
+    }
+
+
+    //Return all the glasses of the closet
+    public GameObject[] GetGlassesGameObjects()
+    {
+        GameObject[] newList = new GameObject[glassesList.Length];
+
+        for (int i = 0; i < glassesList.Length; i++)
+        {
+            newList[i] = glassesList[i].gameObject;
+        }
+
+        return newList;
+    }
+
+
+    //Return all the watches of the closet
+    public GameObject[] GetWatchesGameObjects()
+    {
+        GameObject[] newList = new GameObject[watchesList.Length];
+
+        for (int i = 0; i < watchesList.Length; i++)
+        {
+            newList[i] = watchesList[i].gameObject;
         }
 
         return newList;

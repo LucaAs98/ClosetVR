@@ -7,11 +7,17 @@ public class SpawnClothes : MonoBehaviour
     private GameObject[] t_shirtsList; //List of t-shirts to add
     private GameObject[] trousersList; //List of trousers to add
     private GameObject[] shoesList; //List of shoes to add
+    private GameObject[] capsList; //List of caps to add
+    private GameObject[] glassesList; //List of glasses to add
+    private GameObject[] watchesList; //List of watches to add
 
     [SerializeField] private GameObject cardBtnCompletePrefab; //Prefab of the card button complete to instantiate
     [SerializeField] private Transform containerTShirts; //Container of all the t-shirts in the menu
     [SerializeField] private Transform containerTrousers; //Container of all the trousers in the menu
     [SerializeField] private Transform containerShoes; //Container of all the shoes in the menu
+    [SerializeField] private Transform containerCaps; //Container of all the caps in the menu
+    [SerializeField] private Transform containerGlasses; //Container of all the glasses in the menu
+    [SerializeField] private Transform containerWatches; //Container of all the watches in the menu
 
     private RenderTexture renderTexture; //Render texture for the visualization of the camera in the raw image
     private GameObject cardTextGameObj; //Text of the cardBtnComplete
@@ -34,8 +40,9 @@ public class SpawnClothes : MonoBehaviour
     private void AddClothes()
     {
         //We create the group of containers and clothes list we want to add at the android menu
-        Transform[] allContainers = { containerTShirts, containerTrousers, containerShoes };
-        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList };
+        Transform[] allContainers =
+            { containerTShirts, containerTrousers, containerShoes, containerCaps, containerGlasses, containerWatches };
+        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList, capsList, glassesList, watchesList };
 
         int i = 0; //Used to iterate allLists at the same time of allContainers
 
@@ -60,6 +67,9 @@ public class SpawnClothes : MonoBehaviour
         t_shirtsList = manageCloset.GetTShirtsGameObjects();
         trousersList = manageCloset.GetTrousersGameObjects();
         shoesList = manageCloset.GetShoesGameObjects();
+        capsList = manageCloset.GetCapsGameObjects();
+        glassesList = manageCloset.GetGlassesGameObjects();
+        watchesList = manageCloset.GetWatchesGameObjects();
     }
 
     //Add the specific cloth to the specific container
