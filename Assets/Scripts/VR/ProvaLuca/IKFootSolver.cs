@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.XR.Interaction.Toolkit.AR;
 using UnityEngine;
 
 public class IKFootSolver : MonoBehaviour
@@ -15,7 +16,7 @@ public class IKFootSolver : MonoBehaviour
 
     [SerializeField] private Vector3 footPosOffset, footRotOffset; //Useful for the alignment of the foot
 
-    private float footSpacing, lerp;
+    private float footSpacing, lerpStep;
     private Vector3 oldPos, currentPos, newPos;
     private Vector3 oldNorm, currentNorm, newNorm;
 
@@ -27,7 +28,7 @@ public class IKFootSolver : MonoBehaviour
         footSpacing = transform.localPosition.x;
         currentPos = newPos = oldPos = transform.position;
         currentNorm = newNorm = oldNorm = transform.up;
-        lerp = 1;
+        lerpStep = 1;
     }
 
     void Update()
@@ -35,6 +36,7 @@ public class IKFootSolver : MonoBehaviour
         //We set the foot position
         transform.position = currentPos + footPosOffset;
         transform.localRotation = Quaternion.LookRotation(currentNorm) * Quaternion.Euler(footRotOffset);
+
 
         /* Ray from the foot down to the ground. So we take the body position  + the foot spacing
          * (body.right but if it multiplied with a negative number will be negative as well).
@@ -53,8 +55,8 @@ public class IKFootSolver : MonoBehaviour
             }
         }
 
-        //When lerp is less then 1 we have not finished the step yet
-        if (lerp < 1)
+        //When lerpStep is less then 1 we have not finished the step yet
+        if (lerpStep < 1)
         {
             ContinueStep();
         }
@@ -68,7 +70,7 @@ public class IKFootSolver : MonoBehaviour
     private void StartAStep(RaycastHit hit)
     {
         isFirstStep = false;
-        lerp = 0; //We start a new lerp
+        lerpStep = 0; //We start a new lerpStep
 
         //The character can move forward or backward
         int direction = body.InverseTransformPoint(hit.point).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
@@ -78,20 +80,20 @@ public class IKFootSolver : MonoBehaviour
         newNorm = hit.normal;
     }
 
-    //If the lerp is not finished means that we still want to move our foot
+    //If the lerpStep is not finished means that we still want to move our foot
     private void ContinueStep()
     {
         //We are moving the foot from the old position to the new one
-        Vector3 tempPos = Vector3.Lerp(oldPos, newPos, lerp);
+        Vector3 tempPos = Vector3.Lerp(oldPos, newPos, lerpStep);
 
         //Move the foot upwards in an arc in a sin curve and not straight to the final position  
-        tempPos.y += Mathf.Sin(lerp * Mathf.PI) * stepHeight;
+        tempPos.y += Mathf.Sin(lerpStep * Mathf.PI) * stepHeight;
 
         currentPos = tempPos; //Useful for updating the position of the foot at the start of the update 
-        currentNorm = Vector3.Lerp(oldNorm, newNorm, lerp);
+        currentNorm = Vector3.Lerp(oldNorm, newNorm, lerpStep);
 
-        //Increase the lerp according to the speed of the step 
-        lerp += Time.deltaTime * speed;
+        //Increase the lerpStep according to the speed of the step 
+        lerpStep += Time.deltaTime * speed;
     }
 
     //If the step is finished we update the old position to the new one
@@ -101,9 +103,18 @@ public class IKFootSolver : MonoBehaviour
         oldNorm = newNorm;
     }
 
-    //If the lerp is less then 1, it means that the foot is still moving
+    //If the lerpStep is less then 1, it means that the foot is still moving
     public bool IsMoving()
     {
-        return lerp < 1;
+        return lerpStep < 1;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Gizmos.color = Color.red;
+        // Gizmos.DrawSphere(newPos, 0.1f);
+
+        // Gizmos.color = Color.red;
+        // Gizmos.DrawLine(body.position, body.forward);
     }
 }
