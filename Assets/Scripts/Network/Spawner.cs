@@ -19,11 +19,8 @@ public class Spawner : NetworkBehaviour
     public void JoinServerRpc(ulong clientId, int platform, string playerName)
     {
         var tempGO = (GameObject)Instantiate(listClientPrefabs[platform]);
-
         tempGO.GetComponent<ClientHandler>().SetPlayerName(playerName);
-
         var netObj = tempGO.GetComponent<NetworkObject>();
-
         netObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
 

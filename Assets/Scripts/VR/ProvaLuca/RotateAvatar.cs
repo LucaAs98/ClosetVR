@@ -14,15 +14,15 @@ public class RotateAvatar : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawSphere(newPos, 0.1f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(this.transform.position, this.transform.forward);
-        
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(camera.position, camera.forward);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     // Gizmos.color = Color.red;
+    //     // Gizmos.DrawSphere(newPos, 0.1f);
+    //
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawLine(this.transform.position, this.transform.forward);
+    //     
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawLine(camera.position, camera.forward);
+    // }
 }

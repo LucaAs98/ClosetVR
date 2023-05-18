@@ -10,6 +10,7 @@ TagManager:
   - Closet
   - SpecificClothMenu
   - GeneralClothMenu
+  - Avatar
   layers:
   - Default
   - TransparentFX

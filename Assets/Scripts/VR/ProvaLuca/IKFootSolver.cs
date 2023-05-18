@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.XR.Interaction.Toolkit.AR;
 using UnityEngine;
 
 public class IKFootSolver : MonoBehaviour
@@ -109,12 +106,12 @@ public class IKFootSolver : MonoBehaviour
         return lerpStep < 1;
     }
 
-    private void OnDrawGizmos()
-    {
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawSphere(newPos, 0.1f);
-
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawLine(body.position, body.forward);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawSphere(newPos, 0.1f);
+    //
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawLine(body.position, body.forward);
+    // }
 }

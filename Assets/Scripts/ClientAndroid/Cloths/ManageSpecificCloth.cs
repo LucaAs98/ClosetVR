@@ -8,20 +8,20 @@ public class ManageSpecificCloth : MonoBehaviour
 
     //Specific cloth menu
     [SerializeField] private GameObject specificClothMenu; //Menu for the visualization of the specific cloth
-    [SerializeField] private Transform parentOfSpecificCloth; //Parent of the bj we want to rotate when dragging
+    [SerializeField] private Transform parentOfSpecificCloth; //Parent of the obj we want to rotate when dragging
 
     //Title of the specific cloth we want to see before recommend
     [SerializeField] private TextMeshProUGUI titleInTitleBar;
 
     //Component where we have a lot of utilities for the management of the specific cloth
-    private ManageSpecificCloth manageSpecificClothComponent;
+    //private ManageSpecificCloth manageSpecificClothComponent;
 
     void Start()
     {
         //We need to activate and deactivate the menu for taking the component
-        specificClothMenu.SetActive(true);
-        manageSpecificClothComponent = specificClothMenu.GetComponent<ManageSpecificCloth>();
-        specificClothMenu.SetActive(false);
+        // specificClothMenu.SetActive(true);
+        // manageSpecificClothComponent = specificClothMenu.GetComponent<ManageSpecificCloth>();
+        // specificClothMenu.SetActive(false);
     }
 
 
