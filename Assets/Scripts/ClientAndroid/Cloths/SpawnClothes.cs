@@ -82,9 +82,12 @@ public class SpawnClothes : MonoBehaviour
         //Set correct tag to the prefab and its children
         SetCorrectLayer(cloth, "UICamera");
 
+
         //Instantiate it in the correct parent
         parent3dModel = prefabToComplete.GetChild(1);
-        Instantiate(cloth, parent3dModel);
+        GameObject clothInClient = Instantiate(cloth, parent3dModel);
+
+        DisableClothComponent(clothInClient);
 
         //Set the text in the card with the name of the cloth
         cardTextGameObj = cardBtnGameObj.transform.GetChild(1).gameObject;
@@ -113,6 +116,16 @@ public class SpawnClothes : MonoBehaviour
         foreach (Transform child in prefab.transform)
         {
             child.gameObject.layer = LayerMask.NameToLayer(layerName);
+        }
+    }
+
+    //If present we remove the cloth component
+    private void DisableClothComponent(GameObject cloth)
+    {
+        Cloth clothComponent = cloth.GetComponentInChildren<Cloth>();
+        if (clothComponent != null)
+        {
+            clothComponent.enabled = false;
         }
     }
 }

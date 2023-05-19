@@ -93,6 +93,9 @@ public class ManageCloset : NetworkBehaviour
         {
             if (!stopThisCloth)
             {
+                //We activate the cloth component
+                ActivateClothComponent(cloth);
+
                 //We move every time the hanger position in the space we have
                 hangerToSpawn.position =
                     new Vector3(newDistance, hangerToSpawn.position.y, hangerToSpawn.position.z);
@@ -185,6 +188,15 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
+    //If present we add the cloth component
+    private void ActivateClothComponent(Transform cloth)
+    {
+        Cloth clothComponent = cloth.GetComponentInChildren<Cloth>();
+        if (clothComponent != null)
+        {
+            clothComponent.enabled = true;
+        }
+    }
 
     //------------ GET ---------------
 
@@ -260,7 +272,6 @@ public class ManageCloset : NetworkBehaviour
         return newList;
     }
 
-
     //Return all the glasses of the closet
     public GameObject[] GetGlassesGameObjects()
     {
@@ -273,7 +284,6 @@ public class ManageCloset : NetworkBehaviour
 
         return newList;
     }
-
 
     //Return all the watches of the closet
     public GameObject[] GetWatchesGameObjects()
