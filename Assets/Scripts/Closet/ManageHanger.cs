@@ -4,6 +4,7 @@ public class ManageHanger : MonoBehaviour
 {
     [SerializeField] private GameObject attachPoint; //Parent of the cloth. Modify this for adjusting it in the hanger
     [SerializeField] private GameObject hint; //Hint of the hanger
+    private GameObject cloth;
 
 
     //Activate and Deactivate the inner hint
@@ -17,7 +18,7 @@ public class ManageHanger : MonoBehaviour
         hint.SetActive(false);
     }
 
-    //---------- GET --------------
+    //---------- GET / SET --------------
     public GameObject GetClothAttachPoint()
     {
         return attachPoint;
@@ -28,9 +29,15 @@ public class ManageHanger : MonoBehaviour
         return hint;
     }
 
+    //Set the cloth attached to the hanger
+    public void SetClothInHanger(GameObject newCloth)
+    {
+        cloth = newCloth;
+    }
+
     //Return the name of the cloth attached to the hanger
     public string GetClothName()
     {
-        return attachPoint.transform.GetChild(0).name;
+        return cloth.name;
     }
 }

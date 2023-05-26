@@ -108,6 +108,9 @@ public class ManageCloset : NetworkBehaviour
                 currHangerAttPoint = GetHangerAttachPoint(currentHanger);
                 Instantiate(cloth, currHangerAttPoint);
 
+                //We set the cloth to the specific hanger
+                currentHanger.GetComponent<ManageHanger>().SetClothInHanger(cloth.gameObject);
+
                 //We move the next hanger to the right
                 newDistance += currentContainer.GetDistanceBetweenObjInContainer();
                 //We pass to the next cloth
@@ -201,7 +204,7 @@ public class ManageCloset : NetworkBehaviour
     //------------ GET ---------------
 
     //Return the Hanger associated to the clothName passed
-    private GameObject GetHangerFromClothName(string clothName)
+    public GameObject GetHangerFromClothName(string clothName)
     {
         foreach (var currentHanger in hangerList)
         {

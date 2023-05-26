@@ -649,6 +649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1829684028562914374, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: m_Name
+      value: ----- Skin -----
+      objectReference: {fileID: 0}
     - target: {fileID: 1829684029582914061, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
       propertyPath: followObject
       value: 
@@ -664,6 +668,10 @@ PrefabInstance:
     - target: {fileID: 3979089056226990816, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
       propertyPath: m_Name
       value: BaseAvatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979089056226990816, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4355896485972115546, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
       propertyPath: m_RootOrder
@@ -710,9 +718,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: closet
+      value: 
+      objectReference: {fileID: 1186376876}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: leftFoot
+      value: 
+      objectReference: {fileID: 638746931}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: leftHand
+      value: 
+      objectReference: {fileID: 6570362659364637950}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: rightFoot
+      value: 
+      objectReference: {fileID: 908876298}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 6570362661122402028}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
       propertyPath: tShirtPoint
       value: 
       objectReference: {fileID: 2108337863}
+    - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+      propertyPath: trousersPoint
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7679600614191421983, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
       propertyPath: collidersList.Array.size
       value: 12
@@ -779,6 +811,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+--- !u!4 &638746931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1829684029998300906, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+  m_PrefabInstance: {fileID: 538102384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &667572387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1094,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!4 &908876298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1829684030242501764, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
+  m_PrefabInstance: {fileID: 538102384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &949130483 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 530872089153018898, guid: 744af76fe06dd3d43a74b67d50567358, type: 3}
@@ -3849,7 +3891,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224005419286958223}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9559528
+  m_Size: 0.955953
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4467,7 +4509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000015258789}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224166535766693463
@@ -7593,6 +7635,11 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!4 &6570362659364637950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9063719636338808215, guid: 990dbd49299fdbc4da840fce1eebe1dd, type: 3}
+  m_PrefabInstance: {fileID: 2803019059688282463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6570362659548461892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9063719636423336475, guid: 990dbd49299fdbc4da840fce1eebe1dd, type: 3}
@@ -7665,6 +7712,11 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!4 &6570362661122402028 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9063719635923140537, guid: 990dbd49299fdbc4da840fce1eebe1dd, type: 3}
+  m_PrefabInstance: {fileID: 2803019059688282463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!222 &6589695594867099787
 CanvasRenderer:
   m_ObjectHideFlags: 0
