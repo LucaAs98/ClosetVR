@@ -77,7 +77,7 @@ public class SpawnClothes : MonoBehaviour
     {
         //Instantiate base prefab
         cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
-        prefabToComplete = cardBtnGameObj.transform.GetChild(0);
+        prefabToComplete = cardBtnGameObj.transform.GetChild(0).GetChild(0);
 
         //Set correct tag to the prefab and its children
         SetCorrectLayer(cloth, "UICamera");
@@ -90,7 +90,7 @@ public class SpawnClothes : MonoBehaviour
         DisableClothComponent(clothInClient);
 
         //Set the text in the card with the name of the cloth
-        cardTextGameObj = cardBtnGameObj.transform.GetChild(1).gameObject;
+        cardTextGameObj = cardBtnGameObj.transform.GetChild(0).GetChild(1).gameObject;
         cardTextGameObj.GetComponent<TextMeshProUGUI>().text = cloth.name;
 
         //Create render texture

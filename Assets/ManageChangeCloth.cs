@@ -16,7 +16,7 @@ public class ManageChangeCloth : NetworkBehaviour
 
     private GameObject cloth;
 
-    public void ChangeCloth(string clothName)
+    private void ChangeClothBase(string clothName)
     {
         string[] splitArray = clothName.Split(char.Parse("_"));
         string type = splitArray[0];
@@ -38,7 +38,7 @@ public class ManageChangeCloth : NetworkBehaviour
             cloth.transform.SetParent(tShirtPoint, false);
             MoveHands();
         }
-        else if(type == "Trousers")
+        else if (type == "Trousers")
         {
             Debug.Log("E' UNA PANTALONE!!!");
             cloth.transform.SetParent(trousersPoint, false);
@@ -49,6 +49,17 @@ public class ManageChangeCloth : NetworkBehaviour
         cloth.GetComponentInChildren<Cloth>().enabled = true;
     }
 
+    public void ChangeCloth(string clothName)
+    {
+        ChangeClothBase(clothName);
+        ChangeClothClientRpc(clothName);
+    }
+
+    [ClientRpc]
+    private void ChangeClothClientRpc(string clothName)
+    {
+        ChangeClothBase(clothName);
+    }
 
     public void RemoveCloth(GameObject cloth)
     {

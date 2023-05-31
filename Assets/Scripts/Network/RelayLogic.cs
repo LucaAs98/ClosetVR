@@ -25,7 +25,7 @@ public class RelayLogic : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         //We initialize the voice chat service (Vivox)
-        VivoxService.Instance.Initialize();
+        //VivoxService.Instance.Initialize();
     }
 
     public async Task<string> CreateRelay()
@@ -51,7 +51,7 @@ public class RelayLogic : MonoBehaviour
             NetworkManager.Singleton.StartServer();
 
             //We login the server for using the voice chat
-            voiceChatManager.GetComponent<VoiceChatManager>().Login("Server");
+            //voiceChatManager.GetComponent<VoiceChatManager>().Login("Server");
 
             //Return the code for joining the lesson
             return joinCode;
@@ -81,7 +81,7 @@ public class RelayLogic : MonoBehaviour
             NetworkManager.Singleton.StartClient();
 
             //We login the client for using the voice chat. The clientName should be unique!!
-            voiceChatManager.GetComponent<VoiceChatManager>().Login(clientName);
+            //voiceChatManager.GetComponent<VoiceChatManager>().Login(clientName);
 
             //Return true if the connection is OK
             return true;

@@ -41,7 +41,7 @@ public class ManageSpecificCloth : MonoBehaviour
     public void VisualizeSpecificCloth(Transform cloth)
     {
         //We Deactivate the general menu and activate the specific one
-        generalClothMenu.SetActive(false);
+        //generalClothMenu.SetActive(false);
         specificClothMenu.SetActive(true);
 
         //We instantiate of the specific cloth in the new specific menu (3DParent)
