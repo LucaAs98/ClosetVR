@@ -174,7 +174,7 @@ public class ManageCloset : NetworkBehaviour
     {
         //Hanger of the cloth we want to recommend
         GameObject clothHanger = GetHangerFromClothName(clothName);
-        Debug.Log("----------------- " + clothHanger.name);
+        
         //Activate only clothHanger hint and deactivate the others
         foreach (var hanger in hangerList)
         {
@@ -199,6 +199,14 @@ public class ManageCloset : NetworkBehaviour
         {
             clothComponent.enabled = true;
         }
+    }
+
+    private string RemoveCloneString(string clothName)
+    {
+        string stringToRemove = "(Clone)";
+        int stringToRemoveLenght = stringToRemove.Length;
+
+        return clothName.Substring(0, clothName.Length - stringToRemoveLenght);
     }
 
     //------------ GET ---------------
@@ -312,13 +320,5 @@ public class ManageCloset : NetworkBehaviour
             children.Add(child.GetComponent<Container>());
 
         return children.ToArray();
-    }
-
-    private string RemoveCloneString(string clothName)
-    {
-        string stringToRemove = "(Clone)";
-        int stringToRemoveLenght = stringToRemove.Length;
-
-        return clothName.Substring(0, clothName.Length - stringToRemoveLenght);
     }
 }

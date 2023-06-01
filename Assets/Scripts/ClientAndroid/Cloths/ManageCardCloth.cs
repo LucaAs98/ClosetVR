@@ -28,6 +28,6 @@ public class ManageCardCloth : MonoBehaviour
 
         Debug.Log("------------- PutInOutfit ------------- " + specificCardCloth.name);
 
-
+        manageSpecificClothComponent.PutSpecificClothInOutfit(specificCardCloth);
     }
 }

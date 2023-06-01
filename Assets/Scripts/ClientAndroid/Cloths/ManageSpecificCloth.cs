@@ -13,15 +13,17 @@ public class ManageSpecificCloth : MonoBehaviour
     //Title of the specific cloth we want to see before recommend
     [SerializeField] private TextMeshProUGUI titleInTitleBar;
 
-    //Component where we have a lot of utilities for the management of the specific cloth
-    //private ManageSpecificCloth manageSpecificClothComponent;
+    //Outfit GameObj 
+    [SerializeField] private GameObject outfitRoot;
+    private GameObject tShirtAttachPoint;
+    private GameObject trousersAttachPoint;
+    private GameObject attachPoint;
+    private int childCount;
 
     void Start()
     {
-        //We need to activate and deactivate the menu for taking the component
-        // specificClothMenu.SetActive(true);
-        // manageSpecificClothComponent = specificClothMenu.GetComponent<ManageSpecificCloth>();
-        // specificClothMenu.SetActive(false);
+        tShirtAttachPoint = outfitRoot.GetComponent<Outfit>().GetTshirtAttachPoint();
+        trousersAttachPoint = outfitRoot.GetComponent<Outfit>().GetTrousersAttachPoint();
     }
 
 
@@ -41,7 +43,6 @@ public class ManageSpecificCloth : MonoBehaviour
     public void VisualizeSpecificCloth(Transform cloth)
     {
         //We Deactivate the general menu and activate the specific one
-        //generalClothMenu.SetActive(false);
         specificClothMenu.SetActive(true);
 
         //We instantiate of the specific cloth in the new specific menu (3DParent)
@@ -62,5 +63,38 @@ public class ManageSpecificCloth : MonoBehaviour
 
         //We set the title with the specific cloth name removing the text "(Clone)"
         titleInTitleBar.text = clothName.Substring(0, clothName.Length - stringToRemoveLenght);
+    }
+
+    public void PutSpecificClothInOutfit(Transform cloth)
+    {
+        string[] splitArray = cloth.name.Split(char.Parse("_"));
+        string type = splitArray[0];
+
+        Debug.Log("---------------------- Cloth type ------------> " + type);
+
+        switch (type)
+        {
+            case "T-Shirt":
+                attachPoint = tShirtAttachPoint;
+                break;
+
+            case "Trousers":
+                attachPoint = trousersAttachPoint;
+                break;
+            default:
+                Debug.Log("E' un tipo di vestito che non conosco! ---------> " + type);
+                attachPoint = null;
+                break;
+        }
+
+
+        childCount = attachPoint.transform.childCount;
+
+        if (childCount > 0)
+        {
+            Destroy(attachPoint.transform.GetChild(0).gameObject);
+        }
+
+        Instantiate(cloth, attachPoint.transform);
     }
 }
