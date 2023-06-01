@@ -17,6 +17,11 @@ public class ManageSpecificCloth : MonoBehaviour
     [SerializeField] private GameObject outfitRoot;
     private GameObject tShirtAttachPoint;
     private GameObject trousersAttachPoint;
+    private GameObject hatAttachPoint;
+    private GameObject glassesAttachPoint;
+    private GameObject watchAttachPoint;
+    private GameObject shoesAttachPoint;
+
     private GameObject attachPoint;
     private int childCount;
 
@@ -24,6 +29,10 @@ public class ManageSpecificCloth : MonoBehaviour
     {
         tShirtAttachPoint = outfitRoot.GetComponent<Outfit>().GetTshirtAttachPoint();
         trousersAttachPoint = outfitRoot.GetComponent<Outfit>().GetTrousersAttachPoint();
+        hatAttachPoint = outfitRoot.GetComponent<Outfit>().GetHatAttachPoint();
+        glassesAttachPoint = outfitRoot.GetComponent<Outfit>().GetGlassesAttachPoint();
+        watchAttachPoint = outfitRoot.GetComponent<Outfit>().GetWatchAttachPoint();
+        shoesAttachPoint = outfitRoot.GetComponent<Outfit>().GetShoesAttachPoint();
     }
 
 
@@ -67,25 +76,7 @@ public class ManageSpecificCloth : MonoBehaviour
 
     public void PutSpecificClothInOutfit(Transform cloth)
     {
-        string[] splitArray = cloth.name.Split(char.Parse("_"));
-        string type = splitArray[0];
-
-        Debug.Log("---------------------- Cloth type ------------> " + type);
-
-        switch (type)
-        {
-            case "T-Shirt":
-                attachPoint = tShirtAttachPoint;
-                break;
-
-            case "Trousers":
-                attachPoint = trousersAttachPoint;
-                break;
-            default:
-                Debug.Log("E' un tipo di vestito che non conosco! ---------> " + type);
-                attachPoint = null;
-                break;
-        }
+        attachPoint = GetCorrectAttachPoint(cloth.name);
 
 
         childCount = attachPoint.transform.childCount;
@@ -96,5 +87,48 @@ public class ManageSpecificCloth : MonoBehaviour
         }
 
         Instantiate(cloth, attachPoint.transform);
+    }
+
+    private GameObject GetCorrectAttachPoint(string clothName)
+    {
+        GameObject correctAttachPoint;
+
+        string[] splitArray = clothName.Split(char.Parse("_"));
+        string type = splitArray[0];
+
+        Debug.Log("---------------------- Cloth type ------------> " + type);
+
+        switch (type)
+        {
+            case "T-Shirt":
+                correctAttachPoint = tShirtAttachPoint;
+                break;
+
+            case "Trousers":
+                correctAttachPoint = trousersAttachPoint;
+                break;
+
+            case "Hat":
+                correctAttachPoint = hatAttachPoint;
+                break;
+
+            case "Glasses":
+                correctAttachPoint = glassesAttachPoint;
+                break;
+
+            case "Watch":
+                correctAttachPoint = watchAttachPoint;
+                break;
+
+            case "Shoes":
+                correctAttachPoint = shoesAttachPoint;
+                break;
+            default:
+                Debug.Log("E' un tipo di vestito che non conosco! ---------> " + type);
+                correctAttachPoint = null;
+                break;
+        }
+
+        return correctAttachPoint;
     }
 }
