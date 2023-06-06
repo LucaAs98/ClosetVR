@@ -16,6 +16,6 @@ public class Head : MonoBehaviour
             rootObject.forward = newForward;
 
         transform.position = followObject.TransformPoint(positionOffset);
-        transform.rotation = followObject.rotation * Quaternion.Euler(rotationOffset);
+        //transform.rotation = followObject.rotation * Quaternion.Euler(rotationOffset);
     }
 }

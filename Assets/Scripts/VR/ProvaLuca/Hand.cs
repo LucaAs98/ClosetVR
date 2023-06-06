@@ -32,7 +32,9 @@ public class Hand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PhysicsMove();
+        //PhysicsMove();
+        body.position = followTarget.position;
+        body.rotation = followTarget.rotation;
     }
 
     private void PhysicsMove()

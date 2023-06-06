@@ -2767,7 +2767,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 3245898723676572851}
-  rig: {fileID: 3245898724408547755}
 --- !u!114 &2068926446659708824
 MonoBehaviour:
   m_ObjectHideFlags: 0

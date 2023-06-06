@@ -16,7 +16,7 @@ public class InitHeight : MonoBehaviour
     public void Init(Vector3 newScale)
     {
         this.transform.localScale = newScale;
-        avatar.GetComponent<VRRig>().enabled = true;
+        //avatar.GetComponent<VRRig>().enabled = true;
 
         InvokeRepeating("FixCameraOffset", 0.02f, 0.02f);
     }
