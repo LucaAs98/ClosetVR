@@ -71,3 +71,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /[Aa]ssets/FantasySkyboxFREE/aa/*
+Assets/XR/Settings/OpenXR Package Settings.asset
+ProjectSettings/Packages/com.unity.services.vivox/Settings.json
+ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json

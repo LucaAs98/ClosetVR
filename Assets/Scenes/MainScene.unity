@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1929666013
 Camera:
   m_ObjectHideFlags: 0
@@ -3104,6 +3104,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 76351809230499319, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 76351809230499319, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 76351809230499319, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896021853750147158, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896021853750147158, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896021853750147158, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773443192978613, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773443192978615, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2974773443801123870, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
       propertyPath: m_Name
       value: FullBodyVR_Valem
@@ -3156,10 +3188,54 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1966166644}
+    - target: {fileID: 2974773444106268490, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773444106268490, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773444497250662, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773444497250662, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2974773444781479464, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1966166644}
+    - target: {fileID: 2974773444939499811, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974773444939499811, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912621484256021858, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: headBodyPositionOffset.y
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912621484256021858, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: headBodyPositionOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912621484256021858, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: head.trackingPositionOffset.y
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912621484256021858, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: head.trackingPositionOffset.z
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912621484256021858, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
+      propertyPath: head.trackingRotationOffset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5864176eab3205c42bfbaaf7c4da50d1, type: 3}
 --- !u!114 &2991752285595263330
