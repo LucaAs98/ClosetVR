@@ -19,22 +19,19 @@ public class ClientHandler : NetworkBehaviour
         cameraAR = Camera.main;
         startingPosition = this.gameObject.transform.position;
 
-        if (!IsOwner && !IsServer)
-        {
-            this.gameObject.SetActive(false);
-        }
 
         if (!IsOwner)
-        {
-            joystickCanvas.SetActive(false);
-            eventSystem.SetActive(false);
-
-            cameraAR.gameObject.GetComponent<Camera>().enabled = false;
-            cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
-            cameraAR.gameObject.GetComponent<ARCameraManager>().enabled = false;
-            cameraAR.gameObject.GetComponent<ARCameraBackground>().enabled = false;
-            cameraAR.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
-            cameraAR.gameObject.GetComponent<AudioListener>().enabled = false;
+        {   
+            this.gameObject.SetActive(false);
+            // joystickCanvas.SetActive(false);
+            // eventSystem.SetActive(false);
+            //
+            // cameraAR.gameObject.GetComponent<Camera>().enabled = false;
+            // cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
+            // cameraAR.gameObject.GetComponent<ARCameraManager>().enabled = false;
+            // cameraAR.gameObject.GetComponent<ARCameraBackground>().enabled = false;
+            // cameraAR.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
+            // cameraAR.gameObject.GetComponent<AudioListener>().enabled = false;
         }
         else
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -35,6 +36,9 @@ public class ManageCloset : NetworkBehaviour
     [SerializeField] private Transform watchesHangerPrefab;
     [SerializeField] private Transform[] watchesList;
 
+    private List<Transform[]> clothLists;
+    private Transform[] clothHangers;
+    private Transform[] clothsSpaces;
 
     //List of all the hangers, useful for the Activation/Deactivation of the hints
     private List<GameObject> hangerList = new();
@@ -49,6 +53,21 @@ public class ManageCloset : NetworkBehaviour
 
     private int numberOfCloth; //Number of the cloth we are adding at the closet
 
+
+    void Awake()
+    {
+        //We create all the arrays and the lists we need
+        clothsSpaces = new Transform[]
+            { tShirtSpace, trousersSpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
+        clothLists = new List<Transform[]>()
+            { tShirtList, trousersList, shoesList, capsList, glassesList, watchesList };
+        clothHangers = new Transform[]
+        {
+            tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
+            watchesHangerPrefab
+        };
+    }
+
     //When we start the server we fill the closet with all the clothes
     public override void OnNetworkSpawn()
     {
@@ -59,16 +78,6 @@ public class ManageCloset : NetworkBehaviour
 
     private void InitCloset()
     {
-        //We create all the arrays and the lists we need
-        Transform[] clothsSpaces = { tShirtSpace, trousersSpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
-        List<Transform[]> clothLists = new List<Transform[]>()
-            { tShirtList, trousersList, shoesList, capsList, glassesList, watchesList };
-        Transform[] clothHangers =
-        {
-            tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
-            watchesHangerPrefab
-        };
-
         //We iterate all the lists of clothes
         foreach (var clothList in clothLists)
         {
@@ -309,6 +318,26 @@ public class ManageCloset : NetworkBehaviour
         }
 
         return newList;
+    }
+
+    // public List<Transform> GetTshirtsList()
+    // {
+    //     return tShirtList.ToList();
+    // }
+    //
+    // public List<Transform> GetTrousersList()
+    // {
+    //     return trousersList.ToList();
+    // }
+    //
+    // public List<Transform> GetShoesList()
+    // {
+    //     return shoesList.ToList();
+    // }
+
+    public List<Transform[]> GetClothList()
+    {
+        return clothLists;
     }
 
     //Return all children of a transform

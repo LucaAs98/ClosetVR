@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,11 +31,16 @@ public class SpawnClothes : MonoBehaviour
 
     private GameObject[] currentListOfClothes; //List of clothes we are iterating
 
+
+    private RawImage imgInCard;
+    private string basePath = "ClothImages";
+
     void Start()
     {
         TakeClothes(); //Get the clothes from the closet
         AddClothes(); //Add the clothes to the menu
     }
+
 
     //Add the clothes to the menu
     private void AddClothes()
@@ -53,12 +59,56 @@ public class SpawnClothes : MonoBehaviour
             //We add every cloth to the menu
             foreach (var cloth in currentListOfClothes)
             {
-                AddCardBtn(container, cloth);
+                //AddCardBtn(container, cloth);
+                NewAddCardBtn(container, cloth);
             }
 
             i++;
         }
     }
+
+    private void NewAddCardBtn(Transform container, GameObject cloth)
+    {
+        cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
+        string clothName = cloth.name;
+        string category = clothName.Split("_")[0];
+
+        PutImage(clothName, category);
+        PutTitle(clothName, category);
+    }
+
+    private void PutTitle(string clothName, string category)
+    {
+        //Set the text in the card with the name of the cloth
+        cardTextGameObj = cardBtnGameObj.transform.GetChild(1).GetChild(1).gameObject;
+        string newClothName = clothName.Replace(category + "_", "");
+        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = newClothName;
+    }
+
+    private void PutImage(string clothName, string category)
+    {
+        imgInCard = cardBtnGameObj.transform.GetChild(1).GetChild(0).GetComponent<RawImage>();
+
+        string completePath = $"{basePath}/{category}/{clothName}";
+        Debug.Log(completePath);
+        imgInCard.texture = Resources.Load<Texture2D>(completePath);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Get the clothes from the closet
     private void TakeClothes()

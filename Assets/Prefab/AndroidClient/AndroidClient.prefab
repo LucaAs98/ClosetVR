@@ -6288,7 +6288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c240c3d1cfb0c1f47814166dff40e90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardBtnCompletePrefab: {fileID: 1717950926654587144, guid: 83d57d319ed1504479847eacc919dcd9, type: 3}
+  cardBtnCompletePrefab: {fileID: 5453696810236940963, guid: 6217d9aefe4c24e479c75b54f5b3a7a0, type: 3}
   containerTShirts: {fileID: 408278022593904977}
   containerTrousers: {fileID: 5042452460010307739}
   containerShoes: {fileID: 481333266921202264}
