@@ -94,14 +94,14 @@ public class ManageCloset : NetworkBehaviour
             if (!stopThisCloth)
             {
                 //We activate the cloth component
-                ActivateClothComponent(cloth);
+                //ActivateClothComponent(cloth);
 
                 //We move every time the hanger position in the space we have
-                hangerToSpawn.position =
+                hangerToSpawn.localPosition =
                     new Vector3(newDistance, hangerToSpawn.position.y, hangerToSpawn.position.z);
 
                 //We instantiate the hanger in the currentContainer and we add it to our list of hangers
-                Transform currentHanger = Instantiate(hangerToSpawn, currentContainer.transform);
+                Transform currentHanger = Instantiate(hangerToSpawn, currentContainer.GetStartingPoint());
                 hangerList.Add(currentHanger.gameObject);
 
                 //We take the attachPoint associated to our current hanger and we instantiate the cloth in it
@@ -174,7 +174,7 @@ public class ManageCloset : NetworkBehaviour
     {
         //Hanger of the cloth we want to recommend
         GameObject clothHanger = GetHangerFromClothName(clothName);
-        
+
         //Activate only clothHanger hint and deactivate the others
         foreach (var hanger in hangerList)
         {

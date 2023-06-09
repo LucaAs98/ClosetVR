@@ -1,11 +1,22 @@
+using System;
+using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 public class Container : MonoBehaviour
 {
-    [SerializeField] private float distanceBetweenObj; //Distance beetwen more clothes in this container
+    [Range(0.1f, 3)] [SerializeField]
+    private float distanceBetweenObj = 1; //Distance beetwen more clothes in this container
+
+    [Range(0f, 10)] [SerializeField] private float startPadding = 0.2f; //Real startingPoint
+    [Range(0.1f, 10)] [SerializeField] private float endPadding = 0.2f; //Real endingPoint
+
     [SerializeField] private Transform startingPoint; //Starting point of the container (always 0,0,0)
     [SerializeField] private Transform endingPoint; //Ending point of the container
-    [SerializeField] private float clothDimension; //Dimension of the cloth we want to put in
+
+    [SerializeField] private bool showGizmo; //Show Gizmo in scene
 
     private float width; //Width of our space we have in this container
     private int maxNumberOfClothes; //Max number of clothes that fit in the container
@@ -13,10 +24,10 @@ public class Container : MonoBehaviour
     void Start()
     {
         //We calculate the width of our space
-        width = endingPoint.localPosition.x - startingPoint.localPosition.x;
+        width = endPadding - startPadding;
 
         //We calculate how many cloths fit
-        maxNumberOfClothes = Mathf.FloorToInt(width / clothDimension);
+        maxNumberOfClothes = Mathf.FloorToInt(width / (distanceBetweenObj)) + 1;
     }
 
 
@@ -34,5 +45,24 @@ public class Container : MonoBehaviour
     public Transform GetStartingPoint()
     {
         return startingPoint;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Vector3 startLocalPos = startingPoint.localPosition;
+        startingPoint.localPosition = new Vector3(startPadding, startLocalPos.y, startLocalPos.z);
+
+        Vector3 endLocalPos = endingPoint.localPosition;
+        endingPoint.localPosition = new Vector3(endPadding, endLocalPos.y, endLocalPos.z);
+
+        if (showGizmo)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(startingPoint.position, 0.03f);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(endingPoint.position, 0.03f);
+        }
     }
 }

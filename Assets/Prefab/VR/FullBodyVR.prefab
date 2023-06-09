@@ -3955,7 +3955,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   body: {fileID: 5356575943604174301}
-  otherFoot: {fileID: 8016818933586756458}
+  otherFoot: {fileID: 0}
   speed: 4
   stepDistance: 0.3
   stepLength: 0.3
@@ -4162,7 +4162,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   body: {fileID: 5356575943604174301}
-  otherFoot: {fileID: 8016818933361232130}
+  otherFoot: {fileID: 0}
   speed: 4
   stepDistance: 0.3
   stepLength: 0.3
