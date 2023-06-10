@@ -1,22 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Put this script in te object you want to rotate with drag
 public class DragToMoveSpecificCloth : MonoBehaviour
 {
-    //Component where we can find the container of the specific cloth
-    private ManageSpecificCloth manageSpecificClothComponent;
+    [SerializeField] private RectTransform touchArea; //Touch area we want to use for dragging
 
-    private Transform parentOfSpecificCloth; //Parent of the obj we want to rotate when dragging
-
-
-    //DragToMove variables
     private Touch screenTouch;
     private float speedModifier = 0.3f;
 
+    private Quaternion startingRotation;
+
+    //Saving the starting rotation for a future reset of it
     void Start()
     {
-        manageSpecificClothComponent = this.transform.root.GetComponent<ManageSpecificCloth>();
+        startingRotation = this.transform.rotation;
     }
 
     //Every frame we check if the person is dragging with his finger
@@ -31,13 +28,22 @@ public class DragToMoveSpecificCloth : MonoBehaviour
         if (Input.touchCount > 0)
         {
             screenTouch = Input.GetTouch(0);
-            if (screenTouch.phase == TouchPhase.Moved)
+
+            //Check if the touch is inside the specified rect
+            if (RectTransformUtility.RectangleContainsScreenPoint(touchArea, screenTouch.position))
             {
-                parentOfSpecificCloth = manageSpecificClothComponent.GetContainer3dRepresentation();
-                //We take the transform of the obj we want to rotate
-                Transform objToRotate = parentOfSpecificCloth.GetChild(0);
-                objToRotate.Rotate(0f, -screenTouch.deltaPosition.x * speedModifier, 0f);
+                if (screenTouch.phase == TouchPhase.Moved)
+                {
+                    this.transform.Rotate(0f, -screenTouch.deltaPosition.x * speedModifier, 0f);
+                }
             }
         }
+    }
+
+
+    //Useful for the specific cloth view. Closing it will reset the rotation of his mannequin
+    public void ResetObjRotation()
+    {
+        this.transform.rotation = startingRotation;
     }
 }

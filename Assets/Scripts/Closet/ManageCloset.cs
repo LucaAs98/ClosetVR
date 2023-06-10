@@ -102,30 +102,27 @@ public class ManageCloset : NetworkBehaviour
         {
             if (!stopThisCloth)
             {
-                //We activate the cloth component
-                //ActivateClothComponent(cloth);
-
-                //We move every time the hanger position in the space we have
+                //Move the hanger position in the space we have
                 hangerToSpawn.localPosition =
                     new Vector3(newDistance, hangerToSpawn.position.y, hangerToSpawn.position.z);
 
-                //We instantiate the hanger in the currentContainer and we add it to our list of hangers
+                //Instantiate the hanger in the currentContainer and add it to the hangers' list 
                 Transform currentHanger = Instantiate(hangerToSpawn, currentContainer.GetStartingPoint());
                 hangerList.Add(currentHanger.gameObject);
 
-                //We take the attachPoint associated to our current hanger and we instantiate the cloth in it
+                //Instantiate the cloth in the attach point associated to the current hanger
                 currHangerAttPoint = GetHangerAttachPoint(currentHanger);
                 Instantiate(cloth, currHangerAttPoint);
 
-                //We set the cloth to the specific hanger
+                //Set the cloth to the specific hanger
                 currentHanger.GetComponent<ManageHanger>().SetClothInHanger(cloth.gameObject);
 
-                //We move the next hanger to the right
+                //Move the next hanger to the right
                 newDistance += currentContainer.GetDistanceBetweenObjInContainer();
-                //We pass to the next cloth
+                //Pass to the next cloth
                 numberOfCloth++;
 
-                //Check if we are not at the last one cloth
+                //Check if it's not the last one cloth
                 if (cloth != clothList.Last())
                 {
                     //Check if another cloth fits
@@ -197,16 +194,6 @@ public class ManageCloset : NetworkBehaviour
                 //Activate the clothHanger Hint
                 clothHanger.GetComponent<ManageHanger>().ActivateHint();
             }
-        }
-    }
-
-    //If present we add the cloth component
-    private void ActivateClothComponent(Transform cloth)
-    {
-        Cloth clothComponent = cloth.GetComponentInChildren<Cloth>();
-        if (clothComponent != null)
-        {
-            clothComponent.enabled = true;
         }
     }
 
@@ -319,21 +306,6 @@ public class ManageCloset : NetworkBehaviour
 
         return newList;
     }
-
-    // public List<Transform> GetTshirtsList()
-    // {
-    //     return tShirtList.ToList();
-    // }
-    //
-    // public List<Transform> GetTrousersList()
-    // {
-    //     return trousersList.ToList();
-    // }
-    //
-    // public List<Transform> GetShoesList()
-    // {
-    //     return shoesList.ToList();
-    // }
 
     public List<Transform[]> GetClothList()
     {

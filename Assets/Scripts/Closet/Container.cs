@@ -23,31 +23,22 @@ public class Container : MonoBehaviour
 
     void Start()
     {
-        //We calculate the width of our space
-        width = endPadding - startPadding;
+        //Start padding cannot be greater then the end padding
+        if (startPadding < endPadding)
+        {
+            //Calculation of the container's width
+            width = endPadding - startPadding;
 
-        //We calculate how many cloths fit
-        maxNumberOfClothes = Mathf.FloorToInt(width / (distanceBetweenObj)) + 1;
+            //Calculation of how many cloths fit (+1 because it starts as far to the left as possible)
+            maxNumberOfClothes = Mathf.FloorToInt(width / distanceBetweenObj) + 1;
+        }
+        else
+        {
+            Debug.LogError("Start padding cannot be greater then the end padding");
+        }
     }
 
-
-    //---------- GET ----------
-    public float GetDistanceBetweenObjInContainer()
-    {
-        return distanceBetweenObj;
-    }
-
-    public int GetMaxNumberOfClothes()
-    {
-        return maxNumberOfClothes;
-    }
-
-    public Transform GetStartingPoint()
-    {
-        return startingPoint;
-    }
-
-
+    //Used for the visualization of the container's limiters
     private void OnDrawGizmos()
     {
         Vector3 startLocalPos = startingPoint.localPosition;
@@ -64,5 +55,21 @@ public class Container : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(endingPoint.position, 0.03f);
         }
+    }
+
+    //---------- GET ----------
+    public float GetDistanceBetweenObjInContainer()
+    {
+        return distanceBetweenObj;
+    }
+
+    public int GetMaxNumberOfClothes()
+    {
+        return maxNumberOfClothes;
+    }
+
+    public Transform GetStartingPoint()
+    {
+        return startingPoint;
     }
 }

@@ -4,131 +4,62 @@ using UnityEngine;
 
 public class ManageSpecificCloth : MonoBehaviour
 {
-    [SerializeField] private GameObject generalClothMenu; //Menu for the visualization of all the clothes (like Zalando)
+    [SerializeField] private GameObject generalClothMenu; //Menu for the visualization of all the clothes
 
     //Specific cloth menu
     [SerializeField] private GameObject specificClothMenu; //Menu for the visualization of the specific cloth
-    [SerializeField] private Transform parentOfSpecificCloth; //Parent of the obj we want to rotate when dragging
 
     //Title of the specific cloth we want to see before recommend
     [SerializeField] private TextMeshProUGUI titleInTitleBar;
 
     //Outfit GameObj 
     [SerializeField] private GameObject outfitRoot;
-    private GameObject tShirtAttachPoint;
-    private GameObject trousersAttachPoint;
-    private GameObject hatAttachPoint;
-    private GameObject glassesAttachPoint;
-    private GameObject watchAttachPoint;
-    private GameObject shoesAttachPoint;
 
-    private GameObject attachPoint;
-    private int childCount;
+    //Camera for the specific cloth visualization
+    private Transform specificClothCamera;
 
     void Start()
     {
-        tShirtAttachPoint = outfitRoot.GetComponent<Outfit>().GetTshirtAttachPoint();
-        trousersAttachPoint = outfitRoot.GetComponent<Outfit>().GetTrousersAttachPoint();
-        hatAttachPoint = outfitRoot.GetComponent<Outfit>().GetHatAttachPoint();
-        glassesAttachPoint = outfitRoot.GetComponent<Outfit>().GetGlassesAttachPoint();
-        watchAttachPoint = outfitRoot.GetComponent<Outfit>().GetWatchAttachPoint();
-        shoesAttachPoint = outfitRoot.GetComponent<Outfit>().GetShoesAttachPoint();
+        specificClothCamera = specificClothMenu.GetComponentInChildren<Camera>().transform;
     }
 
-
-    //When we go back we need to destroy the specific cloth we have instantiate for the next one
-    public void DestroyObjGoingBack()
+    //Allows the cloth to be viewed in more detail
+    public void VisualizeSpecificCloth(string clothName, string clothCategory)
     {
-        GameObject specificCloth = parentOfSpecificCloth.GetChild(0).gameObject;
-        Destroy(specificCloth);
-    }
+        //Based on the category of the cloth moves the Camera up and down
+        MoveSpecificClothCamera(clothCategory);
 
-    //Simple return of the container
-    public Transform GetContainer3dRepresentation()
-    {
-        return parentOfSpecificCloth;
-    }
-
-    public void VisualizeSpecificCloth(Transform cloth)
-    {
-        //We Deactivate the general menu and activate the specific one
+        //Deactivate the outfit menu (problem with drag) and activate the specific one
+        outfitRoot.SetActive(false);
         specificClothMenu.SetActive(true);
 
-        //We instantiate of the specific cloth in the new specific menu (3DParent)
-        Transform clothInstance = Instantiate(cloth, parentOfSpecificCloth);
+        //Active only the cloth corresponding to clothName but deactivate all other clothes, also from other categories
+        specificClothMenu.GetComponent<Outfit>().ActivateOnlyOneChild(clothName);
 
-        /* We don't want to replicate "(Clone)" so we rename it like "ClothName (Clone)" otherwise will be "ClothName (Clone) (Clone)"
-         * Then we set the name in the title bar. */
-        clothInstance.name = cloth.name;
-        SetTitleFromClothName(clothInstance.name);
+        titleInTitleBar.text = clothName; //Set the title of the menu with the cloth name
     }
 
-    //Useful to set the title of the page
-    public void SetTitleFromClothName(string clothName)
+    //Based on the category of the cloth moves the Camera up and down
+    private void MoveSpecificClothCamera(string clothCategory)
     {
-        //Variable we need for removing the second label "(Clone)" that is automatically added when we "Instantiate" an obj
-        string stringToRemove = "(Clone)";
-        int stringToRemoveLenght = stringToRemove.Length;
-
-        //We set the title with the specific cloth name removing the text "(Clone)"
-        titleInTitleBar.text = clothName.Substring(0, clothName.Length - stringToRemoveLenght);
-    }
-
-    public void PutSpecificClothInOutfit(Transform cloth)
-    {
-        attachPoint = GetCorrectAttachPoint(cloth.name);
-
-
-        childCount = attachPoint.transform.childCount;
-
-        if (childCount > 0)
+        switch (clothCategory)
         {
-            Destroy(attachPoint.transform.GetChild(0).gameObject);
-        }
-
-        Instantiate(cloth, attachPoint.transform);
-    }
-
-    private GameObject GetCorrectAttachPoint(string clothName)
-    {
-        GameObject correctAttachPoint;
-
-        string[] splitArray = clothName.Split(char.Parse("_"));
-        string type = splitArray[0];
-
-        Debug.Log("---------------------- Cloth type ------------> " + type);
-
-        switch (type)
-        {
-            case "T-Shirt":
-                correctAttachPoint = tShirtAttachPoint;
+            case "UpperBody":
+                specificClothCamera.localPosition = new Vector3(2274, 320, -210);
                 break;
-
-            case "Trousers":
-                correctAttachPoint = trousersAttachPoint;
+            case "LowerBody":
+                specificClothCamera.localPosition = new Vector3(2274, 157, -280);
                 break;
-
-            case "Hat":
-                correctAttachPoint = hatAttachPoint;
-                break;
-
-            case "Glasses":
-                correctAttachPoint = glassesAttachPoint;
-                break;
-
-            case "Watch":
-                correctAttachPoint = watchAttachPoint;
-                break;
-
             case "Shoes":
-                correctAttachPoint = shoesAttachPoint;
-                break;
-            default:
-                Debug.Log("E' un tipo di vestito che non conosco! ---------> " + type);
-                correctAttachPoint = null;
+                specificClothCamera.localPosition = new Vector3(2274, 29, -142);
                 break;
         }
+    }
 
-        return correctAttachPoint;
+    //Allows you to put cloth on the outfit preview
+    public void PutSpecificClothInOutfit(string clothName, string clothCategory)
+    {
+        //Active only the cloth corresponding to clothName in his category, we dont mind about other categories
+        outfitRoot.GetComponent<Outfit>().ActivateChildOfCategory(clothName, clothCategory);
     }
 }

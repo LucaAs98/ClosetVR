@@ -1,45 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Outfit : MonoBehaviour
 {
-    [SerializeField] private GameObject tshirtAttachPoint;
-    [SerializeField] private GameObject trousersAttachPoint;
-    [SerializeField] private GameObject hatAttachPoint;
-    [SerializeField] private GameObject glassesAttachPoint;
-    [SerializeField] private GameObject watchAttachPoint;
-    [SerializeField] private GameObject shoesAttachPoint;
+    [SerializeField] private Transform clothesTransform; //Container of all clothes divided by categories
 
-
-    /******** GET ********/
-    public GameObject GetTshirtAttachPoint()
+    //Active only the cloth corresponding to clothName in his category, we dont mind about other categories
+    public void ActivateChildOfCategory(string clothName, string clothCategory)
     {
-        return tshirtAttachPoint;
+        foreach (Transform clothesCategory in clothesTransform)
+        {
+            if (clothesCategory.name == clothCategory)
+            {
+                foreach (Transform cloth in clothesCategory)
+                {
+                    //If the name is the same we want to activate it, otherwise we deactivate it
+                    cloth.gameObject.SetActive(cloth.name == clothName);
+                }
+
+                //We dont want to check other categories after we found the specific one
+                return;
+            }
+        }
     }
 
-    public GameObject GetTrousersAttachPoint()
+    //Active only the cloth corresponding to clothName but deactivate all other clothes, also from other categories
+    public void ActivateOnlyOneChild(string clothName)
     {
-        return trousersAttachPoint;
-    }
-
-    public GameObject GetHatAttachPoint()
-    {
-        return hatAttachPoint;
-    }
-
-    public GameObject GetGlassesAttachPoint()
-    {
-        return glassesAttachPoint;
-    }
-
-    public GameObject GetWatchAttachPoint()
-    {
-        return watchAttachPoint;
-    }
-
-    public GameObject GetShoesAttachPoint()
-    {
-        return shoesAttachPoint;
+        foreach (Transform clothesCategory in clothesTransform)
+        {
+            foreach (Transform cloth in clothesCategory)
+            {
+                cloth.gameObject.SetActive(cloth.name == clothName);
+            }
+        }
     }
 }

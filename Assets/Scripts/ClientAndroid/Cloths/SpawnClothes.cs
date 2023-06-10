@@ -20,13 +20,8 @@ public class SpawnClothes : MonoBehaviour
     [SerializeField] private Transform containerGlasses; //Container of all the glasses in the menu
     [SerializeField] private Transform containerWatches; //Container of all the watches in the menu
 
-    private RenderTexture renderTexture; //Render texture for the visualization of the camera in the raw image
     private GameObject cardTextGameObj; //Text of the cardBtnComplete
     private GameObject cardBtnGameObj; //Card button we are instantiating
-    private Transform prefabToComplete; //"3DRepresentation"
-    private Transform parent3dModel; //"3DModelParent"
-    private Transform camera; //Camera where we visualize the 3D obj that we want to put in the scroll menu
-    private Transform representation2D; //Raw image where we visualize in 2D what the camera is seeing
 
 
     private GameObject[] currentListOfClothes; //List of clothes we are iterating
@@ -35,12 +30,26 @@ public class SpawnClothes : MonoBehaviour
     private RawImage imgInCard;
     private string basePath = "ClothImages";
 
+    private string auxNewClothName = "";
+    private string auxClothCategory = "";
+
     void Start()
     {
         TakeClothes(); //Get the clothes from the closet
         AddClothes(); //Add the clothes to the menu
     }
 
+    //Get the clothes from the closet
+    private void TakeClothes()
+    {
+        ManageCloset manageCloset = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>();
+        t_shirtsList = manageCloset.GetTShirtsGameObjects();
+        trousersList = manageCloset.GetTrousersGameObjects();
+        shoesList = manageCloset.GetShoesGameObjects();
+        capsList = manageCloset.GetCapsGameObjects();
+        glassesList = manageCloset.GetGlassesGameObjects();
+        watchesList = manageCloset.GetWatchesGameObjects();
+    }
 
     //Add the clothes to the menu
     private void AddClothes()
@@ -59,123 +68,64 @@ public class SpawnClothes : MonoBehaviour
             //We add every cloth to the menu
             foreach (var cloth in currentListOfClothes)
             {
-                //AddCardBtn(container, cloth);
-                NewAddCardBtn(container, cloth);
+                AddCardBtn(container, cloth);
             }
 
             i++;
         }
     }
 
-    private void NewAddCardBtn(Transform container, GameObject cloth)
+    //Add the card btn in the specific container
+    private void AddCardBtn(Transform container, GameObject cloth)
     {
+        //Instantiate the cardBtnPrefab
         cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
-        string clothName = cloth.name;
-        string category = clothName.Split("_")[0];
+        ManageCardCloth manageCardCloth = cardBtnGameObj.GetComponent<ManageCardCloth>();
 
-        PutImage(clothName, category);
-        PutTitle(clothName, category);
+        //!! Category have to be at the start of the cloth name separated with an underscore !!
+        string clothCategory = "";
+
+        //Set the new name and the category at the specific manageCardCloth
+        SetClothNameAndCategory(cloth.name, manageCardCloth);
+
+        //Put the image in the instantiated cardBtn and also the name in the card
+        PutImage(cloth.name, manageCardCloth);
+        PutTitle(manageCardCloth);
     }
 
-    private void PutTitle(string clothName, string category)
+    //Set the new name and the category at the specific manageCardCloth
+    private void SetClothNameAndCategory(string originalClothName, ManageCardCloth manageCardCloth)
     {
-        //Set the text in the card with the name of the cloth
-        cardTextGameObj = cardBtnGameObj.transform.GetChild(1).GetChild(1).gameObject;
-        string newClothName = clothName.Replace(category + "_", "");
-        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = newClothName;
+        //Extrapolation of category from cloth name
+        auxClothCategory = originalClothName.Split("_")[0];
+
+        //Remove of the category from the cloth name
+        auxNewClothName = originalClothName.Replace(auxClothCategory + "_", "");
+
+
+        //Set of the name and category in the specific component manageCardCloth
+        manageCardCloth.SetClothName(auxNewClothName);
+        manageCardCloth.SetClothCategory(auxClothCategory);
     }
 
-    private void PutImage(string clothName, string category)
+    //Put the image in the instantiated cardBtn
+    private void PutImage(string clothName, ManageCardCloth manageCardCloth)
     {
-        imgInCard = cardBtnGameObj.transform.GetChild(1).GetChild(0).GetComponent<RawImage>();
+        //Raw img component where to put the image of the corresponding cloth
+        imgInCard = manageCardCloth.GetClothImgGO().GetComponent<RawImage>();
 
-        string completePath = $"{basePath}/{category}/{clothName}";
-        Debug.Log(completePath);
+        //Path to take the corresponding leader 
+        string completePath = $"{basePath}/{auxClothCategory}/{clothName}";
+
+        //Load of img in the card
         imgInCard.texture = Resources.Load<Texture2D>(completePath);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Get the clothes from the closet
-    private void TakeClothes()
+    //Put the cloth name in the instantiated cardBtn
+    private void PutTitle(ManageCardCloth manageCardCloth)
     {
-        ManageCloset manageCloset = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>();
-        t_shirtsList = manageCloset.GetTShirtsGameObjects();
-        trousersList = manageCloset.GetTrousersGameObjects();
-        shoesList = manageCloset.GetShoesGameObjects();
-        capsList = manageCloset.GetCapsGameObjects();
-        glassesList = manageCloset.GetGlassesGameObjects();
-        watchesList = manageCloset.GetWatchesGameObjects();
-    }
-
-    //Add the specific cloth to the specific container
-    private void AddCardBtn(Transform container, GameObject cloth)
-    {
-        //Instantiate base prefab
-        cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
-        prefabToComplete = cardBtnGameObj.transform.GetChild(1).GetChild(0);
-
-        //Set correct tag to the prefab and its children
-        SetCorrectLayer(cloth, "UICamera");
-
-
-        //Instantiate it in the correct parent
-        parent3dModel = prefabToComplete.GetChild(1);
-        GameObject clothInClient = Instantiate(cloth, parent3dModel);
-
-        DisableClothComponent(clothInClient);
-
-        //Set the text in the card with the name of the cloth
-        cardTextGameObj = cardBtnGameObj.transform.GetChild(1).GetChild(1).gameObject;
-        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = cloth.name;
-
-        //Create render texture
-        renderTexture = new RenderTexture(1920, 1080, 16, RenderTextureFormat.ARGB32);
-        renderTexture.name = cloth.name + "RenderTexture";
-
-        //Take the camera and set the render texture
-        camera = prefabToComplete.GetChild(0);
-        camera.GetComponent<Camera>().targetTexture = renderTexture;
-
-        //Take the raw image and set the render texture
-        representation2D = prefabToComplete.GetChild(2);
-        representation2D.GetComponent<RawImage>().texture = renderTexture;
-    }
-
-    //Set the correct layer to the prefab and its children
-    private void SetCorrectLayer(GameObject prefab, string layerName)
-    {
-        //Set layer to the parent
-        prefab.layer = LayerMask.NameToLayer(layerName);
-
-        //Set layer to the children
-        foreach (Transform child in prefab.transform)
-        {
-            child.gameObject.layer = LayerMask.NameToLayer(layerName);
-        }
-    }
-
-    //If present we remove the cloth component
-    private void DisableClothComponent(GameObject cloth)
-    {
-        Cloth clothComponent = cloth.GetComponentInChildren<Cloth>();
-        if (clothComponent != null)
-        {
-            clothComponent.enabled = false;
-        }
+        //Take of the title GO and set of the text with the name without "{category}_"
+        cardTextGameObj = manageCardCloth.GetClothNameGO();
+        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = auxNewClothName;
     }
 }
