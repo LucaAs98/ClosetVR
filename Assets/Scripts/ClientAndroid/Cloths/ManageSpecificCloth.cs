@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ManageSpecificCloth : MonoBehaviour
@@ -29,8 +28,8 @@ public class ManageSpecificCloth : MonoBehaviour
         //Based on the category of the cloth moves the Camera up and down
         MoveSpecificClothCamera(clothCategory);
 
-        //Deactivate the outfit menu (problem with drag) and activate the specific one
-        outfitRoot.SetActive(false);
+        //Deactivate the drag component of the outfit and activate the menu for the specific cloth
+        outfitRoot.GetComponentInChildren<DragToMoveSpecificCloth>().enabled = false;
         specificClothMenu.SetActive(true);
 
         //Active only the cloth corresponding to clothName but deactivate all other clothes, also from other categories
