@@ -56,7 +56,7 @@ public class ManageCloset : NetworkBehaviour
 
     void Awake()
     {
-        //We create all the arrays and the lists we need
+        //Creation of all the arrays and the lists neededed
         clothsSpaces = new Transform[]
             { tShirtSpace, trousersSpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
         clothLists = new List<Transform[]>()
@@ -68,29 +68,29 @@ public class ManageCloset : NetworkBehaviour
         };
     }
 
-    //When we start the server we fill the closet with all the clothes
+    //Fill the closet with all the clothes
     public override void OnNetworkSpawn()
     {
-        //We fill it only if we are the server
+        //Fill it only if we are the server
         if (IsServer)
             InitCloset();
     }
 
     private void InitCloset()
     {
-        //We iterate all the lists of clothes
+        //Iterate all the lists of clothes
         foreach (var clothList in clothLists)
         {
-            //We take all the containers associated to the specific type of cloth
+            //Take all the containers associated to the specific type of cloth
             clothContainers = GetAllChildren(clothsSpaces[typeOfClothIndex]);
 
-            //We set the type of hanger we have to spawn every time
+            //Set the type of hanger we have to spawn every time
             hangerToSpawn = clothHangers[typeOfClothIndex];
 
-            //We init all the variables we need before iterate the specific clothes associated at that type of cloth
+            //Init all the variables needed before iterate the specific clothes associated at that type of cloth
             InitBeforeNewTypeOfCloth();
 
-            //We iterate every cloth of the list
+            //Iterate every cloth of the list
             AddClothOfSpecificType(clothList);
         }
     }
@@ -176,24 +176,42 @@ public class ManageCloset : NetworkBehaviour
     }
 
     //Activate the hint of a specific cloth and deactivate the others
-    public void ActiveHangerHint(string clothName)
+    public void ActiveHangerHint(string clothNames)
     {
-        //Hanger of the cloth we want to recommend
-        GameObject clothHanger = GetHangerFromClothName(clothName);
+        List<GameObject> hangersToActivate = new(); //Hangers with an hint to activate
 
-        //Activate only clothHanger hint and deactivate the others
+        //Takes all hangers with a hint to activate
+        foreach (string clothName in clothNames.Split(","))
+        {
+            Debug.Log(clothName);
+
+            //Hanger of the clothes to recommend
+            hangersToActivate.Add(GetHangerFromClothName(clothName +"(Clone)"));
+        }
+
+
+        //Activate only hanger hint of active clothes
         foreach (var hanger in hangerList)
         {
-            if (clothHanger != hanger)
+            if (hangersToActivate.Contains(hanger))
             {
-                //Deactivate others
-                hanger.GetComponent<ManageHanger>().DeactivateHint();
+                //Activate the hanger hint of active clothes
+                hanger.GetComponent<ManageHanger>().ActivateHint();
             }
             else
             {
-                //Activate the clothHanger Hint
-                clothHanger.GetComponent<ManageHanger>().ActivateHint();
+                //Deactivate other hints
+                hanger.GetComponent<ManageHanger>().DeactivateHint();
             }
+        }
+    }
+
+    //Deactivate all hints
+    private void DeactivateAllHangers()
+    {
+        foreach (var hanger in hangerList)
+        {
+            hanger.GetComponent<ManageHanger>().DeactivateHint();
         }
     }
 

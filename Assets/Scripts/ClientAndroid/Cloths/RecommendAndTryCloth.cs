@@ -1,54 +1,73 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 public class RecommendAndTryCloth : NetworkBehaviour
 {
-    [SerializeField] private Transform parentOfSpecificCloth; //Parent of the obj we want to take the child name
+    [SerializeField] private Outfit outfitComponent; //Outfit component from which active clothes are taken
 
     private GameObject closet;
     private GameObject avatar;
 
-    void Start()
-    {
-        closet = GameObject.FindGameObjectWithTag("Closet");
-        avatar = GameObject.FindGameObjectWithTag("Avatar");
-    }
-
     //We take the name of the cloth and we call the serverRpc for activate the hint at the specific cloth
     public void RecommendCloth()
     {
-        string clothName = GetClothName();
-        RecommendClothServerRpc(clothName);
+        //Take all cloth activated names then recommend them "at the server".
+        //Warning! "clothNames" is a string with ALL the cloth names divided by ","
+        string clothNames = GetClothNames();
+        RecommendClothServerRpc(clothNames);
     }
 
-
-    //Done in the server. We activate the hint of the corresponding cloth
+    //Done in the server. Activate the hints of the corresponding clothes
     [ServerRpc]
-    public void RecommendClothServerRpc(string clothName)
+    public void RecommendClothServerRpc(string clothNames)
     {
-        Debug.Log("Recommend " + clothName);
-        closet.GetComponent<ManageCloset>().ActiveHangerHint(clothName);
+        //Take the closet
+        closet = GameObject.FindGameObjectWithTag("Closet");
+
+        //Activate the hints of the corresponding clothes
+        closet.GetComponent<ManageCloset>().ActiveHangerHint(clothNames);
     }
 
-    //We take the name of the cloth and we call the serverRpc for changing the cloth in the avatar
+    //Take the name of the cloth and call the serverRpc for changing the cloth in the avatar
     public void TryCloth()
     {
-        string clothName = GetClothName();
-        TryClothServerRpc(clothName);
+        //Take all cloth activated names then change them at the avatar.
+        //Warning! "clothNames" is a string with ALL the cloth names divided by ","
+        string clothNames = GetClothNames();
+        TryClothServerRpc(clothNames);
     }
 
-    //Done in the server. We put the cloth to the avatar
+    //Done in the server. Put the clothes on the avatar
     [ServerRpc]
-    public void TryClothServerRpc(string clothName)
+    public void TryClothServerRpc(string clothNames)
     {
-        Debug.Log("Try cloth: " + clothName);
-        avatar.GetComponent<ManageChangeCloth>().ChangeCloth(clothName);
+        //Take the avatar
+        avatar = GameObject.FindGameObjectWithTag("Avatar");
+
+        //Put the clothes on the avatar
+        avatar.GetComponent<ManageChangeCloth>().ChangeCloth(clothNames);
     }
 
-
-    //Simply return the specific cloth name
-    private string GetClothName()
+    //Return a string with all the activated clothes divided by ",". Ex: "Upperbody_redTshirt,Lowerbody_bluePants"
+    //Only one string is needed because otherwise we can't do the ServerRPC
+    private string GetClothNames()
     {
-        return parentOfSpecificCloth.GetChild(0).name;
+        //String with all the activated clothes divided by ","
+        string allClothesNames = "";
+
+        //Get the active clothes from Outfit
+        List<string> activeClothes = outfitComponent.GetActiveClothes();
+
+        //Merge all the names in one string
+        foreach (var clothName in activeClothes)
+        {
+            allClothesNames += (clothName + ",");
+        }
+
+        //Remove the last ","
+        allClothesNames = allClothesNames.Substring(0, allClothesNames.Length - 1);
+
+        return allClothesNames;
     }
 }

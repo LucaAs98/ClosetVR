@@ -1987,7 +1987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691865192748950043}
-  - component: {fileID: 5958799129367986268}
+  - component: {fileID: 3302975780633848507}
   m_Layer: 0
   m_Name: Head VR Target
   m_TagString: Untagged
@@ -2010,7 +2010,7 @@ Transform:
   m_Father: {fileID: 1691865191511771080}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5958799129367986268
+--- !u!114 &3302975780633848507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2598,7 +2598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691865193129808440}
-  - component: {fileID: 5958799129038400838}
+  - component: {fileID: 2163358211493398621}
   m_Layer: 0
   m_Name: Right Hand VR Target
   m_TagString: Untagged
@@ -2621,7 +2621,7 @@ Transform:
   m_Father: {fileID: 1691865192050576641}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 96.29, y: 25.96, z: 0}
---- !u!114 &5958799129038400838
+--- !u!114 &2163358211493398621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2657,7 +2657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691865193183936152}
   m_Layer: 0
-  m_Name: Cloth
+  m_Name: Clothes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2724,7 +2724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691865193310652719}
-  - component: {fileID: 5958799129966217583}
+  - component: {fileID: 1109983314367577477}
   m_Layer: 0
   m_Name: Left Hand VR Target
   m_TagString: Untagged
@@ -2747,7 +2747,7 @@ Transform:
   m_Father: {fileID: 1691865192995433800}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 96.29, y: -15.29, z: 0}
---- !u!114 &5958799129966217583
+--- !u!114 &1109983314367577477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6223,6 +6223,7 @@ GameObject:
   - component: {fileID: 9031878809640979772}
   - component: {fileID: 8799771937483552287}
   - component: {fileID: 9135528926208408819}
+  - component: {fileID: 3761299524240568376}
   m_Layer: 0
   m_Name: MannequinValem
   m_TagString: Avatar
@@ -6457,6 +6458,19 @@ MonoBehaviour:
         m_Flags: 0
       m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   animator: {fileID: 7194722878014190117}
+--- !u!114 &3761299524240568376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4500000026128610021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb29ac51c37d5644adb6af0fa61bd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothes: {fileID: 1691865193183936152}
 --- !u!1 &4846421715380403822
 GameObject:
   m_ObjectHideFlags: 0

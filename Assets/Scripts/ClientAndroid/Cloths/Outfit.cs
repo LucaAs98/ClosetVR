@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Outfit : MonoBehaviour
@@ -33,5 +34,22 @@ public class Outfit : MonoBehaviour
                 cloth.gameObject.SetActive(cloth.name == clothName);
             }
         }
+    }
+
+    //Return a List of strings with all the clothes name activated
+    public List<string> GetActiveClothes()
+    {
+        List<string> activeClothes = new();
+
+        foreach (Transform clothesCategory in clothesTransform)
+        {
+            foreach (Transform cloth in clothesCategory)
+            {
+                if (cloth.gameObject.activeSelf)
+                    activeClothes.Add($"{clothesCategory.name}_{cloth.name}");
+            }
+        }
+
+        return activeClothes;
     }
 }
