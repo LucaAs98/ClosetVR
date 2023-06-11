@@ -9664,7 +9664,7 @@ GameObject:
   - component: {fileID: 8765928218843108163}
   - component: {fileID: 8765928218843108108}
   m_Layer: 0
-  m_Name: Closet
+  m_Name: OldCloset
   m_TagString: Closet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
