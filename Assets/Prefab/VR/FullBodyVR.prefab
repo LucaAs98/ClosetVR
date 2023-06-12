@@ -2779,26 +2779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb29ac51c37d5644adb6af0fa61bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collidersList:
-  - {fileID: 8177174542614028443}
-  - {fileID: 8177174544087333577}
-  - {fileID: 8177174543764908625}
-  - {fileID: 8177174544250409833}
-  - {fileID: 8177174542607638294}
-  - {fileID: 8177174542657184149}
-  - {fileID: 8177174542651527008}
-  - {fileID: 8177174542582201354}
-  - {fileID: 8177174543949405067}
-  - {fileID: 8177174543425874441}
-  - {fileID: 8177174543776666452}
-  - {fileID: 8177174543605939681}
-  tShirtPoint: {fileID: 8177174542916184576}
-  trousersPoint: {fileID: 0}
-  leftHand: {fileID: 3245898723827989311}
-  rightHand: {fileID: 3245898725325951249}
-  leftFoot: {fileID: 8016818933586756461}
-  rightFoot: {fileID: 8016818933361232131}
-  closet: {fileID: 0}
+  clothes: {fileID: 0}
 --- !u!1 &5008071084756403384
 GameObject:
   m_ObjectHideFlags: 0
