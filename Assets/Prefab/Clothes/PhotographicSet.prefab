@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858706467870845478}
-  - component: {fileID: 2500353814286794958}
+  - component: {fileID: 8290361096946507886}
   m_Layer: 0
   m_Name: PhotographicSet
   m_TagString: Untagged
@@ -345,7 +345,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2500353814286794958
+--- !u!114 &8290361096946507886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,10 +354,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1858706467870845479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc23d430666f8c6469e7a093c62de902, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b69a8016f7d27f4aaa9bda7ccef2d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1858706467519196035}
+  cameraPhoto: {fileID: 1858706467519196035}
   attachPoint: {fileID: 1625463499890827609}
   resWidth: 2550
   resHeight: 3300

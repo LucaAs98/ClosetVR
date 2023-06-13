@@ -16222,6 +16222,7 @@ GameObject:
   - component: {fileID: 5165982661115530666}
   - component: {fileID: 2781321810592240084}
   - component: {fileID: 2633754390693979918}
+  - component: {fileID: 6984121462093988250}
   m_Layer: 0
   m_Name: AndroidClient
   m_TagString: Untagged
@@ -16343,6 +16344,19 @@ MonoBehaviour:
   specificClothMenu: {fileID: 5544353938731745331}
   titleInTitleBar: {fileID: 7845925298748326760}
   outfitRoot: {fileID: 2041790022285478388}
+--- !u!114 &6984121462093988250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8315924355486916528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66298d51154c25943b122a7062ffb40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteView: {fileID: 0}
 --- !u!1 &8341718809276250477
 GameObject:
   m_ObjectHideFlags: 0
