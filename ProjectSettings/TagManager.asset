@@ -11,6 +11,7 @@ TagManager:
   - SpecificClothMenu
   - GeneralClothMenu
   - Avatar
+  - ShoppingCartClothes
   layers:
   - Default
   - TransparentFX

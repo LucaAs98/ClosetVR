@@ -22,7 +22,7 @@ public class AgoraJoinAndroid : MonoBehaviour
 
     // Fill in the temporary token you obtained from Agora Console.
     private string _token =
-        "007eJxTYKgxf8jyV4GZO0CO6bLi5MMzOp0KDQ56z02TUH85Ie2e838FBrNUc1NzA2PLVFMDU5PkpLQkc+NU88Q0M5NES4u0pFQza7mOlIZARgaOPf+ZGRkgEMxncM7JL04tCQtiYAAAEfge4g==";
+        "007eJxTYNALZpV22mD1Y7m4++wHnX8+STIyqu65vUB4TerUYydTHt9RYDBLNTc1NzC2TDU1MDVJTkpLMjdONU9MMzNJtLRIS0o1Y9rXldIQyMhwQtOSmZEBAkF8DgbnnPzi1JKwIAYGAKOcIII=";
 
     internal IRtcEngine RtcEngine;
 

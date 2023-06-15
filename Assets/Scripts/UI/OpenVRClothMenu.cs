@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class OpenVRClothMenu : MonoBehaviour
 {
-    [SerializeField] private RectTransform menuToOpen;
+    [SerializeField] private float startingXPosition;
+    [SerializeField] private float finalXPosition;
     [Range(0, 3)] [SerializeField] private float speed = 0.01f;
     private float lerpDuration = 1f;
     float positionLerp;
 
-
-    public void OpenMenu()
+    public void OpenMenu(RectTransform menuToOpen)
     {
-        StartCoroutine(MoveMenu(0, 950));
+        if (menuToOpen.gameObject.activeSelf)
+            StartCoroutine(MoveMenu(menuToOpen, finalXPosition, startingXPosition, false));
+        else
+            StartCoroutine(MoveMenu(menuToOpen, startingXPosition, finalXPosition, true));
     }
 
-    IEnumerator MoveMenu(float startValue, float endValue)
+    IEnumerator MoveMenu(RectTransform menuToOpen, float startValue, float endValue, bool enabled)
     {
         float timeElapsed = 0;
-        
+
+        if (enabled)
+        {
+            menuToOpen.gameObject.SetActive(true);
+        }
+
         while (timeElapsed < lerpDuration)
         {
             positionLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
@@ -30,5 +38,10 @@ public class OpenVRClothMenu : MonoBehaviour
 
         menuToOpen.anchoredPosition =
             new Vector3(endValue, menuToOpen.localPosition.y, menuToOpen.localPosition.z);
+
+        if (!enabled)
+        {
+            menuToOpen.gameObject.SetActive(false);
+        }
     }
 }

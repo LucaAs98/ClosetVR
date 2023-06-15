@@ -186,7 +186,7 @@ public class ManageCloset : NetworkBehaviour
             Debug.Log(clothName);
 
             //Hanger of the clothes to recommend
-            hangersToActivate.Add(GetHangerFromClothName(clothName +"(Clone)"));
+            hangersToActivate.Add(GetHangerFromClothName(clothName + "(Clone)"));
         }
 
 
@@ -339,5 +339,19 @@ public class ManageCloset : NetworkBehaviour
             children.Add(child.GetComponent<Container>());
 
         return children.ToArray();
+    }
+
+    public List<string> GetAllClothNames()
+    {
+        List<string> allClothNames = new();
+        foreach (Transform[] clothList in clothLists)
+        {
+            foreach (Transform cloth in clothList)
+            {
+                allClothNames.Add(cloth.name);
+            }
+        }
+
+        return allClothNames;
     }
 }
