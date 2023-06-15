@@ -12,6 +12,7 @@ TagManager:
   - GeneralClothMenu
   - Avatar
   - ShoppingCartClothes
+  - CartItemCounter
   layers:
   - Default
   - TransparentFX
