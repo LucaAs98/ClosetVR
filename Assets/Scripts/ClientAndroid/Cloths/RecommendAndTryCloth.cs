@@ -9,7 +9,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
     private GameObject closet;
     private GameObject avatar;
 
-    private string userName;
+    private string userName;    //Usefull for "Recommended by ..."
 
     //We take the name of the cloth and we call the serverRpc for activate the hint at the specific cloth
     public void RecommendCloth()
@@ -30,6 +30,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
 
         //Activate the hints of the corresponding clothes
         closet.GetComponent<ManageCloset>().ActiveHangerHint(clothNames);
+        //Add the recommended clothes to the mirror menu
         closet.GetComponent<ManageCloset>().AddToRecommendMenu(clothNames, userName);
     }
 

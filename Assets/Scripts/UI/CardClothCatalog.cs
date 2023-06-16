@@ -4,18 +4,30 @@ using UnityEngine.UI;
 
 public class CardClothCatalog : MonoBehaviour
 {
-    [SerializeField] private RawImage clothImage;
-    [SerializeField] private TextMeshProUGUI clothName;
-    [SerializeField] private GameObject cartElement;
+    [SerializeField] private RawImage clothImage; //Cloth image
+    [SerializeField] private TextMeshProUGUI clothName; //Cloth name
+    [SerializeField] private GameObject cartElement; //Cart element prefab 
 
-    private Transform cartClothes;
+    private Transform cartClothes; //Container of cart clothes
 
 
-    void Start()
+    //Adds the cloth in the shopping cart
+    public void AddToCart()
     {
-        cartClothes = GameObject.FindGameObjectWithTag("ShoppingCartClothes").transform;
+        GameObject shoppingCart = GameObject.FindGameObjectWithTag("ShoppingCartClothes");
+        cartClothes = shoppingCart.GetComponent<ManageShoppingCartMenu>().GetCartClothes(); //Container of cart clothes
+
+        //Takes the same texture of this object. Don't need to reload the file from the resources images
+        Texture2D auxTexture = (Texture2D)this.clothImage.texture;
+
+        //Instantiate the cart card in the shopping cart
+        GameObject newCartElement = Instantiate(cartElement, cartClothes);
+        //Complete that card putting the image and the cloth name
+        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, auxTexture);
     }
 
+
+    //-------------------------- GET and SET -----------------------
     public void SetClothImage(Texture2D texture)
     {
         clothImage.texture = texture;
@@ -34,13 +46,5 @@ public class CardClothCatalog : MonoBehaviour
     public RawImage GetClothImage()
     {
         return clothImage;
-    }
-
-    public void AddToCart()
-    {
-        Texture2D auxTexture = (Texture2D)this.clothImage.texture;
-        
-        GameObject newCartElement = Instantiate(cartElement, cartClothes);
-        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, auxTexture);
     }
 }

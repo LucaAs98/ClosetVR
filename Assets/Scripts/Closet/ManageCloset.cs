@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -81,6 +80,7 @@ public class ManageCloset : NetworkBehaviour
             InitCloset();
     }
 
+    //init the closet
     private void InitCloset()
     {
         //Iterate all the lists of clothes
@@ -211,14 +211,15 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
-    //Add recommended outfit to mirror menu
+    //Adds recommended outfit to mirror menu
     public void AddToRecommendMenu(string clothNames, string userName)
     {
+        //Instantiate the recommended card in the recommended mirror menu
         Transform recommendItem = Instantiate(recommendItemPrefab, clothesInRecommendMenu);
 
+        //Complete the card with all the informations
         recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
     }
-
 
     //Deactivate all hints
     private void DeactivateAllHangers()
@@ -229,12 +230,10 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
+    //Remove the "(Clone)" string from every string
     private string RemoveCloneString(string clothName)
     {
-        string stringToRemove = "(Clone)";
-        int stringToRemoveLenght = stringToRemove.Length;
-
-        return clothName.Substring(0, clothName.Length - stringToRemoveLenght);
+        return clothName.Replace("(Clone)", "");
     }
 
 
@@ -356,6 +355,7 @@ public class ManageCloset : NetworkBehaviour
         return children.ToArray();
     }
 
+    //Returns a list of all the cloth names of the closet
     public List<string> GetAllClothNames()
     {
         List<string> allClothNames = new();

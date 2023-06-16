@@ -4,44 +4,53 @@ using UnityEngine;
 
 public class OpenVRClothMenu : MonoBehaviour
 {
-    [SerializeField] private float startingXPosition;
-    [SerializeField] private float finalXPosition;
-    [Range(0, 3)] [SerializeField] private float speed = 0.01f;
-    private float lerpDuration = 1f;
-    float positionLerp;
+    [SerializeField] private float startingXPosition; //Starting x position of the lerp
+    [SerializeField] private float finalXPosition; //Ending x position of the lerp
+    [Range(0, 3)] [SerializeField] private float speed = 0.01f; //Speed of the "animation"
+    private float lerpDuration = 1f; //Fixed value, change only the speed
+    float positionLerp; //Current lerp position
 
-    public void OpenMenu(RectTransform menuToOpen)
+    //Open or close the related mirror menu
+    public void OpenMenu(RectTransform menuToActivate)
     {
-        if (menuToOpen.gameObject.activeSelf)
-            StartCoroutine(MoveMenu(menuToOpen, finalXPosition, startingXPosition, false));
+        RectTransform menuToMove = menuToActivate.parent.GetComponent<RectTransform>();
+
+        //If the menu is active it will close it and deactivate. On the other hand, if it is deactivated it will open it and activate
+        if (menuToActivate.gameObject.activeSelf)
+            StartCoroutine(MoveMenu(menuToMove, menuToActivate, finalXPosition, startingXPosition, false));
         else
-            StartCoroutine(MoveMenu(menuToOpen, startingXPosition, finalXPosition, true));
+            StartCoroutine(MoveMenu(menuToMove, menuToActivate, startingXPosition, finalXPosition, true));
     }
 
-    IEnumerator MoveMenu(RectTransform menuToOpen, float startValue, float endValue, bool enabled)
+    //Move the menu from the starting to the ending position
+    IEnumerator MoveMenu(RectTransform menuToMove, RectTransform menuToActivate, float startValue, float endValue, bool wantToOpen)
     {
-        float timeElapsed = 0;
+        float timeElapsed = 0; //Lerp time
 
-        if (enabled)
+        //If the menu is closed
+        if (wantToOpen)
         {
-            menuToOpen.gameObject.SetActive(true);
+            menuToActivate.gameObject.SetActive(true);
         }
 
+        //Lerp from the starting x position to the ending x position
         while (timeElapsed < lerpDuration)
         {
             positionLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
-            menuToOpen.anchoredPosition =
-                new Vector3(positionLerp, menuToOpen.localPosition.y, menuToOpen.localPosition.z);
+            menuToMove.anchoredPosition =
+                new Vector3(positionLerp, menuToMove.localPosition.y, menuToMove.localPosition.z);
             timeElapsed += Time.deltaTime * speed;
             yield return null;
         }
 
-        menuToOpen.anchoredPosition =
-            new Vector3(endValue, menuToOpen.localPosition.y, menuToOpen.localPosition.z);
+        //Anchored position because is a canvas element
+        menuToMove.anchoredPosition =
+            new Vector3(endValue, menuToMove.localPosition.y, menuToMove.localPosition.z);
 
-        if (!enabled)
+        //If the menu is open
+        if (!wantToOpen)
         {
-            menuToOpen.gameObject.SetActive(false);
+            menuToActivate.gameObject.SetActive(false);
         }
     }
 }

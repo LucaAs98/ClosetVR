@@ -6,37 +6,27 @@ using UnityEngine.InputSystem.XR;
 
 public class ClientHandler : NetworkBehaviour
 {
-    [SerializeField] private GameObject joystickCanvas;
-    [SerializeField] private GameObject eventSystem;
-    [SerializeField] private GameObject clientName;
+    private string clientName; //Name of the client
+    private Vector3 startingPosition; //Starting position of the client
 
-    private Camera cameraAR;
-    private Vector3 startingPosition;
-
-    //We activate/deactivate objects depending on IsOwner or not
     void Start()
     {
-        cameraAR = Camera.main;
-        startingPosition = this.gameObject.transform.position;
+        InitClient(); //Init this client
+    }
 
+    //Init this client
+    private void InitClient()
+    {
+        startingPosition = this.gameObject.transform.position; //Set the starting position of the client
 
+        //If it's not the owner deactivate this gameobject
         if (!IsOwner)
         {
             this.gameObject.SetActive(false);
-            // joystickCanvas.SetActive(false);
-            // eventSystem.SetActive(false);
-            //
-            // cameraAR.gameObject.GetComponent<Camera>().enabled = false;
-            // cameraAR.gameObject.GetComponent<ARPoseDriver>().enabled = false;
-            // cameraAR.gameObject.GetComponent<ARCameraManager>().enabled = false;
-            // cameraAR.gameObject.GetComponent<ARCameraBackground>().enabled = false;
-            // cameraAR.gameObject.GetComponent<ARSessionOrigin>().enabled = false;
-            // cameraAR.gameObject.GetComponent<AudioListener>().enabled = false;
         }
         else
         {
-            clientName.SetActive(false);
-
+            //If it's the owner deactivate VR stuffs that the client doesn't need
             GameObject cameraVR = GameObject.FindGameObjectWithTag("CameraVR");
             if (cameraVR != null)
             {
@@ -44,10 +34,10 @@ public class ClientHandler : NetworkBehaviour
                 cameraVR.GetComponent<TrackedPoseDriver>().enabled = false;
             }
 
+            //Set the name of the player
             SetPlayerNameInClient();
         }
     }
-
 
     //Useful for resetting the client position in the scene
     public void ResetClientPosition()
@@ -57,20 +47,24 @@ public class ClientHandler : NetworkBehaviour
         this.GetComponent<CharacterController>().enabled = true;
     }
 
-
-    public string GetPlayerName()
-    {
-        return clientName.GetComponent<TextMeshProUGUI>().text;
-    }
-
-    public void SetPlayerName(string name)
-    {
-        clientName.GetComponent<TextMeshProUGUI>().text = name;
-    }
-
+    //Set the player name in his gameobject
     private void SetPlayerNameInClient()
     {
         Spawner spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
-        clientName.GetComponent<TextMeshProUGUI>().text = spawner.GetPlayerName();
+        string name = spawner.GetPlayerName();
+        SetPlayerName(name);
+    }
+
+    //------------------ GET and SET -------------------------
+    //Return the player name
+    public string GetPlayerName()
+    {
+        return clientName;
+    }
+
+    //Set the player name 
+    public void SetPlayerName(string name)
+    {
+        clientName = name;
     }
 }
