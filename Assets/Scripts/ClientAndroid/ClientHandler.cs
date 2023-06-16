@@ -21,7 +21,7 @@ public class ClientHandler : NetworkBehaviour
 
 
         if (!IsOwner)
-        {   
+        {
             this.gameObject.SetActive(false);
             // joystickCanvas.SetActive(false);
             // eventSystem.SetActive(false);
@@ -36,13 +36,15 @@ public class ClientHandler : NetworkBehaviour
         else
         {
             clientName.SetActive(false);
-            
+
             GameObject cameraVR = GameObject.FindGameObjectWithTag("CameraVR");
             if (cameraVR != null)
             {
                 cameraVR.GetComponent<Camera>().enabled = false;
                 cameraVR.GetComponent<TrackedPoseDriver>().enabled = false;
             }
+
+            SetPlayerNameInClient();
         }
     }
 
@@ -64,5 +66,11 @@ public class ClientHandler : NetworkBehaviour
     public void SetPlayerName(string name)
     {
         clientName.GetComponent<TextMeshProUGUI>().text = name;
+    }
+
+    private void SetPlayerNameInClient()
+    {
+        Spawner spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
+        clientName.GetComponent<TextMeshProUGUI>().text = spawner.GetPlayerName();
     }
 }

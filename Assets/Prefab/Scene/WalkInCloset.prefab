@@ -189,10 +189,10 @@ RectTransform:
   m_Father: {fileID: 6253436101778133201}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 121.125, y: -125.96002}
+  m_SizeDelta: {x: 242.25, y: 251.92004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2579217171192844764
 CanvasRenderer:
@@ -448,10 +448,10 @@ RectTransform:
   m_Father: {fileID: 2799027078008482458}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 558.125, y: -125}
-  m_SizeDelta: {x: 1116.25, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &851422377243042155
 CanvasRenderer:
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recommended clothes
+  m_text: Recommended outfits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 89.9
+  m_fontSize: 94.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 580789290106591438}
   - component: {fileID: 39926332744588046}
   m_Layer: 5
-  m_Name: VRCanvasShoppingCart
+  m_Name: VRCanvasRightMenus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,8 +870,6 @@ RectTransform:
   m_Children:
   - {fileID: 4182112447664500295}
   - {fileID: 8371883917190813559}
-  - {fileID: 2994811013053692396}
-  - {fileID: 7141833134681582953}
   m_Father: {fileID: 1694695902451787301}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -967,12 +965,12 @@ GameObject:
   - component: {fileID: 4736232914915720540}
   - component: {fileID: 7472189457460392441}
   m_Layer: 5
-  m_Name: Catalog
+  m_Name: CatalogMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4736232914915720540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1186,10 +1184,10 @@ RectTransform:
   m_Father: {fileID: 2799027078008482458}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1237.375, y: -125}
-  m_SizeDelta: {x: 242.25, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4982079158147735189
 CanvasRenderer:
@@ -1426,10 +1424,10 @@ RectTransform:
   m_Father: {fileID: 2330870146474983907}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 729.25, y: -1857.7301}
+  m_SizeDelta: {x: 1358.5, y: 2424.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4853807934105110525
 MonoBehaviour:
@@ -2913,10 +2911,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1013.875, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5625805209544518914
 CanvasRenderer:
@@ -3048,10 +3046,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 344.625, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4109428173285505240
 CanvasRenderer:
@@ -3237,7 +3235,7 @@ GameObject:
   - component: {fileID: 278531611430354978}
   - component: {fileID: 4561345670270861546}
   m_Layer: 5
-  m_Name: OpenMenu
+  m_Name: OpenCatalogInMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3353,6 +3351,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 4736232914915720540}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3875093381969595906}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3767,10 +3777,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 121.541664, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8150894861994697990
 CanvasRenderer:
@@ -3985,7 +3995,7 @@ GameObject:
   - component: {fileID: 4451101101360886136}
   - component: {fileID: 2748235293888876567}
   m_Layer: 5
-  m_Name: VRCanvasCatalog
+  m_Name: VRCanvasLeftMenus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4005,6 +4015,8 @@ RectTransform:
   m_Children:
   - {fileID: 5975606694650502136}
   - {fileID: 4736232914915720540}
+  - {fileID: 2994811013053692396}
+  - {fileID: 7141833134681582953}
   m_Father: {fileID: 1694695902451787301}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -4400,10 +4412,10 @@ RectTransform:
   m_Father: {fileID: 6253436101778133201}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 800.375, y: -125.96002}
+  m_SizeDelta: {x: 1116.25, y: 251.92004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6428649721757469401
 CanvasRenderer:
@@ -4619,10 +4631,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 567.7083, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4920263153579875891
 CanvasRenderer:
@@ -5078,12 +5090,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7141833134681582953}
   m_Layer: 5
-  m_Name: RecommendedClothes
+  m_Name: RecommendedMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7141833134681582953
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5091,18 +5103,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3875093381969595906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6754271701761619112}
-  m_Father: {fileID: 6986388277999149229}
+  m_Father: {fileID: 649390965552513272}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2500, y: 0}
+  m_AnchoredPosition: {x: -1091, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3875901052965973150
@@ -5871,7 +5883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8371883917190813559}
   m_Layer: 5
-  m_Name: ShoppingCart
+  m_Name: ShoppingCartMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6052,7 +6064,7 @@ GameObject:
   - component: {fileID: 6108967336143592257}
   - component: {fileID: 3065268401456253528}
   m_Layer: 5
-  m_Name: Recommended
+  m_Name: RecommendedInMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6065,18 +6077,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5093580235130352429}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000074505806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8406622253187421153}
-  m_Father: {fileID: 6986388277999149229}
+  m_Father: {fileID: 649390965552513272}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -150, y: -515}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -532}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &921330782041608088
@@ -6161,7 +6173,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 39926332744588046}
+      - m_Target: {fileID: 2748235293888876567}
         m_TargetAssemblyTypeName: OpenVRClothMenu, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
@@ -6173,7 +6185,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4857886913780383341}
+      - m_Target: {fileID: 1142183177977024095}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -6391,10 +6403,10 @@ RectTransform:
   m_Father: {fileID: 2330870146474983907}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 729.25, y: -473.69006}
+  m_SizeDelta: {x: 1358.5, y: 243.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6448610232194647081
 MonoBehaviour:
@@ -6834,10 +6846,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1236.9583, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7745189221673045781
 CanvasRenderer:
@@ -7106,10 +7118,10 @@ RectTransform:
   m_Father: {fileID: 2330870146474983907}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 729.25, y: -175.96002}
+  m_SizeDelta: {x: 1358.5, y: 251.92004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840236904999705034
 MonoBehaviour:
@@ -9194,6 +9206,8 @@ MonoBehaviour:
   watchesSpace: {fileID: 1486873401912098491}
   watchesHangerPrefab: {fileID: 3844307056198617912, guid: b672e3dfe15c3aa4fb78b4b8d2f3f818, type: 3}
   watchesList: []
+  clothesInRecommendMenu: {fileID: 3278019369375683809}
+  recommendItemPrefab: {fileID: 3570409796207726990, guid: af389cbd09fbd67479c4b49f5e65a46a, type: 3}
 --- !u!1 &6472581745154414819
 GameObject:
   m_ObjectHideFlags: 0
@@ -18159,10 +18173,10 @@ RectTransform:
   m_Father: {fileID: 2383602353229981604}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 790.7917, y: -121.77002}
+  m_SizeDelta: {x: 203.08333, y: 143.54004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &817077855513809480
 CanvasRenderer:
@@ -18624,7 +18638,7 @@ GameObject:
   - component: {fileID: 6347426113731269351}
   m_Layer: 5
   m_Name: Clothes
-  m_TagString: ShoppingCartClothes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18644,9 +18658,9 @@ RectTransform:
   m_Father: {fileID: 8939219369965795131}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 729.25, y: -1468}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1358.5, y: 2236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6347426113731269351
@@ -18666,11 +18680,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 500, y: 800}
-  m_Spacing: {x: 50, y: 30}
+  m_CellSize: {x: 650, y: 800}
+  m_Spacing: {x: 50, y: 50}
   m_Constraint: 1
   m_ConstraintCount: 2
 --- !u!1 &8359300468712487106
@@ -18900,7 +18914,7 @@ GameObject:
   - component: {fileID: 2987666943282575934}
   - component: {fileID: 1708338524944645109}
   m_Layer: 5
-  m_Name: OpenShoppingCart
+  m_Name: OpenShoppingCartInMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19022,18 +19036,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3875093381969595906}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &8824033867166969273
 GameObject:
   m_ObjectHideFlags: 0
@@ -19100,9 +19102,9 @@ RectTransform:
   m_Father: {fileID: 8939219369965795131}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 729.25, y: -175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1358.5, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276505396020273826

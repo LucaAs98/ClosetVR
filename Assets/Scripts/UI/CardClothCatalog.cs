@@ -38,7 +38,9 @@ public class CardClothCatalog : MonoBehaviour
 
     public void AddToCart()
     {
+        Texture2D auxTexture = (Texture2D)this.clothImage.texture;
+        
         GameObject newCartElement = Instantiate(cartElement, cartClothes);
-        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, this.clothImage);
+        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, auxTexture);
     }
 }

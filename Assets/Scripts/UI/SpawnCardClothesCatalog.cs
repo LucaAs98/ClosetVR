@@ -46,7 +46,7 @@ public class SpawnCardClothesCatalog : MonoBehaviour
     {
         Debug.Log($"Ottengo le immagini per la categoria {category}");
 
-        //Path to take the corresponding leader 
+        //Path to take the corresponding image 
         string completePath = $"{basePath}/{category}/{clothName}";
 
         //Load of img in the card

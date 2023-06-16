@@ -33,23 +33,19 @@ public class Spawner : NetworkBehaviour
         var clientId = NetworkManager.Singleton.LocalClientId;
 
         if (Application.platform == RuntimePlatform.Android)
+        {
             //Android client spawn
             JoinServerRpc(clientId, (int)Devices.Android, auxPlayerName);
-
-        // else if (Application.platform == RuntimePlatform.WSAPlayerARM)
-        // {
-        //     //Hololens client spawn
-        //     spawner.GetComponent<Spawner>().JoinServerRpc(clientId, (int)Devices.Hololens, playerName);
-        // }
-        // else
-        // {
-        //     //VR client spawn
-        //     spawner.GetComponent<Spawner>().JoinServerRpc(clientId, (int)Devices.VR, playerName);
-        // }
+        }
     }
 
     public void SetPlayerName(string name)
     {
         auxPlayerName = name;
+    }
+
+    public string GetPlayerName()
+    {
+        return auxPlayerName;
     }
 }

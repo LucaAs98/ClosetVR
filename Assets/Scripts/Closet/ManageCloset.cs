@@ -6,22 +6,22 @@ using UnityEngine;
 
 public class ManageCloset : NetworkBehaviour
 {
-    //--------------------- T_SHIRTS -----------------------------
+    //--------------------- T_SHIRTS -------------------------------
     [SerializeField] private Transform tShirtSpace;
     [SerializeField] private Transform tShirtHangerPrefab;
     [SerializeField] private Transform[] tShirtList;
 
-    //--------------------- TROUSERS -----------------------------
+    //--------------------- TROUSERS -------------------------------
     [SerializeField] private Transform trousersSpace;
     [SerializeField] private Transform trousersHangerPrefab;
     [SerializeField] private Transform[] trousersList;
 
-    //---------------------- SHOES -------------------------------
+    //---------------------- SHOES ---------------------------------
     [SerializeField] private Transform shoesSpace;
     [SerializeField] private Transform shoesHangerPrefab;
     [SerializeField] private Transform[] shoesList;
 
-    //---------------------- CAPS -------------------------------
+    //---------------------- CAPS ----------------------------------
     [SerializeField] private Transform capsSpace;
     [SerializeField] private Transform capsHangerPrefab;
     [SerializeField] private Transform[] capsList;
@@ -35,6 +35,11 @@ public class ManageCloset : NetworkBehaviour
     [SerializeField] private Transform watchesSpace;
     [SerializeField] private Transform watchesHangerPrefab;
     [SerializeField] private Transform[] watchesList;
+
+    //---------------------- RECOMMEND MENU ------------------------
+    [SerializeField] private Transform clothesInRecommendMenu;
+    [SerializeField] private Transform recommendItemPrefab;
+
 
     private List<Transform[]> clothLists;
     private Transform[] clothHangers;
@@ -186,7 +191,7 @@ public class ManageCloset : NetworkBehaviour
             Debug.Log(clothName);
 
             //Hanger of the clothes to recommend
-            hangersToActivate.Add(GetHangerFromClothName(clothName + "(Clone)"));
+            hangersToActivate.Add(GetHangerFromClothName(clothName));
         }
 
 
@@ -206,6 +211,15 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
+    //Add recommended outfit to mirror menu
+    public void AddToRecommendMenu(string clothNames, string userName)
+    {
+        Transform recommendItem = Instantiate(recommendItemPrefab, clothesInRecommendMenu);
+
+        recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
+    }
+
+
     //Deactivate all hints
     private void DeactivateAllHangers()
     {
@@ -223,12 +237,13 @@ public class ManageCloset : NetworkBehaviour
         return clothName.Substring(0, clothName.Length - stringToRemoveLenght);
     }
 
+
     //------------ GET ---------------
 
     //Return the Hanger associated to the clothName passed
     public GameObject GetHangerFromClothName(string clothName)
     {
-        clothName = RemoveCloneString(clothName);
+        //clothName = RemoveCloneString(clothName);
 
         foreach (var currentHanger in hangerList)
         {

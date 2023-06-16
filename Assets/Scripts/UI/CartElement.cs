@@ -30,10 +30,10 @@ public class CartElement : MonoBehaviour
         return clothImage;
     }
 
-    public void CompleteCartCard(string name, RawImage rawImage)
+    public void CompleteCartCard(string name, Texture2D texture)
     {
         this.clothName.text = name;
-        this.clothImage.texture = rawImage.texture;
+        this.clothImage.texture = texture;
 
         cartItemCounter = GameObject.FindGameObjectWithTag("CartItemCounter").GetComponent<TextMeshProUGUI>();
 
