@@ -76,3 +76,4 @@ Assets/XR/Settings/OpenXR Package Settings.asset
 ProjectSettings/Packages/com.unity.services.vivox/Settings.json
 ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
 *.blend
+*.blend1
