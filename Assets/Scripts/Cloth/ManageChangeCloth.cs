@@ -7,21 +7,21 @@ public class ManageChangeCloth : NetworkBehaviour
     [SerializeField] private Transform clothes; //Avatar's clothes
 
     //Called in server, does the same thing for the server and the client
-    public void ChangeCloth(string clothNames)
+    public void ChangeCloth(string clothNames, string category = null)
     {
-        ChangeClothBase(clothNames);
-        ChangeClothClientRpc(clothNames);
+        ChangeClothBase(clothNames, category);
+        ChangeClothClientRpc(clothNames, category);
     }
 
     //Change cloth in client
     [ClientRpc]
-    private void ChangeClothClientRpc(string clothNames)
+    private void ChangeClothClientRpc(string clothNames, string category)
     {
-        ChangeClothBase(clothNames);
+        ChangeClothBase(clothNames, category);
     }
 
     //Change cloth at the avatar
-    private void ChangeClothBase(string clothNames)
+    private void ChangeClothBase(string clothNames, string category)
     {
         List<Transform> listOfClothActivated = new(); //List of activated clothes 
 
@@ -29,22 +29,25 @@ public class ManageChangeCloth : NetworkBehaviour
         Cycles avatar clothes and activates only those that the client has selected*/
         foreach (Transform categoryCloth in clothes)
         {
-            foreach (Transform cloth in categoryCloth)
+            if (category == null || category == categoryCloth.name)
             {
-                if (!clothNames.Contains(cloth.name.Replace("_root", "")))
+                foreach (Transform cloth in categoryCloth)
                 {
-                    if (cloth.gameObject.activeSelf)
+                    if (!clothNames.Contains(cloth.name.Replace("_root", "")))
                     {
-                        //First of all deactivate all the skin parts related to the clothes being deactivated.
-                        cloth.GetComponent<ManageCloth>().ActivateSkinParts();
+                        if (cloth.gameObject.activeSelf)
+                        {
+                            //First of all deactivate all the skin parts related to the clothes being deactivated.
+                            cloth.GetComponent<ManageCloth>().ActivateSkinParts();
 
-                        cloth.gameObject.SetActive(false);
+                            cloth.gameObject.SetActive(false);
+                        }
                     }
-                }
-                else
-                {
-                    listOfClothActivated.Add(cloth);
-                    cloth.gameObject.SetActive(true);
+                    else
+                    {
+                        listOfClothActivated.Add(cloth);
+                        cloth.gameObject.SetActive(true);
+                    }
                 }
             }
         }
