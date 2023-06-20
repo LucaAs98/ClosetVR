@@ -8,6 +8,7 @@ public class Outfit : MonoBehaviour
     //Active only the cloth corresponding to clothName in his category, we dont mind about other categories
     public void ActivateChildOfCategory(string clothName, string clothCategory)
     {
+        Transform activatedCloth = null;
         foreach (Transform clothesCategory in clothesTransform)
         {
             if (clothesCategory.name == clothCategory)
@@ -15,8 +16,26 @@ public class Outfit : MonoBehaviour
                 foreach (Transform cloth in clothesCategory)
                 {
                     //If the name is the same we want to activate it, otherwise we deactivate it
-                    cloth.gameObject.SetActive(cloth.name == clothName);
+                    if (cloth.name != clothName)
+                    {
+                        cloth.gameObject.SetActive(false);
+
+                        //Activate again skin parts
+                        cloth.GetComponent<ManageCloth>().ActivateSkinParts();
+                    }
+                    else
+                    {
+                        //Save the activated cloth because at the end there is the deactivation of the skin parts associated at it
+                        cloth.gameObject.SetActive(true);
+                        activatedCloth = cloth;
+                    }
                 }
+
+
+                //Deactivation of the skin parts associated at it
+                ManageCloth manageCloth = activatedCloth.GetComponent<ManageCloth>();
+                if (manageCloth != null)
+                    manageCloth.DeactivateSkinParts();
 
                 //We dont want to check other categories after we found the specific one
                 return;

@@ -9,7 +9,14 @@ public class CardClothCatalog : MonoBehaviour
     [SerializeField] private GameObject cartElement; //Cart element prefab 
 
     private Transform cartClothes; //Container of cart clothes
+    private string clothCategory; //Cloth category
 
+    private ManageMirrorCards manageMirrorCards;
+
+    void Start()
+    {
+        manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
+    }
 
     //Adds the cloth in the shopping cart
     public void AddToCart()
@@ -26,6 +33,10 @@ public class CardClothCatalog : MonoBehaviour
         newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, auxTexture);
     }
 
+    public void PutCloth()
+    {
+        manageMirrorCards.PutCloth(clothName.text, clothCategory);
+    }
 
     //-------------------------- GET and SET -----------------------
     public void SetClothImage(Texture2D texture)
@@ -36,6 +47,11 @@ public class CardClothCatalog : MonoBehaviour
     public void SetClothName(string name)
     {
         clothName.text = name;
+    }
+
+    public void SetClothCategory(string category)
+    {
+        clothCategory = category;
     }
 
     public TextMeshProUGUI GetClothName()

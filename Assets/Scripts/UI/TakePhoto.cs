@@ -67,7 +67,9 @@ public class TakePhoto : MonoBehaviour
                 cameraPhoto.transform.position.z);
         }
 
+        
         this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
     private void CreateNewFolder(Transform firstElement)

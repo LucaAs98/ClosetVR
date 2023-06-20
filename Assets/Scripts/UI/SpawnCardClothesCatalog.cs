@@ -104,6 +104,7 @@ public class SpawnCardClothesCatalog : MonoBehaviour
         Texture2D auxImage = RetriveImageForCloth(category.name, $"{category.name}_{clothName}");
         newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothImage(auxImage);
         newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothName(clothName);
+        newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothCategory(category.name);
     }
 
     //Take the image of the specific cloth
