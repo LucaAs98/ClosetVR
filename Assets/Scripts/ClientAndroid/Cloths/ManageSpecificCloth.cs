@@ -25,6 +25,7 @@ public class ManageSpecificCloth : MonoBehaviour
     //Allows the cloth to be viewed in more detail
     public void VisualizeSpecificCloth(string clothName, string clothCategory)
     {
+        bool areShoes = clothCategory == "Shoes";
         //Based on the category of the cloth moves the Camera up and down
         MoveSpecificClothCamera(clothCategory);
 
@@ -34,6 +35,7 @@ public class ManageSpecificCloth : MonoBehaviour
 
         //Active only the cloth corresponding to clothName but deactivate all other clothes, also from other categories
         specificClothMenu.GetComponent<Outfit>().ActivateOnlyOneChild(clothName);
+        specificClothMenu.GetComponent<Outfit>().MoveLegs(areShoes);
 
         titleInTitleBar.text = clothName; //Set the title of the menu with the cloth name
     }

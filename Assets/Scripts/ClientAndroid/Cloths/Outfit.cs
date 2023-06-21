@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,10 +6,16 @@ public class Outfit : MonoBehaviour
 {
     [SerializeField] private Transform clothesTransform; //Container of all clothes divided by categories
 
+    [SerializeField] private bool isSpecificCloth = false;
+
+    private ClothesWithSkeletonManager clothesWithSkeletonManager;
+
+
     //Active only the cloth corresponding to clothName in his category, we dont mind about other categories
     public void ActivateChildOfCategory(string clothName, string clothCategory)
     {
         Transform activatedCloth = null;
+
         foreach (Transform clothesCategory in clothesTransform)
         {
             if (clothesCategory.name == clothCategory)
@@ -70,5 +77,15 @@ public class Outfit : MonoBehaviour
         }
 
         return activeClothes;
+    }
+
+    public void MoveLegs(bool areShoes)
+    {
+        if (isSpecificCloth)
+        {
+            clothesWithSkeletonManager = clothesTransform.parent.GetComponent<ClothesWithSkeletonManager>();
+            Debug.Log($"areShoes: {areShoes}");
+            clothesWithSkeletonManager.SetLegsForShoes(areShoes);
+        }
     }
 }

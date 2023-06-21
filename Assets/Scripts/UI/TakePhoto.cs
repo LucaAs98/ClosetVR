@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEngine.Windows;
+
 #else
 using System.IO;
 #endif
@@ -21,6 +22,8 @@ public class TakePhoto : MonoBehaviour
     private static string path = "Assets/Resources/ClothImages/";
     private static string currentPath = "";
 
+    private Vector3[] cameraMovements =
+        { new Vector3(0, 0, 0), new Vector3(0, -0.7f, 0), new Vector3(0.04f, -1.15f, -0.88f) };
 
     void Start()
     {
@@ -49,25 +52,28 @@ public class TakePhoto : MonoBehaviour
 
     public void TakePhotos()
     {
+        int indexCameraMovent = 0;
+
         foreach (var specificClothList in clothList)
         {
+            
+
+
             if (specificClothList.Length > 0)
             {
                 CreateNewFolder(specificClothList[0]);
+                cameraPhoto.transform.localPosition = cameraMovements[indexCameraMovent];
             }
-            
+
             foreach (var cloth in specificClothList)
             {
                 MoveClothInCamera(cloth);
                 PrepareCameraAndShoot(cloth.name);
             }
 
-
-            cameraPhoto.transform.position = new Vector3(cameraPhoto.transform.position.x, cameraPhoto.transform.position.y - 0.7f,
-                cameraPhoto.transform.position.z);
+            indexCameraMovent++;
         }
 
-        
         this.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }

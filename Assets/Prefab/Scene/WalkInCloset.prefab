@@ -9203,8 +9203,7 @@ MonoBehaviour:
   - {fileID: 9026178482974715134, guid: a59e8e88b5a5bce4c914c81e6a6384d6, type: 3}
   - {fileID: 4345001568135419472, guid: 0dbc983bd755bc14db919e2d0214be05, type: 3}
   - {fileID: 3918216883952317481, guid: fb98a6ef935f0b44f988655a21e57c65, type: 3}
-  - {fileID: 6127543167381588841, guid: cc59146230d52894aafd12200a996a8b, type: 3}
-  - {fileID: 7795755766019975174, guid: 392cc499364b84d43a374c8f7c2b6037, type: 3}
+  - {fileID: 5475625546400358064, guid: cc59146230d52894aafd12200a996a8b, type: 3}
   trousersSpace: {fileID: 6472581745154414852}
   trousersHangerPrefab: {fileID: 3858384377789994127, guid: 1be6fdc23af5a024a92b198aa7fca309, type: 3}
   trousersList:
@@ -9212,14 +9211,22 @@ MonoBehaviour:
   - {fileID: 2018136129653296115, guid: 65625d773a8069441ba46d678c774cab, type: 3}
   - {fileID: 6772694841710287874, guid: 946d588bee1bd374aac5f35d512ca053, type: 3}
   - {fileID: 2664725829795308905, guid: 934f20295208bb7479d3eab1a92d4844, type: 3}
-  - {fileID: 454971085229552320, guid: ba88b325d7440714d94fd40827bf7ce3, type: 3}
-  - {fileID: 929039018525173580, guid: 41d9e0b3f06449c44bf4e1a5fbea779b, type: 3}
   - {fileID: 1480416099984488819, guid: c2279cca484742e4092493d6aa65179f, type: 3}
-  - {fileID: 532568376767122292, guid: c6fb5de2b18af9c469671d313a83625a, type: 3}
-  - {fileID: 4058341143335030135, guid: da93f39c90a460948b23cf1f53ccf4d2, type: 3}
+  - {fileID: 6895572757470967350, guid: c6fb5de2b18af9c469671d313a83625a, type: 3}
+  - {fileID: 4775106204069644839, guid: 41d9e0b3f06449c44bf4e1a5fbea779b, type: 3}
+  - {fileID: 3706400112259160886, guid: ba88b325d7440714d94fd40827bf7ce3, type: 3}
   shoesSpace: {fileID: 6472581745154414900}
-  shoesHangerPrefab: {fileID: 3844307056198617912, guid: 8096c1865d3590947ba433b43801cb4f, type: 3}
-  shoesList: []
+  shoesHangerPrefab: {fileID: 1539025552690145119, guid: cde1c5347aafe5d439bd88af0489acd6, type: 3}
+  shoesList:
+  - {fileID: 4785607071418203600, guid: 75fe933fe39329d4f9db47fe3e2e7b0e, type: 3}
+  - {fileID: 5711962392109993753, guid: f99f3258533fa0444ad6a33e7b0e2b1f, type: 3}
+  - {fileID: 1605213894274971683, guid: ce16dba6eea94eb4d85ce02230cf626d, type: 3}
+  - {fileID: 4054469109479462293, guid: b09b430d1e09bca439e0e257947b2801, type: 3}
+  - {fileID: 6826298334365822110, guid: f02fc894dd7f18747b62a5efc1b6cf70, type: 3}
+  - {fileID: 1945658395158183406, guid: b4315f14d9c28bf408c797d693c1dd50, type: 3}
+  - {fileID: 3035238351221112138, guid: 1ca1d20b4d4c6da42a843ea3e276218e, type: 3}
+  - {fileID: 259038205829699451, guid: 75a8d395291154e4c8e79adae4087ba4, type: 3}
+  - {fileID: 4490561350776674303, guid: 1746dec18bdc46b4ca283428f64ad799, type: 3}
   capsSpace: {fileID: 330684995790887256}
   capsHangerPrefab: {fileID: 3844307056198617912, guid: 9dda9984fd03b8d4085afd728cbf9041, type: 3}
   capsList: []
