@@ -9227,6 +9227,7 @@ MonoBehaviour:
   - {fileID: 3035238351221112138, guid: 1ca1d20b4d4c6da42a843ea3e276218e, type: 3}
   - {fileID: 259038205829699451, guid: 75a8d395291154e4c8e79adae4087ba4, type: 3}
   - {fileID: 4490561350776674303, guid: 1746dec18bdc46b4ca283428f64ad799, type: 3}
+  - {fileID: 2642155374492851822, guid: 4498aa5f1c0b0a54b955b05147116a3b, type: 3}
   capsSpace: {fileID: 330684995790887256}
   capsHangerPrefab: {fileID: 3844307056198617912, guid: 9dda9984fd03b8d4085afd728cbf9041, type: 3}
   capsList: []

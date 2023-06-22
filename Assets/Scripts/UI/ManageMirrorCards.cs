@@ -17,6 +17,6 @@ public class ManageMirrorCards : MonoBehaviour
         avatar = GameObject.FindGameObjectWithTag("Avatar");
 
         //Put the clothes on the avatar
-        avatar.GetComponent<ManageChangeCloth>().ChangeCloth(clothName, clothCategory);
+        avatar.transform.parent.GetComponent<ManageChangeCloth>().ChangeCloth(clothName, clothCategory);
     }
 }

@@ -188,8 +188,6 @@ public class ManageCloset : NetworkBehaviour
         //Takes all hangers with a hint to activate
         foreach (string clothName in clothNames.Split(","))
         {
-            Debug.Log(clothName);
-
             //Hanger of the clothes to recommend
             hangersToActivate.Add(GetHangerFromClothName(clothName));
         }

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ManageRecommendCard : MonoBehaviour
 {
-    [SerializeField] private Transform clothAvatar; //Root of mannequin clothes
     [SerializeField] private TextMeshProUGUI recommendByName; //Title of the card: "Recommended by {userName}"
 
     //Prefab to spawn in shopping cart when the vr player want to buy the outfit elements
@@ -16,9 +15,9 @@ public class ManageRecommendCard : MonoBehaviour
     [SerializeField] private RawImage clothRepresentation2D; //RawImage where the render texture is put
 
     private Transform cartClothes; //Container of cart clothes
-    private string[] outfitClothes; //Array of the outfit's clothing names
 
     private string basePath = "ClothImages";
+    private string[] outfitClothes; //Array of the outfit's clothing names
 
     //Set the title of the card
     public void SetUserName(string name)
@@ -29,36 +28,13 @@ public class ManageRecommendCard : MonoBehaviour
     //Complete the card with all necessary data
     public void ConfigureCard(string clothNames, string name)
     {
-        ActivateRightClothes(clothNames); //Activate recommended clothes in outfit
+        //clothNames contains all the cloth names divided by ","
+        outfitClothes = clothNames.Split(",");
+        this.GetComponent<Outfit>().ActivateInRecommendCard(clothNames); //Activate recommended clothes in outfit
         SetCorrectRenderTexture(); //Create and set the render texture
         SetUserName(name); //Set the name in "Recommended by: ..."
     }
 
-    //Activate recommended clothes in outfit
-    private void ActivateRightClothes(string clothNames)
-    {
-        //clothNames contains all the cloth names divided by ","
-        outfitClothes = clothNames.Split(",");
-
-        //For every clothName, activate it in the mannequin (outfit)
-        foreach (string clothName in outfitClothes)
-        {
-            string category = clothName.Split("_")[0]; //Take the category from the name
-            string newClothName = clothName.Replace(category + "_", ""); //Cloth name without category
-
-            //For every general category, activates clothes only if they are present in outfit
-            foreach (Transform categories in clothAvatar)
-            {
-                if (categories.name == category)
-                {
-                    foreach (Transform cloth in categories)
-                    {
-                        cloth.gameObject.SetActive(cloth.name == newClothName);
-                    }
-                }
-            }
-        }
-    }
 
     //Create and set the render texture
     private void SetCorrectRenderTexture()

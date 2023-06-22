@@ -9,7 +9,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
     private GameObject closet;
     private GameObject avatar;
 
-    private string userName;    //Usefull for "Recommended by ..."
+    private string userName; //Usefull for "Recommended by ..."
 
     //We take the name of the cloth and we call the serverRpc for activate the hint at the specific cloth
     public void RecommendCloth()
@@ -51,7 +51,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
         avatar = GameObject.FindGameObjectWithTag("Avatar");
 
         //Put the clothes on the avatar
-        avatar.GetComponent<ManageChangeCloth>().ChangeCloth(clothNames);
+        avatar.transform.parent.GetComponent<ManageChangeCloth>().ChangeCloth(clothNames);
     }
 
     //Return a string with all the activated clothes divided by ",". Ex: "Upperbody_redTshirt,Lowerbody_bluePants"
@@ -67,7 +67,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
         //Merge all the names in one string
         foreach (var clothName in activeClothes)
         {
-            allClothesNames += (clothName + ",");
+            allClothesNames += (clothName.Replace("_root", "") + ",");
         }
 
         //Remove the last ","

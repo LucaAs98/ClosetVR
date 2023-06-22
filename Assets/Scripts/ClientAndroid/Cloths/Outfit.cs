@@ -22,8 +22,9 @@ public class Outfit : MonoBehaviour
             {
                 foreach (Transform cloth in clothesCategory)
                 {
+                    Debug.Log(cloth.name);
                     //If the name is the same we want to activate it, otherwise we deactivate it
-                    if (cloth.name != clothName)
+                    if (cloth.name.Replace("_root", "") != clothName)
                     {
                         cloth.gameObject.SetActive(false);
 
@@ -38,11 +39,8 @@ public class Outfit : MonoBehaviour
                     }
                 }
 
-
                 //Deactivation of the skin parts associated at it
-                ManageCloth manageCloth = activatedCloth.GetComponent<ManageCloth>();
-                if (manageCloth != null)
-                    manageCloth.DeactivateSkinParts();
+                activatedCloth.GetComponent<ManageCloth>().DeactivateSkinParts();
 
                 //We dont want to check other categories after we found the specific one
                 return;
@@ -57,7 +55,7 @@ public class Outfit : MonoBehaviour
         {
             foreach (Transform cloth in clothesCategory)
             {
-                cloth.gameObject.SetActive(cloth.name == clothName);
+                cloth.gameObject.SetActive(cloth.name.Replace("_root", "") == clothName);
             }
         }
     }
@@ -79,13 +77,47 @@ public class Outfit : MonoBehaviour
         return activeClothes;
     }
 
+    public void ActivateInRecommendCard(string clothNames)
+    {
+        string[] outfitClothes; //Array of the outfit's clothing names
+
+        //clothNames contains all the cloth names divided by ","
+        outfitClothes = clothNames.Split(",");
+
+        //For every clothName, activate it in the mannequin (outfit)
+        foreach (string clothName in outfitClothes)
+        {
+            string category = clothName.Split("_")[0]; //Take the category from the name
+            string newClothName = clothName.Replace(category + "_", ""); //Cloth name without category
+
+            //For every general category, activates clothes only if they are present in outfit
+            foreach (Transform categories in clothesTransform)
+            {
+                foreach (Transform cloth in categories)
+                {
+                    if (cloth.name.Replace("_root", "") == newClothName)
+                    {
+                        cloth.gameObject.SetActive(true);
+
+                        //Deactivation of the skin parts associated at it
+                        cloth.GetComponent<ManageCloth>().DeactivateSkinParts();
+                    }
+                }
+            }
+        }
+    }
+
     public void MoveLegs(bool areShoes)
     {
         if (isSpecificCloth)
         {
             clothesWithSkeletonManager = clothesTransform.parent.GetComponent<ClothesWithSkeletonManager>();
-            Debug.Log($"areShoes: {areShoes}");
             clothesWithSkeletonManager.SetLegsForShoes(areShoes);
         }
+    }
+
+    public Transform GetClothesTransform()
+    {
+        return clothesTransform;
     }
 }
