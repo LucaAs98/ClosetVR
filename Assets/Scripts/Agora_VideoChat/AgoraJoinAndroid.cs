@@ -8,6 +8,9 @@ using Agora.Rtc;
 using UnityEngine.Android;
 #endif
 
+using UnityEngine.Networking;
+using System;
+using TMPro;
 
 public class AgoraJoinAndroid : MonoBehaviour
 {
@@ -20,14 +23,21 @@ public class AgoraJoinAndroid : MonoBehaviour
     // Fill in your channel name.
     private string _channelName = "ClosetVR";
 
-    // Fill in the temporary token you obtained from Agora Console.
-    private string _token =
-        "007eJxTYNALZpV22mD1Y7m4++wHnX8+STIyqu65vUB4TerUYydTHt9RYDBLNTc1NzC2TDU1MDVJTkpLMjdONU9MMzNJtLRIS0o1Y9rXldIQyMhwQtOSmZEBAkF8DgbnnPzi1JKwIAYGAKOcIII=";
+    // Fill in the generated token.
+    private string _token = "";
 
+
+    //For generating token
+    private string serverUrl = "https://agora-token-generator.up.railway.app"; // The base URL to your token server."
+    private int ExpireTime = 60; //Expire time in Seconds.
+    private string uid = "0"; // An integer that identifies the user.
+
+    //Main component
     internal IRtcEngine RtcEngine;
 
     void Start()
     {
+        StartCoroutine(FetchToken(serverUrl, _channelName, uid, ExpireTime, this.FetchRenew));
         SetupVideoSDKEngine();
         Join();
     }
@@ -80,12 +90,6 @@ public class AgoraJoinAndroid : MonoBehaviour
         RtcEngine.EnableVideo();
         // Set the user role as broadcaster.
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        // Set the local video view.
-        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
-        // Start rendering local video.
-        //LocalView.SetEnable(true);
-        // Join a channel.
-        RtcEngine.JoinChannel(_token, _channelName);
     }
 
     public void Leave()
@@ -94,9 +98,34 @@ public class AgoraJoinAndroid : MonoBehaviour
         RtcEngine.LeaveChannel();
         // Disable the video modules.
         RtcEngine.DisableVideo();
-        // Stops rendering the remote video.
-        //RemoteViews.SetEnable(false);
-        // Stops rendering the local video.
-        //LocalView.SetEnable(false);
+    }
+
+    // Fetches the <Vg k="VSDK" /> token
+    IEnumerator FetchToken(string url, string channel, string userId, int TimeToLive, Action<string> callback = null)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(
+            string.Format("{0}/rtc/{1}/1/uid/{2}/?expiry={3}", url, channel, userId, TimeToLive)
+        );
+        yield return request.SendWebRequest();
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Debug.Log(request.error);
+            callback(null);
+            yield break;
+        }
+
+        TokenStruct tokenInfo = JsonUtility.FromJson<TokenStruct>(request.downloadHandler.text);
+        callback(tokenInfo.rtcToken);
+    }
+
+    void FetchRenew(string newToken)
+    {
+        // Update RTC Engine with new token, which will not expire so soon
+        RtcEngine.RenewToken(newToken);
+        _token = newToken;
+        Debug.Log(newToken);
+        // Join a channel.
+        Debug.Log($"JoinToken: {_token}");
+        RtcEngine.JoinChannel(_token, _channelName);
     }
 }

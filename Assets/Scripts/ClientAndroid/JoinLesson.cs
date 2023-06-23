@@ -6,27 +6,46 @@ public class JoinLesson : MonoBehaviour
 {
     [SerializeField] private Canvas rootCanvas;
     [SerializeField] private TMP_InputField code;
-    [SerializeField] private GameObject errorImage;
-    [SerializeField] private TextMeshProUGUI placeholder;
+    [SerializeField] private TextMeshProUGUI placeholderCode;
+    [SerializeField] private GameObject errorImageCode;
+    [SerializeField] private GameObject esclamationImageCode;
     [SerializeField] private TMP_InputField namePlayer;
+    [SerializeField] private TextMeshProUGUI placeholderName;
+    [SerializeField] private GameObject esclamationImageName;
 
     async public void Join()
     {
-        GameObject spawner = GameObject.Find("Spawner");
-        spawner.GetComponent<Spawner>().SetPlayerName(namePlayer.text);
-
-        bool connectionOK =
-            await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text, namePlayer.text);
-
-        if (connectionOK)
+        if (namePlayer.text != "" && code.text != "")
         {
-            rootCanvas.gameObject.SetActive(false);
+            esclamationImageCode.SetActive(false);
+            esclamationImageName.SetActive(false);
+
+            GameObject spawner = GameObject.Find("Spawner");
+            spawner.GetComponent<Spawner>().SetPlayerName(namePlayer.text);
+
+            bool connectionOK =
+                await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text, namePlayer.text);
+
+            if (connectionOK)
+            {
+                rootCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                errorImageCode.SetActive(true);
+                placeholderCode.text = "Codice errato";
+                code.text = "";
+            }
         }
         else
         {
-            errorImage.SetActive(true);
-            placeholder.text = "Codice errato";
+            errorImageCode.SetActive(false);
+            esclamationImageCode.SetActive(true);
+            esclamationImageName.SetActive(true);
+            namePlayer.text = "";
             code.text = "";
+            placeholderCode.text = "Please complete both fields!";
+            placeholderName.text = "Please complete both fields!";
         }
     }
 }

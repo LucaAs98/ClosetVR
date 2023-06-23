@@ -5,16 +5,25 @@ using UnityEngine.UI;
 public class CartElement : MonoBehaviour
 {
     [SerializeField] private RawImage clothImage; //Cloth image in cart element
-    [SerializeField] private TextMeshProUGUI clothName; //Cloth name in cart element
+    [SerializeField] private TextMeshProUGUI clothNameTextMeshPro; //Cloth name in cart element
+    private string clothCategory;
 
     private TextMeshProUGUI cartItemCounter; //Counter of elements in the cart
 
+    private ManageMirrorCards manageMirrorCards;
+
+    void Start()
+    {
+        manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
+    }
+
     //Complete the cart card putting the image and the cloth name
-    public void CompleteCartCard(string name, Texture2D texture)
+    public void CompleteCartCard(string name, string category, Texture2D texture)
     {
         //Set the variable of this specific object
-        this.clothName.text = name;
-        this.clothImage.texture = texture;
+        clothNameTextMeshPro.text = name;
+        clothCategory = category;
+        clothImage.texture = texture;
 
         //Counter of elements in the cart
         cartItemCounter = GameObject.FindGameObjectWithTag("CartItemCounter").GetComponent<TextMeshProUGUI>();
@@ -34,6 +43,10 @@ public class CartElement : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public void PutClothInAvatar()
+    {
+        manageMirrorCards.PutCloth(clothNameTextMeshPro.text, clothCategory);
+    }
 
     //-------------------------- GET and SET -----------------------
     public void SetClothImage(Texture2D texture)
@@ -41,14 +54,14 @@ public class CartElement : MonoBehaviour
         clothImage.texture = texture;
     }
 
-    public void SetClothName(string name)
+    public void SetclothNameTextMeshPro(string name)
     {
-        clothName.text = name;
+        clothNameTextMeshPro.text = name;
     }
 
-    public TextMeshProUGUI GetClothName()
+    public TextMeshProUGUI GetclothNameTextMeshPro()
     {
-        return clothName;
+        return clothNameTextMeshPro;
     }
 
     public RawImage GetClothImage()

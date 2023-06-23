@@ -21,8 +21,7 @@ public class CardClothCatalog : MonoBehaviour
     //Adds the cloth in the shopping cart
     public void AddToCart()
     {
-        GameObject shoppingCart = GameObject.FindGameObjectWithTag("ShoppingCartClothes");
-        cartClothes = shoppingCart.GetComponent<ManageShoppingCartMenu>().GetCartClothes(); //Container of cart clothes
+        cartClothes = GameObject.FindGameObjectWithTag("ShoppingCartClothes").transform;
 
         //Takes the same texture of this object. Don't need to reload the file from the resources images
         Texture2D auxTexture = (Texture2D)this.clothImage.texture;
@@ -30,7 +29,7 @@ public class CardClothCatalog : MonoBehaviour
         //Instantiate the cart card in the shopping cart
         GameObject newCartElement = Instantiate(cartElement, cartClothes);
         //Complete that card putting the image and the cloth name
-        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, auxTexture);
+        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, clothCategory, auxTexture);
     }
 
     public void PutCloth()
