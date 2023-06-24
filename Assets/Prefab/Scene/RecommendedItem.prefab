@@ -125,7 +125,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 253208105887862538}
         m_TargetAssemblyTypeName: ManageRecommendCard, Assembly-CSharp
         m_MethodName: PutClothInAvatar
         m_Mode: 1
