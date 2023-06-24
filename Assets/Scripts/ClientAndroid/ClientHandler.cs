@@ -6,7 +6,8 @@ using UnityEngine.InputSystem.XR;
 
 public class ClientHandler : NetworkBehaviour
 {
-    private string clientName; //Name of the client
+    private string clientName; //Client name
+    private ulong clientID; //Client ID
     private Vector3 startingPosition; //Starting position of the client
 
     void Start()
@@ -35,7 +36,7 @@ public class ClientHandler : NetworkBehaviour
             }
 
             //Set the name of the player
-            SetPlayerNameInClient();
+            SetClientNameAndIDInClient();
         }
     }
 
@@ -48,23 +49,36 @@ public class ClientHandler : NetworkBehaviour
     }
 
     //Set the player name in his gameobject
-    private void SetPlayerNameInClient()
+    private void SetClientNameAndIDInClient()
     {
         Spawner spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
-        string name = spawner.GetPlayerName();
-        SetPlayerName(name);
+        string name = spawner.GetClientName();
+        ulong id = this.OwnerClientId;
+        SetClientName(name);
+        SetClientID(id);
     }
 
     //------------------ GET and SET -------------------------
     //Return the player name
-    public string GetPlayerName()
+    public string GetClientName()
     {
         return clientName;
     }
 
     //Set the player name 
-    public void SetPlayerName(string name)
+    public void SetClientName(string name)
     {
         clientName = name;
+    }
+
+    public ulong GetClientID()
+    {
+        return clientID;
+    }
+
+    //Set the client name 
+    public void SetClientID(ulong id)
+    {
+        clientID = id;
     }
 }

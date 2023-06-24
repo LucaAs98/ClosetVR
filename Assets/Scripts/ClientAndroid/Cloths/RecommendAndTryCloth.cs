@@ -9,7 +9,9 @@ public class RecommendAndTryCloth : NetworkBehaviour
     private GameObject closet;
     private GameObject avatar;
 
-    private string userName; //Usefull for "Recommended by ..."
+    //Usefull for "Recommended by ..."
+    private string userName;
+    private ulong userID;
 
     //We take the name of the cloth and we call the serverRpc for activate the hint at the specific cloth
     public void RecommendCloth()
@@ -17,13 +19,14 @@ public class RecommendAndTryCloth : NetworkBehaviour
         //Take all cloth activated names then recommend them "at the server".
         //Warning! "clothNames" is a string with ALL the cloth names divided by ","
         string clothNames = GetClothNames();
-        userName = this.gameObject.GetComponent<ClientHandler>().GetPlayerName();
-        RecommendClothServerRpc(clothNames, userName);
+        userName = this.gameObject.GetComponent<ClientHandler>().GetClientName();
+        userID = this.gameObject.GetComponent<ClientHandler>().GetClientID();
+        RecommendClothServerRpc(clothNames, userName, userID);
     }
 
     //Done in the server. Activate the hints of the corresponding clothes
     [ServerRpc]
-    public void RecommendClothServerRpc(string clothNames, string userName)
+    public void RecommendClothServerRpc(string clothNames, string userName, ulong id)
     {
         //Take the closet
         closet = GameObject.FindGameObjectWithTag("Closet");
@@ -31,7 +34,7 @@ public class RecommendAndTryCloth : NetworkBehaviour
         //Activate the hints of the corresponding clothes
         closet.GetComponent<ManageCloset>().ActiveHangerHint(clothNames);
         //Add the recommended clothes to the mirror menu
-        closet.GetComponent<ManageCloset>().AddToRecommendMenu(clothNames, userName);
+        closet.GetComponent<ManageCloset>().AddToRecommendMenu(clothNames, userName, id);
     }
 
     //Take the name of the cloth and call the serverRpc for changing the cloth in the avatar

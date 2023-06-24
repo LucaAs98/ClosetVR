@@ -21,7 +21,7 @@ public class JoinLesson : MonoBehaviour
             esclamationImageName.SetActive(false);
 
             GameObject spawner = GameObject.Find("Spawner");
-            spawner.GetComponent<Spawner>().SetPlayerName(namePlayer.text);
+            spawner.GetComponent<Spawner>().SetClientName(namePlayer.text);
 
             bool connectionOK =
                 await NetworkManager.Singleton.GetComponent<RelayLogic>().JoinRelay(code.text, namePlayer.text);

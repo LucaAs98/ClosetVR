@@ -18,34 +18,54 @@ public class ManageRecommendCard : MonoBehaviour
     private Transform cartClothes; //Container of cart clothes
 
     private string basePath = "ClothImages";
-    private string[] outfitClothes; //Array of the outfit's clothing names
+    private string[] outfitClothesArray; //Array of the outfit's clothing names
+    private string outfitClothesInString;
 
     private ManageMirrorCards manageMirrorCards;
+    private ManageRecommendedMenu manageRecommendedMenu;
+    private int numOfRecommend = 0;
+    private string recommendedBy = "";
 
     void Start()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
+        manageRecommendedMenu =
+            GameObject.FindGameObjectWithTag("RecommendedMenu").GetComponent<ManageRecommendedMenu>();
     }
 
     //Set the title of the card
-    public void SetUserName(string name)
+    public void SetUserName()
     {
-        recommendByName.text = $"Recommend by: {name}";
+        recommendByName.text = $"Recommend by: {recommendedBy}";
     }
+
+    public void UpdateUserName()
+    {
+        string person = "person";
+
+        if (numOfRecommend - 1 > 1)
+            person = "people";
+
+        recommendByName.text = $"Recommend by: {recommendedBy} and other {numOfRecommend - 1} {person}...";
+    }
+
 
     //Complete the card with all necessary data
     public void ConfigureCard(string clothNames, string name)
     {
+        numOfRecommend++;
+        recommendedBy = name;
+        outfitClothesInString = clothNames;
         //clothNames contains all the cloth names divided by ","
-        outfitClothes = clothNames.Split(",");
+        outfitClothesArray = clothNames.Split(",");
         this.GetComponent<Outfit>().ActivateInRecommendCard(clothNames); //Activate recommended clothes in outfit
         SetCorrectRenderTexture(); //Create and set the render texture
-        SetUserName(name); //Set the name in "Recommended by: ..."
+        SetUserName(); //Set the name in "Recommended by: ..."
     }
 
     public void PutClothInAvatar()
     {
-        foreach (string clothName in outfitClothes)
+        foreach (string clothName in outfitClothesArray)
         {
             string category = clothName.Split("_")[0]; //Take the category from the name
             string nameWithoutCategory = clothName.Replace(category + "_", ""); //Cloth name without category
@@ -72,10 +92,12 @@ public class ManageRecommendCard : MonoBehaviour
     //Add the outfit's clothes in cart separately 
     public void AddToCart()
     {
-        cartClothes = GameObject.FindGameObjectWithTag("ShoppingCartClothes").transform; //Container of cart clothes
+        Transform shoppingCartMenu = GameObject.FindGameObjectWithTag("ShoppingCartMenu").transform;
+        //Container of cart clothes
+        cartClothes = shoppingCartMenu.GetComponent<ManageShoppingCartMenu>().GetCartClothes().GetChild(0);
 
         //For every cloth in the outfit add the card in the shopping cart.
-        foreach (string clothName in outfitClothes)
+        foreach (string clothName in outfitClothesArray)
         {
             string category = clothName.Split("_")[0]; //Take the category from the name
             string nameWithoutCategory = clothName.Replace(category + "_", ""); //Cloth name without category
@@ -107,5 +129,22 @@ public class ManageRecommendCard : MonoBehaviour
     public void Remove()
     {
         Destroy(this.gameObject);
+        manageRecommendedMenu.RemoveOutfit(outfitClothesInString);
+    }
+
+    public void UpdateRecommendCard()
+    {
+        numOfRecommend++;
+        UpdateUserName();
+    }
+
+    public string GetOutfitClothesInString()
+    {
+        return outfitClothesInString;
+    }
+
+    public void ShowInfoSpecificOutfit()
+    {
+        manageRecommendedMenu.ShowOutfitRecommendedNames(outfitClothesInString);
     }
 }

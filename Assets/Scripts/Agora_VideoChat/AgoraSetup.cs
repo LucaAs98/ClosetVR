@@ -10,6 +10,7 @@ using UnityEngine.Android;
 
 using UnityEngine.Networking;
 using System;
+using System.Linq;
 using TMPro;
 
 public class AgoraSetup : MonoBehaviour
@@ -42,8 +43,13 @@ public class AgoraSetup : MonoBehaviour
     [SerializeField] private GameObject remoteView;
     [SerializeField] private GameObject camerasContainer;
 
+    private Spawner spawner;
+    private int connectedClients = 0;
+    private Dictionary<uint, string> connectedClientsInAgora = new();
+
     void Start()
     {
+        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         StartCoroutine(FetchToken(serverUrl, _channelName, uid, ExpireTime, this.FetchRenew));
         SetupVideoSDKEngine();
         InitEventHandler();
@@ -122,11 +128,13 @@ public class AgoraSetup : MonoBehaviour
         private GameObject userCamerasContainer;
         private GameObject remoteView;
         private GameObject currentRemoteView;
+        private AgoraSetup agoraSetup;
 
         internal UserEventHandler(AgoraSetup videoSample, GameObject remoteViewPrefab, GameObject camerasContainer)
         {
             remoteView = remoteViewPrefab;
             userCamerasContainer = camerasContainer;
+            agoraSetup = videoSample;
         }
 
         // This callback is triggered when the local user joins the channel.
@@ -144,16 +152,27 @@ public class AgoraSetup : MonoBehaviour
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
+            agoraSetup.connectedClients++;
+            string lastClientName = AddAndReturnLastClient(uid);
             currentRemoteView = Instantiate(remoteView, userCamerasContainer.transform);
-            SetupRemoteView(currentRemoteView);
+            SetupRemoteView(currentRemoteView, lastClientName);
             currentRemoteView.GetComponent<VideoSurface>()
                 .SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
         }
 
-        private void SetupRemoteView(GameObject remoteView)
+        private string AddAndReturnLastClient(uint uid)
         {
-            remoteView.AddComponent<VideoSurface>();
-            remoteView.transform.Rotate(0.0f, 0.0f, 180.0f);
+            Dictionary<ulong, string> connectedClientsFromSpawner = agoraSetup.spawner.GetConnectedClients();
+            string newClientName = connectedClientsFromSpawner.Values.Last();
+            agoraSetup.connectedClientsInAgora.Add(uid, newClientName);
+            return newClientName;
+        }
+
+        private void SetupRemoteView(GameObject specificRemoteView, string clientName)
+        {
+            specificRemoteView.GetComponent<ManageAgoraCard>().SetClientName(clientName);
+            specificRemoteView.AddComponent<VideoSurface>();
+            specificRemoteView.transform.Rotate(0.0f, 0.0f, 180.0f);
         }
 
         // This callback is triggered when a remote user leaves the channel or drops offline.

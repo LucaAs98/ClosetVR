@@ -5,7 +5,9 @@ using UnityEngine;
 public class Spawner : NetworkBehaviour
 {
     [SerializeField] public List<GameObject> listClientPrefabs;
-    private string auxPlayerName = "";
+    private string auxPlayerName = "<<UNKNOWN>>";
+
+    private Dictionary<ulong, string> connectedClients = new();
 
     private enum Devices
     {
@@ -16,11 +18,17 @@ public class Spawner : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void JoinServerRpc(ulong clientId, int platform, string playerName)
+    public void JoinServerRpc(ulong clientId, int platform, string clientName)
     {
-        var tempGO = (GameObject)Instantiate(listClientPrefabs[platform]);
-        tempGO.GetComponent<ClientHandler>().SetPlayerName(playerName);
-        var netObj = tempGO.GetComponent<NetworkObject>();
+        connectedClients.Add(clientId, clientName);
+        foreach (var client in connectedClients.Values)
+        {
+            Debug.Log($"Spawner: {client}");
+        }
+
+        GameObject tempGO = Instantiate(listClientPrefabs[platform]);
+        tempGO.GetComponent<ClientHandler>().SetClientName(clientName);
+        NetworkObject netObj = tempGO.GetComponent<NetworkObject>();
         netObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
 
@@ -30,7 +38,7 @@ public class Spawner : NetworkBehaviour
     {
         if (IsServer) return;
 
-        var clientId = NetworkManager.Singleton.LocalClientId;
+        ulong clientId = NetworkManager.Singleton.LocalClientId;
 
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -39,13 +47,18 @@ public class Spawner : NetworkBehaviour
         }
     }
 
-    public void SetPlayerName(string name)
+    public void SetClientName(string name)
     {
         auxPlayerName = name;
     }
 
-    public string GetPlayerName()
+    public string GetClientName()
     {
         return auxPlayerName;
+    }
+
+    public Dictionary<ulong, string> GetConnectedClients()
+    {
+        return connectedClients;
     }
 }

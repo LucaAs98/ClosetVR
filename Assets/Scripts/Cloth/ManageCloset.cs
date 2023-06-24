@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -36,9 +37,10 @@ public class ManageCloset : NetworkBehaviour
     [SerializeField] private Transform[] watchesList;
 
     //---------------------- RECOMMEND MENU ------------------------
-    [SerializeField] private Transform clothesInRecommendMenu;
+    [SerializeField] private Transform recommendMenu;
     [SerializeField] private Transform recommendItemPrefab;
-
+    private ManageRecommendedMenu manageRecommendMenu;
+    private Transform clothesInRecommendMenu;
 
     private List<Transform[]> clothLists;
     private Transform[] clothHangers;
@@ -70,6 +72,9 @@ public class ManageCloset : NetworkBehaviour
             tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
             watchesHangerPrefab
         };
+
+        manageRecommendMenu = recommendMenu.GetComponent<ManageRecommendedMenu>();
+        clothesInRecommendMenu = manageRecommendMenu.GetClothesContainer();
     }
 
     //Fill the closet with all the clothes
@@ -210,7 +215,37 @@ public class ManageCloset : NetworkBehaviour
     }
 
     //Adds recommended outfit to mirror menu
-    public void AddToRecommendMenu(string clothNames, string userName)
+    public void AddToRecommendMenu(string clothNames, string userName, ulong clientID)
+    {
+        Tuple<ulong, string> user = new Tuple<ulong, string>(clientID, userName);
+        Tuple<bool, bool> createCardUpdate = manageRecommendMenu.AddUserToRecommendedCloth(clothNames, user);
+        bool createCard = createCardUpdate.Item1;
+        bool updateCard = createCardUpdate.Item2;
+
+
+        if (createCard)
+            CreateRecommendCard(clothNames, userName);
+
+        if(updateCard && !createCard)
+            FindRecommendCardFromOutfit(clothNames).GetComponent<ManageRecommendCard>().UpdateRecommendCard();
+    }
+
+    private ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
+    {
+        ManageRecommendCard manageRecommendCard;
+
+        foreach (Transform recommendCard in manageRecommendMenu.GetClothesContainer())
+        {
+            manageRecommendCard = recommendCard.GetComponent<ManageRecommendCard>();
+
+            if (manageRecommendCard.GetOutfitClothesInString() == outfitClothes)
+                return manageRecommendCard;
+        }
+
+        return null; //Impossible
+    }
+
+    private void CreateRecommendCard(string clothNames, string userName)
     {
         //Instantiate the recommended card in the recommended mirror menu
         Transform recommendItem = Instantiate(recommendItemPrefab, clothesInRecommendMenu);

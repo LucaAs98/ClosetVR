@@ -10,6 +10,7 @@ using UnityEngine;
 public class RelayLogic : MonoBehaviour
 {
     [SerializeField] private GameObject startServerBtn;
+    [SerializeField] private GameObject startServerBtnInMirror;
 
     private async void Start()
     {
@@ -25,7 +26,9 @@ public class RelayLogic : MonoBehaviour
 
     public async Task<string> CreateRelay()
     {
-        startServerBtn.gameObject.SetActive(false);
+        Destroy(startServerBtn.gameObject);
+        Destroy(startServerBtnInMirror.gameObject);
+
         try
         {
             //We take the lesson code
