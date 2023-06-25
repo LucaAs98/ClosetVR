@@ -15,6 +15,11 @@ public class ManageRecommendCard : MonoBehaviour
     [SerializeField] private Camera cardCamera; //Camera of the render texture.
     [SerializeField] private RawImage clothRepresentation2D; //RawImage where the render texture is put
 
+    [SerializeField] private Gradient gradient;
+    [SerializeField] private TextMeshProUGUI percentage;
+    [SerializeField] private Slider recommendBarSlider;
+    [SerializeField] private Image barPercentage;
+
     private Transform cartClothes; //Container of cart clothes
 
     private string basePath = "ClothImages";
@@ -146,5 +151,17 @@ public class ManageRecommendCard : MonoBehaviour
     public void ShowInfoSpecificOutfit()
     {
         manageRecommendedMenu.ShowOutfitRecommendedNames(outfitClothesInString);
+    }
+
+    public Color ColorFromGradient(float value)
+    {
+        return gradient.Evaluate(value);
+    }
+
+    public void ChangePercentage(float value)
+    {
+        recommendBarSlider.value = value;
+        percentage.text = $"{value * 100} %";
+        barPercentage.color = ColorFromGradient(value);
     }
 }

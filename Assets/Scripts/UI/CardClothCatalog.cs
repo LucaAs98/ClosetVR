@@ -13,6 +13,7 @@ public class CardClothCatalog : MonoBehaviour
 
     private ManageMirrorCards manageMirrorCards;
 
+    
     void Start()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();

@@ -61,4 +61,9 @@ public class Spawner : NetworkBehaviour
     {
         return connectedClients;
     }
+
+    public int GetNumberOfConnectedClients()
+    {
+        return connectedClients.Count;
+    }
 }

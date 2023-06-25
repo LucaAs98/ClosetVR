@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -96,5 +97,15 @@ public class ManageRecommendedMenu : MonoBehaviour
 
         recommendedNamesString.rectTransform.sizeDelta = new Vector2(1200, 70 * (indexFor));
         recommendedNamesString.text = users;
+    }
+
+    public int GetUsersNumberRecommendOutfit(string outfitKey)
+    {
+        return recommendedClothesBy[outfitKey].Count;
+    }
+
+    public string[] GetAllOutfits()
+    {
+        return recommendedClothesBy.Keys.ToArray();
     }
 }

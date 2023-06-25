@@ -58,7 +58,7 @@ public class ManageCloset : NetworkBehaviour
     private float newDistance; //Starting point of the cloth position. It is incremented every time
 
     private int numberOfCloth; //Number of the cloth we are adding at the closet
-
+    private Spawner spawner;
 
     void Awake()
     {
@@ -75,6 +75,7 @@ public class ManageCloset : NetworkBehaviour
 
         manageRecommendMenu = recommendMenu.GetComponent<ManageRecommendedMenu>();
         clothesInRecommendMenu = manageRecommendMenu.GetClothesContainer();
+        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
     }
 
     //Fill the closet with all the clothes
@@ -222,12 +223,33 @@ public class ManageCloset : NetworkBehaviour
         bool createCard = createCardUpdate.Item1;
         bool updateCard = createCardUpdate.Item2;
 
-
         if (createCard)
             CreateRecommendCard(clothNames, userName);
 
-        if(updateCard && !createCard)
+        if (updateCard && !createCard)
             FindRecommendCardFromOutfit(clothNames).GetComponent<ManageRecommendCard>().UpdateRecommendCard();
+
+        UpdateEveryPercentage();
+    }
+
+    private void UpdateEveryPercentage()
+    {
+        foreach (string outfit in manageRecommendMenu.GetAllOutfits())
+        {
+            float percentage = CalculatePercentage(outfit);
+            FindRecommendCardFromOutfit(outfit).GetComponent<ManageRecommendCard>().ChangePercentage(percentage);
+        }
+    }
+
+    private float CalculatePercentage(string outfit)
+    {
+        float numUsersForOutfit = manageRecommendMenu.GetUsersNumberRecommendOutfit(outfit);
+        float connectedUsers = spawner.GetNumberOfConnectedClients();
+        float percentage = numUsersForOutfit / connectedUsers;
+        Debug.Log(
+            $"outfit: {outfit}; \n numUsersForOutfit: {numUsersForOutfit}; \n connectedUsers: {connectedUsers}; \n percentage: {percentage}");
+
+        return percentage;
     }
 
     private ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
