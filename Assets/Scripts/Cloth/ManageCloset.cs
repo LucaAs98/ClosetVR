@@ -58,7 +58,7 @@ public class ManageCloset : NetworkBehaviour
     private float newDistance; //Starting point of the cloth position. It is incremented every time
 
     private int numberOfCloth; //Number of the cloth we are adding at the closet
-    private Spawner spawner;
+    private Spawner spawner; //Spawner component in scene
 
     void Awake()
     {
@@ -73,6 +73,7 @@ public class ManageCloset : NetworkBehaviour
             watchesHangerPrefab
         };
 
+        //Initialization of manageRecommendMenu, clothesInRecommendMenu, spawner
         manageRecommendMenu = recommendMenu.GetComponent<ManageRecommendedMenu>();
         clothesInRecommendMenu = manageRecommendMenu.GetClothesContainer();
         spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
@@ -86,7 +87,7 @@ public class ManageCloset : NetworkBehaviour
             InitCloset();
     }
 
-    //init the closet
+    //Init the closet
     private void InitCloset()
     {
         //Iterate all the lists of clothes
@@ -218,20 +219,54 @@ public class ManageCloset : NetworkBehaviour
     //Adds recommended outfit to mirror menu
     public void AddToRecommendMenu(string clothNames, string userName, ulong clientID)
     {
+        //Create a user with his ID and name
         Tuple<ulong, string> user = new Tuple<ulong, string>(clientID, userName);
+
+        //Check if there is a need to create a new card or simply update an existing one
         Tuple<bool, bool> createCardUpdate = manageRecommendMenu.AddUserToRecommendedCloth(clothNames, user);
         bool createCard = createCardUpdate.Item1;
         bool updateCard = createCardUpdate.Item2;
 
+        //There is no card with this particular outfit (clothNames), so it creates it
         if (createCard)
             CreateRecommendCard(clothNames, userName);
 
+        //Update the card data associated with this particular outfit (clothNames)
         if (updateCard && !createCard)
             FindRecommendCardFromOutfit(clothNames).GetComponent<ManageRecommendCard>().UpdateRecommendCard();
 
+        //Update the recommendation percentage of all cards 
         UpdateEveryPercentage();
     }
 
+    //Create the card associated with a specific outfit (clothNames)
+    private void CreateRecommendCard(string clothNames, string userName)
+    {
+        //Instantiate the recommended card in the recommended mirror menu
+        Transform recommendItem = Instantiate(recommendItemPrefab, clothesInRecommendMenu);
+
+        //Complete the card with all the informations
+        recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
+    }
+
+    /* Find the card associated with this particular outfit (outfitClothes). For each card in the container takes the one
+     * with the associated outfit equal to the outfit we are checking (outfitClothes).*/
+    private ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
+    {
+        ManageRecommendCard auxManageRecommendCard;
+
+        foreach (Transform recommendCard in manageRecommendMenu.GetClothesContainer())
+        {
+            auxManageRecommendCard = recommendCard.GetComponent<ManageRecommendCard>();
+
+            if (auxManageRecommendCard.GetOutfitClothesInString() == outfitClothes)
+                return auxManageRecommendCard;
+        }
+
+        return null; //Impossible
+    }
+
+    //Update the recommendation percentage of all recommended cards 
     private void UpdateEveryPercentage()
     {
         foreach (string outfit in manageRecommendMenu.GetAllOutfits())
@@ -241,40 +276,17 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
+    //Calculates the recommendation percentage based on the ratio of connected users to users who have recommended this particular outfit
     private float CalculatePercentage(string outfit)
     {
+        //Users who have recommended this particular outfit
         float numUsersForOutfit = manageRecommendMenu.GetUsersNumberRecommendOutfit(outfit);
-        float connectedUsers = spawner.GetNumberOfConnectedClients();
-        float percentage = numUsersForOutfit / connectedUsers;
-        Debug.Log(
-            $"outfit: {outfit}; \n numUsersForOutfit: {numUsersForOutfit}; \n connectedUsers: {connectedUsers}; \n percentage: {percentage}");
+        float connectedUsers = spawner.GetNumberOfConnectedClients(); //Number of connected users
+        float percentage = numUsersForOutfit / connectedUsers; //Ratio between them
 
-        return percentage;
+        return percentage; //Return the percentage
     }
 
-    private ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
-    {
-        ManageRecommendCard manageRecommendCard;
-
-        foreach (Transform recommendCard in manageRecommendMenu.GetClothesContainer())
-        {
-            manageRecommendCard = recommendCard.GetComponent<ManageRecommendCard>();
-
-            if (manageRecommendCard.GetOutfitClothesInString() == outfitClothes)
-                return manageRecommendCard;
-        }
-
-        return null; //Impossible
-    }
-
-    private void CreateRecommendCard(string clothNames, string userName)
-    {
-        //Instantiate the recommended card in the recommended mirror menu
-        Transform recommendItem = Instantiate(recommendItemPrefab, clothesInRecommendMenu);
-
-        //Complete the card with all the informations
-        recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
-    }
 
     //Deactivate all hints
     private void DeactivateAllHangers()

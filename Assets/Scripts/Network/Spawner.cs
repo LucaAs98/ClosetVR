@@ -57,11 +57,13 @@ public class Spawner : NetworkBehaviour
         return auxPlayerName;
     }
 
+    //Return the connected clients
     public Dictionary<ulong, string> GetConnectedClients()
     {
         return connectedClients;
     }
 
+    //Return the number of connected clients
     public int GetNumberOfConnectedClients()
     {
         return connectedClients.Count;

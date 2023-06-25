@@ -161,7 +161,7 @@ public class ManageRecommendCard : MonoBehaviour
     public void ChangePercentage(float value)
     {
         recommendBarSlider.value = value;
-        percentage.text = $"{value * 100} %";
+        percentage.text = $"{(value * 100):F2} %";
         barPercentage.color = ColorFromGradient(value);
     }
 }
