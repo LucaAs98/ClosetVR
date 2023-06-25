@@ -297,20 +297,11 @@ public class ManageCloset : NetworkBehaviour
         }
     }
 
-    //Remove the "(Clone)" string from every string
-    private string RemoveCloneString(string clothName)
-    {
-        return clothName.Replace("(Clone)", "");
-    }
-
-
     //------------ GET ---------------
 
     //Return the Hanger associated to the clothName passed
     public GameObject GetHangerFromClothName(string clothName)
     {
-        //clothName = RemoveCloneString(clothName);
-
         foreach (var currentHanger in hangerList)
         {
             if (currentHanger.GetComponent<ManageHanger>().GetClothName() == clothName)

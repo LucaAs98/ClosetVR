@@ -47,6 +47,7 @@ public class Spawner : NetworkBehaviour
         }
     }
 
+    //-------------- GET --------------------
     public void SetClientName(string name)
     {
         auxPlayerName = name;

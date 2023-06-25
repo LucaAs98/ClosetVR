@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ManageMirrorCards : MonoBehaviour
@@ -11,6 +9,7 @@ public class ManageMirrorCards : MonoBehaviour
         avatar = GameObject.FindGameObjectWithTag("Avatar");
     }
 
+    //Put the cloth in the avatar
     public void PutCloth(string clothName, string clothCategory)
     {
         //Take the avatar

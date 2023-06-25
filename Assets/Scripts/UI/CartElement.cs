@@ -6,12 +6,12 @@ public class CartElement : MonoBehaviour
 {
     [SerializeField] private RawImage clothImage; //Cloth image in cart element
     [SerializeField] private TextMeshProUGUI clothNameTextMeshPro; //Cloth name in cart element
-    private string clothCategory;
+    private string clothCategory;   //Cloth category
 
     private TextMeshProUGUI cartItemCounter; //Counter of elements in the cart
+    private ManageMirrorCards manageMirrorCards; //ManageMerrorCards component
 
-    private ManageMirrorCards manageMirrorCards;
-
+    //Init some variables
     void Start()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
@@ -43,6 +43,7 @@ public class CartElement : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    //Put cloth of the card in the avatar
     public void PutClothInAvatar()
     {
         manageMirrorCards.PutCloth(clothNameTextMeshPro.text, clothCategory);

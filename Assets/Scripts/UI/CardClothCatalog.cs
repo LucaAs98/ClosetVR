@@ -11,9 +11,10 @@ public class CardClothCatalog : MonoBehaviour
     private Transform cartClothes; //Container of cart clothes
     private string clothCategory; //Cloth category
 
-    private ManageMirrorCards manageMirrorCards;
+    private ManageMirrorCards manageMirrorCards; //ManageMirrorCard Component
 
-    
+
+    //Init some variables
     void Start()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
@@ -35,6 +36,7 @@ public class CardClothCatalog : MonoBehaviour
         newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, clothCategory, auxTexture);
     }
 
+    //Put cloth of the card in the avatar
     public void PutCloth()
     {
         manageMirrorCards.PutCloth(clothName.text, clothCategory);

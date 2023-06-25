@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,9 +26,10 @@ public class ManageRecommendCard : MonoBehaviour
 
     private ManageMirrorCards manageMirrorCards;
     private ManageRecommendedMenu manageRecommendedMenu;
-    private int numOfRecommend = 0;
+    private int numOfRecommend;
     private string recommendedBy = "";
 
+    //Init some variables at the start
     void Start()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
@@ -38,12 +37,13 @@ public class ManageRecommendCard : MonoBehaviour
             GameObject.FindGameObjectWithTag("RecommendedMenu").GetComponent<ManageRecommendedMenu>();
     }
 
-    //Set the title of the card
+    //Set the first title of the card
     public void SetUserName()
     {
         recommendByName.text = $"Recommend by: {recommendedBy}";
     }
 
+    //Update the title of the card when more than 1 person recommend the same outfit
     public void UpdateUserName()
     {
         string person = "person";
@@ -54,27 +54,31 @@ public class ManageRecommendCard : MonoBehaviour
         recommendByName.text = $"Recommend by: {recommendedBy} and other {numOfRecommend - 1} {person}...";
     }
 
-
     //Complete the card with all necessary data
     public void ConfigureCard(string clothNames, string name)
     {
-        numOfRecommend++;
-        recommendedBy = name;
-        outfitClothesInString = clothNames;
+        numOfRecommend++; //Increase the number of users who have recommended this outfit
+        recommendedBy = name; //First user to recommend this outfit
+        outfitClothesInString = clothNames; //Save the clothes of this outfit for next use
+
         //clothNames contains all the cloth names divided by ","
         outfitClothesArray = clothNames.Split(",");
+
         this.GetComponent<Outfit>().ActivateInRecommendCard(clothNames); //Activate recommended clothes in outfit
         SetCorrectRenderTexture(); //Create and set the render texture
         SetUserName(); //Set the name in "Recommended by: ..."
     }
 
+    //Put cloth in avatar
     public void PutClothInAvatar()
     {
+        //Cycles the clothes in the outfit and makes the avatar wear them
         foreach (string clothName in outfitClothesArray)
         {
             string category = clothName.Split("_")[0]; //Take the category from the name
             string nameWithoutCategory = clothName.Replace(category + "_", ""); //Cloth name without category
 
+            //Put the single cloth in the avatar
             manageMirrorCards.PutCloth(nameWithoutCategory, category);
         }
     }
@@ -137,31 +141,36 @@ public class ManageRecommendCard : MonoBehaviour
         manageRecommendedMenu.RemoveOutfit(outfitClothesInString);
     }
 
+    //Increase the number of person who recommend this outfit and update the name in the card
     public void UpdateRecommendCard()
     {
         numOfRecommend++;
         UpdateUserName();
     }
 
-    public string GetOutfitClothesInString()
-    {
-        return outfitClothesInString;
-    }
-
+    //Open the info menu of the recommended outfit
     public void ShowInfoSpecificOutfit()
     {
         manageRecommendedMenu.ShowOutfitRecommendedNames(outfitClothesInString);
     }
 
+    //Return the color of the gradient associated at the recommended percentage 
     public Color ColorFromGradient(float value)
     {
         return gradient.Evaluate(value);
     }
 
+    //Update the recommended percentage for this outfit
     public void ChangePercentage(float value)
     {
-        recommendBarSlider.value = value;
-        percentage.text = $"{(value * 100):F2} %";
-        barPercentage.color = ColorFromGradient(value);
+        recommendBarSlider.value = value; //Change the value in the slider
+        percentage.text = $"{(value * 100):F2} %"; //Update the percentage in the bar
+        barPercentage.color = ColorFromGradient(value); //Chenge the color of the bar
+    }
+
+    //--------------- GET ----------------------
+    public string GetOutfitClothesInString()
+    {
+        return outfitClothesInString;
     }
 }

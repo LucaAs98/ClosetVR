@@ -7,7 +7,6 @@ using UnityEngine.Windows;
 using System.IO;
 #endif
 
-
 public class TakePhoto : MonoBehaviour
 {
     [SerializeField] private GameObject cameraPhoto;
