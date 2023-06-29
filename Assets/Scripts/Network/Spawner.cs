@@ -21,11 +21,22 @@ public class Spawner : NetworkBehaviour
     public void JoinServerRpc(ulong clientId, int platform, string clientName)
     {
         connectedClients.Add(clientId, clientName);
-        foreach (var client in connectedClients.Values)
-        {
-            Debug.Log($"Spawner: {client}");
-        }
 
+        //Init the avatar clothes in the client who has just connected
+        InitAvatarClothesForSpecificClient(clientId);
+
+        //Set the prefab for the connected client
+        SetPrefabForClient(clientId, platform, clientName);
+
+
+        //Every time one client connects, update the recommended menu
+        GameObject.FindGameObjectWithTag("RecommendedMenu").GetComponent<ManageRecommendedMenu>()
+            .UpdateEveryPercentage();
+    }
+
+    //Set the prefab for the connected client
+    private void SetPrefabForClient(ulong clientId, int platform, string clientName)
+    {
         GameObject tempGO = Instantiate(listClientPrefabs[platform]);
         tempGO.GetComponent<ClientHandler>().SetClientName(clientName);
         NetworkObject netObj = tempGO.GetComponent<NetworkObject>();
@@ -45,6 +56,64 @@ public class Spawner : NetworkBehaviour
             //Android client spawn
             JoinServerRpc(clientId, (int)Devices.Android, auxPlayerName);
         }
+    }
+
+
+    //-------------- Init variables ---------
+
+
+    //Retrieves the clothes activated in the server avatar and puts them to the avatar of the client who has just connected
+    private void InitAvatarClothesForSpecificClient(ulong clientID)
+    {
+        Debug.Log("Init Avatar Clothes For SpecificClient!");
+
+        //Retrieves the clothes activated in the server avatar
+        List<string> activeClothes = GetManageChangeCloth().GetActiveClothes();
+        string activeClothesInString = FromListToString(activeClothes);
+        Debug.Log($"activeClothesInString: {activeClothesInString}");
+
+        //Execute the code only in the connected client. Puts the clothes to the avatar of the client who has just connected
+        InitClothesInAvatarClientRpc(activeClothesInString, new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { clientID },
+            }
+        });
+    }
+
+    //Init the clothes in the avatar when he connects to the room
+    [ClientRpc]
+    private void InitClothesInAvatarClientRpc(string clothesToActivate, ClientRpcParams clientRpcParams = default)
+    {
+        Debug.Log($"Init Clothes In Avatar ClientRpc! clothesToActivate: {clientRpcParams}");
+        GetManageChangeCloth().ChangeClothBase(clothesToActivate, null);
+    }
+
+    //Transform a list of strings in a single string with the values separated by ","
+    private string FromListToString(List<string> clothes)
+    {
+        string clothesInString = "";
+        foreach (string cloth in clothes)
+        {
+            clothesInString += cloth + ",";
+        }
+
+        if (clothesInString.Length > 0)
+            clothesInString = clothesInString.Substring(0, clothesInString.Length - 1);
+
+        return clothesInString;
+    }
+
+
+    //---------------- GET ------------------
+    private ManageChangeCloth GetManageChangeCloth()
+    {
+        //Take the avatar
+        GameObject avatar = GameObject.FindGameObjectWithTag("Avatar");
+
+        //Return the component
+        return avatar.transform.parent.GetComponent<ManageChangeCloth>();
     }
 
     //-------------- GET --------------------

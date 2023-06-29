@@ -525,7 +525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7020288869954689940
 Transform:
   m_ObjectHideFlags: 0
@@ -541,6 +541,7 @@ Transform:
   - {fileID: 7020288870308469296}
   - {fileID: 7020288870976153558}
   - {fileID: 7937786034462757100}
+  - {fileID: 8151362404089089252}
   m_Father: {fileID: 8693741852083721216}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -558,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPhoto: {fileID: 7020288870308469297}
   attachPoint: {fileID: 7937786034462757099}
+  armatureWithClothes: {fileID: 8814850998364542558}
   resWidth: 2550
   resHeight: 3300
 --- !u!1 &7020288870308469297
@@ -1555,3 +1557,70 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &6982383250771427420
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7020288869954689940}
+    m_Modifications:
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923825206751286786, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_Name
+      value: ArmatureWithClothes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+--- !u!4 &8151362404089089252 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+  m_PrefabInstance: {fileID: 6982383250771427420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8814850998364542558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1923825206751286786, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+  m_PrefabInstance: {fileID: 6982383250771427420}
+  m_PrefabAsset: {fileID: 0}

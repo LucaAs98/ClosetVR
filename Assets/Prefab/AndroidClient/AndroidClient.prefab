@@ -5239,12 +5239,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardBtnCompletePrefab: {fileID: 1717950926654587144, guid: b1c5ef4e7566c7141bbbcc430d030c04, type: 3}
-  containerTShirts: {fileID: 408278022593904977}
-  containerTrousers: {fileID: 5042452460010307739}
+  containerUpperBody: {fileID: 408278022593904977}
+  containerLowerBody: {fileID: 5042452460010307739}
   containerShoes: {fileID: 481333266921202264}
   containerCaps: {fileID: 3882044403727749753}
   containerGlasses: {fileID: 2840524063049491957}
   containerWatches: {fileID: 3648297742270611214}
+  armatureWithClothes: {fileID: 6687413302556316723}
 --- !u!1 &6579981486805589127
 GameObject:
   m_ObjectHideFlags: 0
@@ -8345,6 +8346,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 171582217688640810, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 281341433475566903, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -8681,6 +8686,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3102216812005546296, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: armatureType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3172630581930103153, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -8932,7 +8941,7 @@ PrefabInstance:
     - target: {fileID: 7411938532951073720, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
       propertyPath: manageSkinParts
       value: 
-      objectReference: {fileID: 3247756471151775124}
+      objectReference: {fileID: 0}
     - target: {fileID: 7416339282011618598, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -9047,17 +9056,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
---- !u!114 &3247756471151775124 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6928000517444932895, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
-  m_PrefabInstance: {fileID: 5564033023529015435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c132bd01130e7a049a83cdd7804654c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6687413302556316723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1295097676830477496, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}

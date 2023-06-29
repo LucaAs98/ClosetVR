@@ -21,7 +21,7 @@ public class ManageChangeCloth : NetworkBehaviour
     }
 
     //Change cloth at the avatar
-    private void ChangeClothBase(string clothNames, string category)
+    public void ChangeClothBase(string clothNames, string category)
     {
         List<Transform> listOfClothActivated = new(); //List of activated clothes 
 
@@ -37,9 +37,6 @@ public class ManageChangeCloth : NetworkBehaviour
                     {
                         if (cloth.gameObject.activeSelf)
                         {
-                            //First of all deactivate all the skin parts related to the clothes being deactivated.
-                            cloth.GetComponent<ManageCloth>().ActivateSkinParts();
-
                             cloth.gameObject.SetActive(false);
                         }
                     }
@@ -51,11 +48,22 @@ public class ManageChangeCloth : NetworkBehaviour
                 }
             }
         }
+    }
 
-        //At the end, deactivate the skin parts related to the clothes we are activating.
-        foreach (var cloth in listOfClothActivated)
+    //Return a List of strings with all the clothes name activated
+    public List<string> GetActiveClothes()
+    {
+        List<string> activeClothes = new();
+
+        foreach (Transform clothesCategory in clothes)
         {
-            cloth.GetComponent<ManageCloth>().DeactivateSkinParts();
+            foreach (Transform cloth in clothesCategory)
+            {
+                if (cloth.gameObject.activeSelf)
+                    activeClothes.Add($"{clothesCategory.name}_{cloth.name}");
+            }
         }
+
+        return activeClothes;
     }
 }

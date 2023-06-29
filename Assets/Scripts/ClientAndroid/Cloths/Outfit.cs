@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,8 +13,6 @@ public class Outfit : MonoBehaviour
     //Active only the cloth corresponding to clothName in his category, we dont mind about other categories
     public void ActivateChildOfCategory(string clothName, string clothCategory)
     {
-        Transform activatedCloth = null;
-
         foreach (Transform clothesCategory in clothesTransform)
         {
             if (clothesCategory.name == clothCategory)
@@ -27,21 +24,13 @@ public class Outfit : MonoBehaviour
                     if (cloth.name.Replace("_root", "") != clothName)
                     {
                         cloth.gameObject.SetActive(false);
-
-                        //Activate again skin parts
-                        cloth.GetComponent<ManageCloth>().ActivateSkinParts();
                     }
                     else
                     {
                         //Save the activated cloth because at the end there is the deactivation of the skin parts associated at it
                         cloth.gameObject.SetActive(true);
-                        activatedCloth = cloth;
                     }
                 }
-
-                //Deactivation of the skin parts associated at it
-                activatedCloth.GetComponent<ManageCloth>().DeactivateSkinParts();
-
                 //We dont want to check other categories after we found the specific one
                 return;
             }
@@ -98,9 +87,6 @@ public class Outfit : MonoBehaviour
                     if (cloth.name.Replace("_root", "") == newClothName)
                     {
                         cloth.gameObject.SetActive(true);
-
-                        //Deactivation of the skin parts associated at it
-                        cloth.GetComponent<ManageCloth>().DeactivateSkinParts();
                     }
                 }
             }

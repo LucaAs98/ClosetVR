@@ -7,7 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Container : MonoBehaviour
 {
-    [Range(0.1f, 3)] [SerializeField]
+    [Range(0.1f, 30)] [SerializeField]
     private float distanceBetweenObj = 1; //Distance beetwen more clothes in this container
 
     [Range(0f, 10)] [SerializeField] private float startPadding = 0.2f; //Real startingPoint

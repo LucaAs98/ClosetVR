@@ -1,24 +1,21 @@
-using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SpawnClothes : MonoBehaviour
 {
-    private GameObject[] t_shirtsList; //List of t-shirts to add
-    private GameObject[] trousersList; //List of trousers to add
-    private GameObject[] shoesList; //List of shoes to add
-    private GameObject[] capsList; //List of caps to add
-    private GameObject[] glassesList; //List of glasses to add
-    private GameObject[] watchesList; //List of watches to add
-
     [SerializeField] private GameObject cardBtnCompletePrefab; //Prefab of the card button complete to instantiate
-    [SerializeField] private Transform containerTShirts; //Container of all the t-shirts in the menu
-    [SerializeField] private Transform containerTrousers; //Container of all the trousers in the menu
+    [SerializeField] private Transform containerUpperBody; //Container of all the t-shirts in the menu
+    [SerializeField] private Transform containerLowerBody; //Container of all the trousers in the menu
     [SerializeField] private Transform containerShoes; //Container of all the shoes in the menu
     [SerializeField] private Transform containerCaps; //Container of all the caps in the menu
     [SerializeField] private Transform containerGlasses; //Container of all the glasses in the menu
     [SerializeField] private Transform containerWatches; //Container of all the watches in the menu
+
+    [SerializeField] private Transform armatureWithClothes;
+    private ClothesWithSkeletonManager armatureManager;
+    private List<Transform> allCategories;
 
     private GameObject cardTextGameObj; //Text of the cardBtnComplete
     private GameObject cardBtnGameObj; //Card button we are instantiating
@@ -30,9 +27,6 @@ public class SpawnClothes : MonoBehaviour
     private RawImage imgInCard;
     private string basePath = "ClothImages";
 
-    private string auxNewClothName = "";
-    private string auxClothCategory = "";
-
     void Start()
     {
         TakeClothes(); //Get the clothes from the closet
@@ -42,33 +36,31 @@ public class SpawnClothes : MonoBehaviour
     //Get the clothes from the closet
     private void TakeClothes()
     {
-        ManageCloset manageCloset = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>();
-        t_shirtsList = manageCloset.GetTShirtsGameObjects();
-        trousersList = manageCloset.GetTrousersGameObjects();
-        shoesList = manageCloset.GetShoesGameObjects();
-        capsList = manageCloset.GetCapsGameObjects();
-        glassesList = manageCloset.GetGlassesGameObjects();
-        watchesList = manageCloset.GetWatchesGameObjects();
+        armatureManager = armatureWithClothes.GetComponent<ClothesWithSkeletonManager>();
+        allCategories = armatureManager.GetAllCategoryContainers();
     }
 
     //Add the clothes to the menu
     private void AddClothes()
     {
+        Transform container;
+
         //We create the group of containers and clothes list we want to add at the android menu
         Transform[] allContainers =
-            { containerTShirts, containerTrousers, containerShoes, containerCaps, containerGlasses, containerWatches };
-        GameObject[][] allLists = { t_shirtsList, trousersList, shoesList, capsList, glassesList, watchesList };
+        {
+            containerUpperBody, containerLowerBody, containerShoes, containerCaps, containerGlasses, containerWatches
+        };
 
         int i = 0; //Used to iterate allLists at the same time of allContainers
 
-        foreach (var container in allContainers)
+        foreach (Transform category in allCategories)
         {
-            currentListOfClothes = allLists[i]; //We take the right list of clothes
+            container = allContainers[i]; //We take the right list of clothes
 
             //We add every cloth to the menu
-            foreach (var cloth in currentListOfClothes)
+            foreach (Transform cloth in armatureManager.GetClothesOfCategory(category.name))
             {
-                AddCardBtn(container, cloth);
+                AddCardBtn(container, cloth.name, category.name);
             }
 
             i++;
@@ -76,56 +68,46 @@ public class SpawnClothes : MonoBehaviour
     }
 
     //Add the card btn in the specific container
-    private void AddCardBtn(Transform container, GameObject cloth)
+    private void AddCardBtn(Transform container, string clothName, string category)
     {
         //Instantiate the cardBtnPrefab
         cardBtnGameObj = Instantiate(cardBtnCompletePrefab, container);
         ManageCardCloth manageCardCloth = cardBtnGameObj.GetComponent<ManageCardCloth>();
 
-        //!! Category have to be at the start of the cloth name separated with an underscore !!
-        string clothCategory = "";
-
         //Set the new name and the category at the specific manageCardCloth
-        SetClothNameAndCategory(cloth.name, manageCardCloth);
+        SetClothNameAndCategory(clothName, category, manageCardCloth);
 
         //Put the image in the instantiated cardBtn and also the name in the card
-        PutImage(cloth.name, manageCardCloth);
-        PutTitle(manageCardCloth);
+        PutImage(clothName, category, manageCardCloth);
+        PutTitle(clothName, manageCardCloth);
     }
 
     //Set the new name and the category at the specific manageCardCloth
-    private void SetClothNameAndCategory(string originalClothName, ManageCardCloth manageCardCloth)
+    private void SetClothNameAndCategory(string clothName, string category, ManageCardCloth manageCardCloth)
     {
-        //Extrapolation of category from cloth name
-        auxClothCategory = originalClothName.Split("_")[0];
-
-        //Remove of the category from the cloth name
-        auxNewClothName = originalClothName.Replace(auxClothCategory + "_", "");
-
-
         //Set of the name and category in the specific component manageCardCloth
-        manageCardCloth.SetClothName(auxNewClothName);
-        manageCardCloth.SetClothCategory(auxClothCategory);
+        manageCardCloth.SetClothName(clothName);
+        manageCardCloth.SetClothCategory(category);
     }
 
     //Put the image in the instantiated cardBtn
-    private void PutImage(string clothName, ManageCardCloth manageCardCloth)
+    private void PutImage(string clothName, string category, ManageCardCloth manageCardCloth)
     {
         //Raw img component where to put the image of the corresponding cloth
         imgInCard = manageCardCloth.GetClothImgGO().GetComponent<RawImage>();
 
         //Path to take the corresponding leader 
-        string completePath = $"{basePath}/{auxClothCategory}/{clothName}";
+        string completePath = $"{basePath}/{category}/{clothName}";
 
         //Load of img in the card
         imgInCard.texture = Resources.Load<Texture2D>(completePath);
     }
 
     //Put the cloth name in the instantiated cardBtn
-    private void PutTitle(ManageCardCloth manageCardCloth)
+    private void PutTitle(string clothName, ManageCardCloth manageCardCloth)
     {
         //Take of the title GO and set of the text with the name without "{category}_"
         cardTextGameObj = manageCardCloth.GetClothNameGO();
-        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = auxNewClothName;
+        cardTextGameObj.GetComponent<TextMeshProUGUI>().text = clothName;
     }
 }

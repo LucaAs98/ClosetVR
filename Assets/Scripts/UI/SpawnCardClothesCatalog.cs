@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpawnCardClothesCatalog : MonoBehaviour
 {
@@ -11,34 +10,28 @@ public class SpawnCardClothesCatalog : MonoBehaviour
     //Base path for loading the cloth images
     private string basePath = "ClothImages";
 
-    //All names of the clothes to put in the catalog
-    private List<string> allClothNames;
-
     //Dictionary where the key is the cloth name and the value is the cloth category
     private Dictionary<string, string> clothNamesWithCategory = new();
 
+    private ClothesWithSkeletonManager armatureManager;
 
     void Start()
     {
+        //Take the avatar
+        GameObject avatar = GameObject.FindGameObjectWithTag("Avatar");
+        armatureManager = avatar.GetComponent<ClothesWithSkeletonManager>();
         InitCategoryContainers(); //Instantiate all the clothes of the closet in the "catalog menu"
     }
 
     //Instantiate all the clothes of the closet in the "catalog menu"
     private void InitCategoryContainers()
     {
-        allClothNames = TakeAllClothNames(); //Take all cloth names from the closet
-        clothNamesWithCategory = SplitClothes(allClothNames); //Save the clothes in the dictionary
+        clothNamesWithCategory = armatureManager.GetAllClothNamesWithCategory();
 
         //Fills the containers of the various categories
         FillCategoryContainers();
     }
 
-    //Take all cloth names from the closet
-    private List<string> TakeAllClothNames()
-    {
-        ManageCloset manageCloset = GameObject.FindGameObjectWithTag("Closet").GetComponent<ManageCloset>();
-        return manageCloset.GetAllClothNames();
-    }
 
     //Save the clothes in the dictionary
     private Dictionary<string, string> SplitClothes(List<string> allClothes)
@@ -101,7 +94,7 @@ public class SpawnCardClothesCatalog : MonoBehaviour
         GameObject newCardClothCatalog = Instantiate(cardClothCatalogPrefab, category);
 
         //Take the image of the specific cloth and put it in the card together with the name of the cloth
-        Texture2D auxImage = RetriveImageForCloth(category.name, $"{category.name}_{clothName}");
+        Texture2D auxImage = RetriveImageForCloth(category.name, $"{clothName}");
         newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothImage(auxImage);
         newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothName(clothName);
         newCardClothCatalog.GetComponent<CardClothCatalog>().SetClothCategory(category.name);

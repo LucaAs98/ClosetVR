@@ -168,6 +168,7 @@ public class ManageRecommendCard : MonoBehaviour
         barPercentage.color = ColorFromGradient(value); //Chenge the color of the bar
     }
 
+
     //--------------- GET ----------------------
     public string GetOutfitClothesInString()
     {

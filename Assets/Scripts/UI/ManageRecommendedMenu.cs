@@ -20,6 +20,14 @@ public class ManageRecommendedMenu : MonoBehaviour
     //Used to memorize which outfit the last open information menu belongs to among the recommended ones.
     private string auxShowedRecommendedNamesOutfit = "";
 
+    //Spawner
+    private Spawner spawnerComponent;
+
+    void Start()
+    {
+        spawnerComponent = GameObject.Find("Spawner").GetComponent<Spawner>();
+    }
+
     //Associate a user with a particular outfit they recommend
     public Tuple<bool, bool> AddUserToRecommendedCloth(string outfit, Tuple<ulong, string> user)
     {
@@ -108,6 +116,44 @@ public class ManageRecommendedMenu : MonoBehaviour
     public void RemoveOutfit(string key)
     {
         recommendedClothesBy.Remove(key);
+    }
+
+    /* Find the card associated with this particular outfit (outfitClothes). For each card in the container takes the one
+     * with the associated outfit equal to the outfit we are checking (outfitClothes).*/
+    public ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
+    {
+        ManageRecommendCard auxManageRecommendCard;
+
+        foreach (Transform recommendCard in clothesContainer)
+        {
+            auxManageRecommendCard = recommendCard.GetComponent<ManageRecommendCard>();
+
+            if (auxManageRecommendCard.GetOutfitClothesInString() == outfitClothes)
+                return auxManageRecommendCard;
+        }
+
+        return null; //Impossible
+    }
+
+    //Update the recommendation percentage of all recommended cards 
+    public void UpdateEveryPercentage()
+    {
+        foreach (string outfit in recommendedClothesBy.Keys.ToArray())
+        {
+            float percentage = CalculatePercentage(outfit);
+            FindRecommendCardFromOutfit(outfit).GetComponent<ManageRecommendCard>().ChangePercentage(percentage);
+        }
+    }
+
+    //Calculates the recommendation percentage based on the ratio of connected users to users who have recommended this particular outfit
+    private float CalculatePercentage(string outfit)
+    {
+        //Users who have recommended this particular outfit
+        float numUsersForOutfit = GetUsersNumberRecommendOutfit(outfit);
+        float connectedUsers = spawnerComponent.GetNumberOfConnectedClients(); //Number of connected users
+        float percentage = numUsersForOutfit / connectedUsers; //Ratio between them
+
+        return percentage; //Return the percentage
     }
 
     // -------------------------------- GET --------------------------------------

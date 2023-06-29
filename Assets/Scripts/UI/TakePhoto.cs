@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 #if UNITY_EDITOR
@@ -11,8 +12,8 @@ public class TakePhoto : MonoBehaviour
 {
     [SerializeField] private GameObject cameraPhoto;
     [SerializeField] private GameObject attachPoint;
-    private GameObject closet;
-    private List<Transform[]> clothList;
+    [SerializeField] private GameObject armatureWithClothes;
+
     private GameObject pastCloth;
 
     public int resWidth = 2550;
@@ -22,13 +23,14 @@ public class TakePhoto : MonoBehaviour
     private static string currentPath = "";
 
     private Vector3[] cameraMovements =
-        { new Vector3(0, 0, 0), new Vector3(0, -0.7f, 0), new Vector3(0.04f, -1.15f, -0.88f) };
+    {
+        new Vector3(0, 0, 0), new Vector3(0, -0.67f, 0), new Vector3(0f, -1.15f, -0.7f), Vector3.one, Vector3.one,
+        Vector3.one
+    };
 
     void Start()
     {
         DeleteImgInDirectory();
-        closet = GameObject.FindWithTag("Closet");
-        clothList = closet.GetComponent<ManageCloset>().GetClothList();
         TakePhotos();
     }
 
@@ -51,23 +53,24 @@ public class TakePhoto : MonoBehaviour
 
     public void TakePhotos()
     {
+        ClothesWithSkeletonManager armatureManager = armatureWithClothes.GetComponent<ClothesWithSkeletonManager>();
+
         int indexCameraMovent = 0;
 
-        foreach (var specificClothList in clothList)
+        foreach (Transform category in armatureManager.GetAllCategoryContainers())
         {
-            
+            CreateNewFolder(category.name);
+            cameraPhoto.transform.localPosition = cameraMovements[indexCameraMovent];
 
-
-            if (specificClothList.Length > 0)
+            foreach (Transform cloth in category)
             {
-                CreateNewFolder(specificClothList[0]);
-                cameraPhoto.transform.localPosition = cameraMovements[indexCameraMovent];
-            }
+                if (category.name == "Shoes")
+                    armatureManager.SetLegsForShoes(true);
 
-            foreach (var cloth in specificClothList)
-            {
+                cloth.gameObject.SetActive(true);
                 MoveClothInCamera(cloth);
                 PrepareCameraAndShoot(cloth.name);
+                cloth.gameObject.SetActive(false);
             }
 
             indexCameraMovent++;
@@ -77,11 +80,9 @@ public class TakePhoto : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void CreateNewFolder(Transform firstElement)
+    private void CreateNewFolder(string categoryName)
     {
-        string clothType = firstElement.name.Split("_")[0];
-
-        currentPath = path + clothType + "/";
+        currentPath = path + categoryName + "/";
 
         Directory.CreateDirectory(currentPath);
 

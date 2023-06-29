@@ -1,48 +1,41 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
 public class ManageCloset : NetworkBehaviour
 {
-    //--------------------- T_SHIRTS -------------------------------
-    [SerializeField] private Transform tShirtSpace;
-    [SerializeField] private Transform tShirtHangerPrefab;
-    [SerializeField] private Transform[] tShirtList;
+    [SerializeField] private Transform armatureWithClothes;
 
-    //--------------------- TROUSERS -------------------------------
-    [SerializeField] private Transform trousersSpace;
-    [SerializeField] private Transform trousersHangerPrefab;
-    [SerializeField] private Transform[] trousersList;
 
-    //---------------------- SHOES ---------------------------------
-    [SerializeField] private Transform shoesSpace;
+    [Header("UpperBody")] [SerializeField] private Transform upperBodySpace;
+    [SerializeField] private Transform upperBodyHangerPrefab;
+
+
+    [Header("UpperBody")] [SerializeField] private Transform lowerBodySpace;
+    [SerializeField] private Transform lowerBodyHangerPrefab;
+
+    [Header("Shoes")] [SerializeField] private Transform shoesSpace;
     [SerializeField] private Transform shoesHangerPrefab;
-    [SerializeField] private Transform[] shoesList;
 
-    //---------------------- CAPS ----------------------------------
-    [SerializeField] private Transform capsSpace;
+    [Header("Caps")] [SerializeField] private Transform capsSpace;
     [SerializeField] private Transform capsHangerPrefab;
-    [SerializeField] private Transform[] capsList;
 
-    //---------------------- GLASSES -------------------------------
-    [SerializeField] private Transform glassesSpace;
+    [Header("Glasses")] [SerializeField] private Transform glassesSpace;
     [SerializeField] private Transform glassesHangerPrefab;
-    [SerializeField] private Transform[] glassesList;
 
-    //---------------------- WATCHES -------------------------------
-    [SerializeField] private Transform watchesSpace;
+    [Header("Watches")] [SerializeField] private Transform watchesSpace;
     [SerializeField] private Transform watchesHangerPrefab;
-    [SerializeField] private Transform[] watchesList;
 
-    //---------------------- RECOMMEND MENU ------------------------
-    [SerializeField] private Transform recommendMenu;
+    [Header("Recommend menù")] [SerializeField]
+    private Transform recommendMenu;
+
     [SerializeField] private Transform recommendItemPrefab;
+
+
     private ManageRecommendedMenu manageRecommendMenu;
     private Transform clothesInRecommendMenu;
 
-    private List<Transform[]> clothLists;
     private Transform[] clothHangers;
     private Transform[] clothsSpaces;
 
@@ -58,25 +51,25 @@ public class ManageCloset : NetworkBehaviour
     private float newDistance; //Starting point of the cloth position. It is incremented every time
 
     private int numberOfCloth; //Number of the cloth we are adding at the closet
-    private Spawner spawner; //Spawner component in scene
+    private ClothesWithSkeletonManager generalArmatureManager;
 
     void Awake()
     {
+        generalArmatureManager = armatureWithClothes.GetComponent<ClothesWithSkeletonManager>();
+
         //Creation of all the arrays and the lists neededed
         clothsSpaces = new Transform[]
-            { tShirtSpace, trousersSpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
-        clothLists = new List<Transform[]>()
-            { tShirtList, trousersList, shoesList, capsList, glassesList, watchesList };
+            { upperBodySpace, lowerBodySpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
+
         clothHangers = new Transform[]
         {
-            tShirtHangerPrefab, trousersHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
+            upperBodyHangerPrefab, lowerBodyHangerPrefab, shoesHangerPrefab, capsHangerPrefab, glassesHangerPrefab,
             watchesHangerPrefab
         };
 
-        //Initialization of manageRecommendMenu, clothesInRecommendMenu, spawner
+        //Initialization of manageRecommendMenu, clothesInRecommendMenu
         manageRecommendMenu = recommendMenu.GetComponent<ManageRecommendedMenu>();
         clothesInRecommendMenu = manageRecommendMenu.GetClothesContainer();
-        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
     }
 
     //Fill the closet with all the clothes
@@ -90,9 +83,15 @@ public class ManageCloset : NetworkBehaviour
     //Init the closet
     private void InitCloset()
     {
-        //Iterate all the lists of clothes
-        foreach (var clothList in clothLists)
+        Transform clothesContainer =
+            armatureWithClothes.GetComponent<ClothesWithSkeletonManager>().GetClothesContainer();
+        Transform[] allCategories = GetFirstLevelChildren(clothesContainer);
+
+        foreach (Transform category in allCategories)
         {
+            Debug.Log($"Category: {category}");
+
+            Debug.Log($"index: {typeOfClothIndex}");
             //Take all the containers associated to the specific type of cloth
             clothContainers = GetAllChildren(clothsSpaces[typeOfClothIndex]);
 
@@ -103,15 +102,24 @@ public class ManageCloset : NetworkBehaviour
             InitBeforeNewTypeOfCloth();
 
             //Iterate every cloth of the list
-            AddClothOfSpecificType(clothList);
+            AddClothOfSpecificType(category);
         }
     }
 
+
     //We iterate every cloth of a specific type
-    private void AddClothOfSpecificType(Transform[] clothList)
+    private void AddClothOfSpecificType(Transform category)
     {
-        foreach (var cloth in clothList)
+        Transform lastCloth = null;
+        int childCount = category.childCount;
+
+        if (childCount > 0)
+            lastCloth = category.GetChild(childCount - 1);
+
+        foreach (Transform cloth in category)
         {
+            Debug.Log("----------------- AGGIUNGO: " + cloth.name);
+
             if (!stopThisCloth)
             {
                 //Move the hanger position in the space we have
@@ -124,7 +132,9 @@ public class ManageCloset : NetworkBehaviour
 
                 //Instantiate the cloth in the attach point associated to the current hanger
                 currHangerAttPoint = GetHangerAttachPoint(currentHanger);
-                Instantiate(cloth, currHangerAttPoint);
+
+                InstantiateClothInCloset(cloth, category.name);
+
 
                 //Set the cloth to the specific hanger
                 currentHanger.GetComponent<ManageHanger>().SetClothInHanger(cloth.gameObject);
@@ -135,7 +145,7 @@ public class ManageCloset : NetworkBehaviour
                 numberOfCloth++;
 
                 //Check if it's not the last one cloth
-                if (cloth != clothList.Last())
+                if (lastCloth != null && cloth != lastCloth)
                 {
                     //Check if another cloth fits
                     CheckIfThereIsSpace();
@@ -144,6 +154,20 @@ public class ManageCloset : NetworkBehaviour
         }
 
         typeOfClothIndex++;
+    }
+
+    private void InstantiateClothInCloset(Transform cloth, string category)
+    {
+        ClothesWithSkeletonManager specificArmatureManager;
+
+        cloth.gameObject.SetActive(true);
+        Transform newArmature = Instantiate(armatureWithClothes, currHangerAttPoint);
+        cloth.gameObject.SetActive(false);
+
+        specificArmatureManager = newArmature.GetComponent<ClothesWithSkeletonManager>();
+        specificArmatureManager.SetArmatureType(ClothesWithSkeletonManager.ArmatureType.Hanger);
+        if (category == "Shoes")
+            specificArmatureManager.SetLegsForShoes(true);
     }
 
     /* Check if another cloth fits. If there is no more space then we move to the next container. If we dont have other containers we stop
@@ -231,15 +255,15 @@ public class ManageCloset : NetworkBehaviour
         if (createCard)
             CreateRecommendCard(clothNames, userName);
 
-        //Update the card data associated with this particular outfit (clothNames)
+        //Updates the card data associated with this particular outfit (clothNames)
         if (updateCard && !createCard)
-            FindRecommendCardFromOutfit(clothNames).GetComponent<ManageRecommendCard>().UpdateRecommendCard();
+            manageRecommendMenu.FindRecommendCardFromOutfit(clothNames).GetComponent<ManageRecommendCard>()
+                .UpdateRecommendCard();
 
-        //Update the recommendation percentage of all cards 
-        UpdateEveryPercentage();
+        manageRecommendMenu.UpdateEveryPercentage();
     }
 
-    //Create the card associated with a specific outfit (clothNames)
+    //Creates the card associated with a specific outfit (clothNames)
     private void CreateRecommendCard(string clothNames, string userName)
     {
         //Instantiate the recommended card in the recommended mirror menu
@@ -249,46 +273,8 @@ public class ManageCloset : NetworkBehaviour
         recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
     }
 
-    /* Find the card associated with this particular outfit (outfitClothes). For each card in the container takes the one
-     * with the associated outfit equal to the outfit we are checking (outfitClothes).*/
-    private ManageRecommendCard FindRecommendCardFromOutfit(string outfitClothes)
-    {
-        ManageRecommendCard auxManageRecommendCard;
 
-        foreach (Transform recommendCard in manageRecommendMenu.GetClothesContainer())
-        {
-            auxManageRecommendCard = recommendCard.GetComponent<ManageRecommendCard>();
-
-            if (auxManageRecommendCard.GetOutfitClothesInString() == outfitClothes)
-                return auxManageRecommendCard;
-        }
-
-        return null; //Impossible
-    }
-
-    //Update the recommendation percentage of all recommended cards 
-    private void UpdateEveryPercentage()
-    {
-        foreach (string outfit in manageRecommendMenu.GetAllOutfits())
-        {
-            float percentage = CalculatePercentage(outfit);
-            FindRecommendCardFromOutfit(outfit).GetComponent<ManageRecommendCard>().ChangePercentage(percentage);
-        }
-    }
-
-    //Calculates the recommendation percentage based on the ratio of connected users to users who have recommended this particular outfit
-    private float CalculatePercentage(string outfit)
-    {
-        //Users who have recommended this particular outfit
-        float numUsersForOutfit = manageRecommendMenu.GetUsersNumberRecommendOutfit(outfit);
-        float connectedUsers = spawner.GetNumberOfConnectedClients(); //Number of connected users
-        float percentage = numUsersForOutfit / connectedUsers; //Ratio between them
-
-        return percentage; //Return the percentage
-    }
-
-
-    //Deactivate all hints
+    //Deactivates all hints
     private void DeactivateAllHangers()
     {
         foreach (var hanger in hangerList)
@@ -299,7 +285,7 @@ public class ManageCloset : NetworkBehaviour
 
     //------------ GET ---------------
 
-    //Return the Hanger associated to the clothName passed
+    //Returns the Hanger associated to the clothName passed
     public GameObject GetHangerFromClothName(string clothName)
     {
         foreach (var currentHanger in hangerList)
@@ -313,96 +299,27 @@ public class ManageCloset : NetworkBehaviour
         return null;
     }
 
-    //Return the attach point associated to the specific hanger
+    //Returns the attach point associated to the specific hanger
     private Transform GetHangerAttachPoint(Transform hanger)
     {
         return hanger.GetComponent<ManageHanger>().GetClothAttachPoint().transform;
     }
 
-    //Return all the tshirt of the closet
-    public GameObject[] GetTShirtsGameObjects()
+    private GameObject[] CreateArrayOfClothesFromCategory(Transform category)
     {
-        GameObject[] newList = new GameObject[tShirtList.Length];
+        GameObject[] newList = new GameObject[category.childCount];
+        int i = 0;
 
-        for (int i = 0; i < tShirtList.Length; i++)
+        foreach (Transform cloth in category)
         {
-            newList[i] = tShirtList[i].gameObject;
+            newList[i] = cloth.gameObject;
+            i++;
         }
 
         return newList;
     }
 
-    //Return all the trousers of the closet
-    public GameObject[] GetTrousersGameObjects()
-    {
-        GameObject[] newList = new GameObject[trousersList.Length];
-
-        for (int i = 0; i < trousersList.Length; i++)
-        {
-            newList[i] = trousersList[i].gameObject;
-        }
-
-        return newList;
-    }
-
-    //Return all the shoes of the closet
-    public GameObject[] GetShoesGameObjects()
-    {
-        GameObject[] newList = new GameObject[shoesList.Length];
-
-        for (int i = 0; i < shoesList.Length; i++)
-        {
-            newList[i] = shoesList[i].gameObject;
-        }
-
-        return newList;
-    }
-
-    //Return all the caps of the closet
-    public GameObject[] GetCapsGameObjects()
-    {
-        GameObject[] newList = new GameObject[capsList.Length];
-
-        for (int i = 0; i < capsList.Length; i++)
-        {
-            newList[i] = capsList[i].gameObject;
-        }
-
-        return newList;
-    }
-
-    //Return all the glasses of the closet
-    public GameObject[] GetGlassesGameObjects()
-    {
-        GameObject[] newList = new GameObject[glassesList.Length];
-
-        for (int i = 0; i < glassesList.Length; i++)
-        {
-            newList[i] = glassesList[i].gameObject;
-        }
-
-        return newList;
-    }
-
-    //Return all the watches of the closet
-    public GameObject[] GetWatchesGameObjects()
-    {
-        GameObject[] newList = new GameObject[watchesList.Length];
-
-        for (int i = 0; i < watchesList.Length; i++)
-        {
-            newList[i] = watchesList[i].gameObject;
-        }
-
-        return newList;
-    }
-
-    public List<Transform[]> GetClothList()
-    {
-        return clothLists;
-    }
-
-    //Return all children of a transform
+    //Returns all children of a transform
     private Container[] GetAllChildren(Transform transform)
     {
         List<Container> children = new();
@@ -413,18 +330,16 @@ public class ManageCloset : NetworkBehaviour
         return children.ToArray();
     }
 
-    //Returns a list of all the cloth names of the closet
-    public List<string> GetAllClothNames()
+    //Returns children of first level
+    private Transform[] GetFirstLevelChildren(Transform parent)
     {
-        List<string> allClothNames = new();
-        foreach (Transform[] clothList in clothLists)
+        Transform[] children = new Transform[parent.childCount];
+
+        for (int i = 0; i < parent.childCount; i++)
         {
-            foreach (Transform cloth in clothList)
-            {
-                allClothNames.Add(cloth.name);
-            }
+            children[i] = parent.GetChild(i);
         }
 
-        return allClothNames;
+        return children;
     }
 }
