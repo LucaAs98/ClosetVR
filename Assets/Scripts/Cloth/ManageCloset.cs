@@ -118,8 +118,6 @@ public class ManageCloset : NetworkBehaviour
 
         foreach (Transform cloth in category)
         {
-            Debug.Log("----------------- AGGIUNGO: " + cloth.name);
-
             if (!stopThisCloth)
             {
                 //Move the hanger position in the space we have
@@ -134,7 +132,6 @@ public class ManageCloset : NetworkBehaviour
                 currHangerAttPoint = GetHangerAttachPoint(currentHanger);
 
                 InstantiateClothInCloset(cloth, category.name);
-
 
                 //Set the cloth to the specific hanger
                 currentHanger.GetComponent<ManageHanger>().SetClothInHanger(cloth.gameObject);
@@ -160,14 +157,29 @@ public class ManageCloset : NetworkBehaviour
     {
         ClothesWithSkeletonManager specificArmatureManager;
 
-        cloth.gameObject.SetActive(true);
         Transform newArmature = Instantiate(armatureWithClothes, currHangerAttPoint);
-        cloth.gameObject.SetActive(false);
 
         specificArmatureManager = newArmature.GetComponent<ClothesWithSkeletonManager>();
         specificArmatureManager.SetArmatureType(ClothesWithSkeletonManager.ArmatureType.Hanger);
         if (category == "Shoes")
             specificArmatureManager.SetLegsForShoes(true);
+
+
+        List<Transform> clothesWithSameCategory = specificArmatureManager.GetClothesOfCategory(category);
+        foreach (Transform specificCloth in clothesWithSameCategory)
+        {
+            if (specificCloth.name == cloth.name)
+            {
+                InitNewClosetCloth(specificCloth, category);
+            }
+        }
+    }
+
+    private void InitNewClosetCloth(Transform specificCloth, string category)
+    {
+        specificCloth.gameObject.SetActive(true);
+        specificCloth.GetComponent<CheckRayInteraction>().enabled = true;
+        specificCloth.GetComponent<CheckRayInteraction>().SetClothCategory(category);
     }
 
     /* Check if another cloth fits. If there is no more space then we move to the next container. If we dont have other containers we stop
