@@ -7963,6 +7963,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3102216812005546296, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
+      propertyPath: armatureType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3172630581930103153, guid: de572b6f1c0fbef4ca3a14ee11a3bb52, type: 3}
       propertyPath: m_Layer
       value: 9

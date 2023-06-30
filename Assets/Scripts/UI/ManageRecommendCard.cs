@@ -112,7 +112,7 @@ public class ManageRecommendCard : MonoBehaviour
             string nameWithoutCategory = clothName.Replace(category + "_", ""); //Cloth name without category
 
             //Path for taking the corresponding image
-            string completePath = $"{basePath}/{category}/{clothName}";
+            string completePath = $"{basePath}/{category}/{nameWithoutCategory}";
 
             //Takes the image related to the name of the cloth (from the resources folder) to put it in the cart card
             StartCoroutine(FindFileAndCompleteCard(completePath, nameWithoutCategory, category));
