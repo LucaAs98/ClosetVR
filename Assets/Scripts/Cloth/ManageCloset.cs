@@ -1,6 +1,8 @@
 using System;
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ManageCloset : NetworkBehaviour
@@ -51,12 +53,9 @@ public class ManageCloset : NetworkBehaviour
     private float newDistance; //Starting point of the cloth position. It is incremented every time
 
     private int numberOfCloth; //Number of the cloth we are adding at the closet
-    private ClothesWithSkeletonManager generalArmatureManager;
 
     void Awake()
     {
-        generalArmatureManager = armatureWithClothes.GetComponent<ClothesWithSkeletonManager>();
-
         //Creation of all the arrays and the lists neededed
         clothsSpaces = new Transform[]
             { upperBodySpace, lowerBodySpace, shoesSpace, capsSpace, glassesSpace, watchesSpace };
@@ -153,33 +152,37 @@ public class ManageCloset : NetworkBehaviour
         typeOfClothIndex++;
     }
 
+    //Instantiate automatically the cloth in the closet
     private void InstantiateClothInCloset(Transform cloth, string category)
     {
-        ClothesWithSkeletonManager specificArmatureManager;
-
+        //Take the specific mannequin (!! with all clothes !!)
         Transform newArmature = Instantiate(armatureWithClothes, currHangerAttPoint);
 
-        specificArmatureManager = newArmature.GetComponent<ClothesWithSkeletonManager>();
+        //Get the specific armature manager
+        ClothesWithSkeletonManager specificArmatureManager = newArmature.GetComponent<ClothesWithSkeletonManager>();
+        //Set the type of the armature to "Hanger" and check if the cloth are shoes for moving legs
         specificArmatureManager.SetArmatureType(ClothesWithSkeletonManager.ArmatureType.Hanger);
         if (category == "Shoes")
             specificArmatureManager.SetLegsForShoes(true);
 
-
+        //Gets all clothes of the same category and activate the specific one
         List<Transform> clothesWithSameCategory = specificArmatureManager.GetClothesOfCategory(category);
         foreach (Transform specificCloth in clothesWithSameCategory)
         {
             if (specificCloth.name == cloth.name)
             {
+                //Init cloth for the closet
                 InitNewClosetCloth(specificCloth, category);
             }
         }
     }
 
+    //Init cloth for the closet, add CheckRayInteraction component and other components related
     private void InitNewClosetCloth(Transform specificCloth, string category)
     {
         specificCloth.gameObject.SetActive(true);
-        specificCloth.GetComponent<CheckRayInteraction>().enabled = true;
-        specificCloth.GetComponent<CheckRayInteraction>().SetClothCategory(category);
+        CheckRayInteraction checkRayInteraction = specificCloth.AddComponent<CheckRayInteraction>();
+        checkRayInteraction.SetClothCategory(category);
     }
 
     /* Check if another cloth fits. If there is no more space then we move to the next container. If we dont have other containers we stop
@@ -284,7 +287,6 @@ public class ManageCloset : NetworkBehaviour
         //Complete the card with all the informations
         recommendItem.GetComponent<ManageRecommendCard>().ConfigureCard(clothNames, userName);
     }
-
 
     //Deactivates all hints
     private void DeactivateAllHangers()
