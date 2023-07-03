@@ -4,7 +4,7 @@ public class ChangeLayerRecursively : MonoBehaviour
 {
     private string layerName; // The name of the layer to propagate
 
-    void Start()
+    void Awake()
     {
         //Get the layer of the GameObject
         int layer = gameObject.layer;

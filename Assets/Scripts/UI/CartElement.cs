@@ -60,7 +60,7 @@ public class CartElement : MonoBehaviour
         clothNameTextMeshPro.text = name;
     }
 
-    public TextMeshProUGUI GetclothNameTextMeshPro()
+    public TextMeshProUGUI GetClothNameTextMeshPro()
     {
         return clothNameTextMeshPro;
     }
