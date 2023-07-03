@@ -31,6 +31,7 @@ public class Outfit : MonoBehaviour
                         cloth.gameObject.SetActive(true);
                     }
                 }
+
                 //We dont want to check other categories after we found the specific one
                 return;
             }
@@ -99,6 +100,15 @@ public class Outfit : MonoBehaviour
         {
             clothesWithSkeletonManager = clothesTransform.parent.GetComponent<ClothesWithSkeletonManager>();
             clothesWithSkeletonManager.SetLegsForShoes(areShoes);
+        }
+    }
+
+    public void MoveForearm(bool isWatch)
+    {
+        if (isSpecificCloth)
+        {
+            clothesWithSkeletonManager = clothesTransform.parent.GetComponent<ClothesWithSkeletonManager>();
+            clothesWithSkeletonManager.SetForearmForWatches(isWatch);
         }
     }
 

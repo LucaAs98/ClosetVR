@@ -24,8 +24,7 @@ public class TakePhoto : MonoBehaviour
 
     private Vector3[] cameraMovements =
     {
-        new Vector3(0, 0, 0), new Vector3(0, -0.67f, 0), new Vector3(0f, -1.15f, -0.7f), Vector3.one, Vector3.one,
-        Vector3.one
+        new Vector3(0, 0, 0), new Vector3(0, -0.67f, 0), new Vector3(0f, -1.15f, -0.7f), new Vector3(0f,0.476000011f,-0.823000014f), new Vector3(0f,0.416000009f,-0.904999971f), new Vector3(-0.342999995f,-0.224000007f,-1.30799997f)
     };
 
     void Start()

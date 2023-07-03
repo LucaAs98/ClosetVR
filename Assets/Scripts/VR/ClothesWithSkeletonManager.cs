@@ -25,6 +25,8 @@ public class ClothesWithSkeletonManager : MonoBehaviour
     [SerializeField] private Transform leftArm;
     [SerializeField] private Transform rightArm;
 
+    [SerializeField] private Transform leftForearm;
+
 
     [Header("Skin")] [SerializeField] private GameObject skin;
 
@@ -36,6 +38,9 @@ public class ClothesWithSkeletonManager : MonoBehaviour
 
     private Vector3 rightArmRotationForHanger = new Vector3(55.7211113f, 355.36557f, 348.13974f);
     private Vector3 leftArmRotationForHanger = new Vector3(56.9790916f, 4.55117226f, 11.7212267f);
+
+    private Vector3 initialLeftForearmPosition = new Vector3(2.76565552e-05f, 23.4041519f, 2.31266022e-05f);
+    private Vector3 leftForearmPositionForWatch = new Vector3(2.20000005f, 14.8000002f, 34.9000015f);
 
     private List<Transform> listOfCategories;
 
@@ -87,10 +92,21 @@ public class ClothesWithSkeletonManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"initialLeftLegPosition: {initialLeftLegPosition}");
-            Debug.Log($"initialLeftLegPosition: {initialRightLegPosition}");
             leftLeg.localPosition = initialLeftLegPosition;
             rightLeg.localPosition = initialRightLegPosition;
+        }
+    }
+
+
+    public void SetForearmForWatches(bool isWatch)
+    {
+        if (isWatch)
+        {
+            leftForearm.localPosition = leftForearmPositionForWatch;
+        }
+        else
+        {
+            leftForearm.localPosition = initialLeftForearmPosition;
         }
     }
 

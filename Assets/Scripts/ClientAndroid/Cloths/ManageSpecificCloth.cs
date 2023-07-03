@@ -26,6 +26,7 @@ public class ManageSpecificCloth : MonoBehaviour
     public void VisualizeSpecificCloth(string clothName, string clothCategory)
     {
         bool areShoes = clothCategory == "Shoes";
+        bool isWatch = clothCategory == "Watches";
         //Based on the category of the cloth moves the Camera up and down
         MoveSpecificClothCamera(clothCategory);
 
@@ -36,6 +37,7 @@ public class ManageSpecificCloth : MonoBehaviour
         //Active only the cloth corresponding to clothName but deactivate all other clothes, also from other categories
         specificClothMenu.GetComponent<Outfit>().ActivateOnlyOneChild(clothName);
         specificClothMenu.GetComponent<Outfit>().MoveLegs(areShoes);
+        specificClothMenu.GetComponent<Outfit>().MoveForearm(isWatch);
 
         titleInTitleBar.text = clothName; //Set the title of the menu with the cloth name
     }
@@ -53,6 +55,15 @@ public class ManageSpecificCloth : MonoBehaviour
                 break;
             case "Shoes":
                 specificClothCamera.localPosition = new Vector3(2274, 29, -142);
+                break;
+            case "Caps":
+                specificClothCamera.localPosition = new Vector3(2274, 440, -115);
+                break;
+            case "Glasses":
+                specificClothCamera.localPosition = new Vector3(2274, 423, -108);
+                break;
+            case "Watches":
+                specificClothCamera.localPosition = new Vector3(2271.9f, 255.1f, -100.7f);
                 break;
         }
     }

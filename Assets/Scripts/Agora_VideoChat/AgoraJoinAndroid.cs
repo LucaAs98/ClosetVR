@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Agora.Rtc;
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -10,7 +8,6 @@ using UnityEngine.Android;
 
 using UnityEngine.Networking;
 using System;
-using TMPro;
 
 public class AgoraJoinAndroid : MonoBehaviour
 {
@@ -29,7 +26,7 @@ public class AgoraJoinAndroid : MonoBehaviour
 
     //For generating token
     private string serverUrl = "https://agora-token-generator.up.railway.app"; // The base URL to your token server."
-    private int ExpireTime = 60; //Expire time in Seconds.
+    private int ExpireTime = 300000; //Expire time in Seconds.
     private string uid = "0"; // An integer that identifies the user.
 
     //Main component

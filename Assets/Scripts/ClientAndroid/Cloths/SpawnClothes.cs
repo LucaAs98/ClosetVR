@@ -21,9 +21,6 @@ public class SpawnClothes : MonoBehaviour
     private GameObject cardBtnGameObj; //Card button we are instantiating
 
 
-    private GameObject[] currentListOfClothes; //List of clothes we are iterating
-
-
     private RawImage imgInCard;
     private string basePath = "ClothImages";
 
