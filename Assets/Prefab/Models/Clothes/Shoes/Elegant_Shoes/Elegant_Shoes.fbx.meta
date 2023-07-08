@@ -1,0 +1,212 @@
+fileFormatVersion: 2
+guid: 1d9894f14012b904c8c9bc45e48cb35f
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: 6141500024023750523
+    second: Armature|Armature.001|mixamo.com|Layer0.004
+  - first:
+      74: -8863752359954458708
+    second: Armature|Armature.001|mixamo.com|Layer0.005
+  - first:
+      74: 6217990808627522201
+    second: Armature|Armature.001|mixamo.com|Layer0.029
+  - first:
+      74: -5386474876053797646
+    second: Armature|Armature.001|mixamo.com|Layer0.031
+  - first:
+      74: -4791504522942941401
+    second: Armature|Armature|mixamo.com|Layer0
+  - first:
+      74: 3591740854655688942
+    second: Armature|Armature|mixamo.com|Layer0.002
+  - first:
+      74: -9099236766384010623
+    second: Armature|Armature|mixamo.com|Layer0.006
+  - first:
+      74: 5190646265559181537
+    second: Armature|Armature|mixamo.com|Layer0.007
+  - first:
+      74: 6354744116868210493
+    second: Armature|Armature|mixamo.com|Layer0.008
+  - first:
+      74: -8087900805205052197
+    second: Armature|Armature|mixamo.com|Layer0.009
+  - first:
+      74: -4231929178395640962
+    second: Armature|Armature|mixamo.com|Layer0.010
+  - first:
+      74: 8638809952182699435
+    second: Armature|Armature|mixamo.com|Layer0.011
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BackPiece_baseColor
+    second: {fileID: 2800000, guid: 38495eac56c383d4ba2ee2445d8dd6f1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BackPiece_normal
+    second: {fileID: 2800000, guid: 84e87e2cec448e347bfb950d8970afec, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LacesHole_baseColor
+    second: {fileID: 2800000, guid: acd12d22d2deb9745ac55e5a9db48209, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LacesHole_normal
+    second: {fileID: 2800000, guid: 0f72e8b160029cb43a7150ef0f5e7021, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Laces_baseColor
+    second: {fileID: 2800000, guid: d7c9a941d1a1c1b4d9abc24994310cab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Laces_normal
+    second: {fileID: 2800000, guid: aeb26217f87dcf24289858b163863472, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Mid_Sole_baseColor
+    second: {fileID: 2800000, guid: 9f36f167938e64542ac612d9ecda8046, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Mid_Sole_normal
+    second: {fileID: 2800000, guid: f9bad10cd4872a44898027de1e2cbfdc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sole_baseColor
+    second: {fileID: 2800000, guid: 5951a93bde659c44684b034a968ab9e3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sole_normal
+    second: {fileID: 2800000, guid: fb6b86cae4be3a247981e6ff5fc6d54f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Upper_Laces_baseColor
+    second: {fileID: 2800000, guid: 05e11137d78911346857d12469e80d87, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Upper_Laces_normal
+    second: {fileID: 2800000, guid: ebdfbc14d0c0a904eb5bb9fc68566dc9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Upper_Toe_baseColor
+    second: {fileID: 2800000, guid: e9526ecdafc239e48a158a3e9b36fc2b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Upper_Toe_normal
+    second: {fileID: 2800000, guid: 5f7a4fd30afa8af4f93a233a024066b3, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
