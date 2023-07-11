@@ -23,7 +23,6 @@ public class CardClothCatalog : MonoBehaviour
     {
         priceInFloat = Random.Range(100, 2000) / 10f;
         clothPrice.text = $"Price: {priceInFloat.ToString("F2")}$";
-
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
     }
 
@@ -34,14 +33,17 @@ public class CardClothCatalog : MonoBehaviour
         //Container of cart clothes
         cartClothes = shoppingCartMenu.GetComponent<ManageShoppingCartMenu>().GetCartClothes().GetChild(0);
 
-        //Takes the same texture of this object. Don't need to reload the file from the resources images
-        Texture2D auxTexture = (Texture2D)this.clothImage.texture;
+        if (!shoppingCartMenu.GetComponent<ManageShoppingCartMenu>().AlreadyPresentInCart(this.clothName.text))
+        {
+            //Takes the same texture of this object. Don't need to reload the file from the resources images
+            Texture2D auxTexture = (Texture2D)this.clothImage.texture;
 
-        //Instantiate the cart card in the shopping cart
-        GameObject newCartElement = Instantiate(cartElement, cartClothes);
-        //Complete that card putting the image and the cloth name
-        newCartElement.GetComponent<CartElement>()
-            .CompleteCartCard(this.clothName.text, clothCategory, auxTexture, priceInFloat);
+            //Instantiate the cart card in the shopping cart
+            GameObject newCartElement = Instantiate(cartElement, cartClothes);
+            //Complete that card putting the image and the cloth name
+            newCartElement.GetComponent<CartElement>()
+                .CompleteCartCard(this.clothName.text, clothCategory, auxTexture, priceInFloat);
+        }
     }
 
     //Put cloth of the card in the avatar

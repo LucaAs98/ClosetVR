@@ -77,3 +77,4 @@ ProjectSettings/Packages/com.unity.services.vivox/Settings.json
 ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
 *.blend
 *.blend1
+Assets/Prefab/Models/BaseClothes/BaseClothes.fbx

@@ -65,7 +65,7 @@ public class CartElement : MonoBehaviour
         clothImage.texture = texture;
     }
 
-    public void SetclothNameTextMeshPro(string name)
+    public void SetClothNameTextMeshPro(string name)
     {
         clothNameTextMeshPro.text = name;
     }

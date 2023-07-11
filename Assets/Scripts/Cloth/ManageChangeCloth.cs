@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mono.CSharp;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,7 +24,6 @@ public class ManageChangeCloth : NetworkBehaviour
     //Change cloth at the avatar
     public void ChangeClothBase(string clothNames, string category)
     {
-        List<Transform> listOfClothActivated = new(); //List of activated clothes 
 
         /*REMINDER! clothNames is the complete string with all the active clothes.    
         Cycles avatar clothes and activates only those that the client has selected*/
@@ -42,7 +42,6 @@ public class ManageChangeCloth : NetworkBehaviour
                     }
                     else
                     {
-                        listOfClothActivated.Add(cloth);
                         cloth.gameObject.SetActive(true);
                     }
                 }

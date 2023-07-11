@@ -97,7 +97,6 @@ public class ClothesWithSkeletonManager : MonoBehaviour
         }
     }
 
-
     public void SetForearmForWatches(bool isWatch)
     {
         if (isWatch)
