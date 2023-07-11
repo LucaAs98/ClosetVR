@@ -26,6 +26,7 @@ public class ManageRecommendCard : MonoBehaviour
 
     private ManageMirrorCards manageMirrorCards;
     private ManageRecommendedMenu manageRecommendedMenu;
+    private SpawnCardClothesCatalog manageCardCatalog;
     private int numOfRecommend;
     private string recommendedBy = "";
 
@@ -35,6 +36,7 @@ public class ManageRecommendCard : MonoBehaviour
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
         manageRecommendedMenu =
             GameObject.FindGameObjectWithTag("RecommendedMenu").GetComponent<ManageRecommendedMenu>();
+        manageCardCatalog = GameObject.FindGameObjectWithTag("CatalogMenu").GetComponent<SpawnCardClothesCatalog>();
     }
 
     //Set the first title of the card
@@ -128,8 +130,11 @@ public class ManageRecommendCard : MonoBehaviour
 
         //Instantiate the cart card in the shopping cart
         GameObject newCartElement = Instantiate(cartElement, cartClothes);
+
+        float price = manageCardCatalog.GetPriceFromNameAndCategory(clothName, category);
+
         //Complete that card putting the image and the cloth name
-        newCartElement.GetComponent<CartElement>().CompleteCartCard(clothName, category, auxTexture);
+        newCartElement.GetComponent<CartElement>().CompleteCartCard(clothName, category, auxTexture, price);
 
         yield return null;
     }

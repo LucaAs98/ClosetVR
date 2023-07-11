@@ -1,13 +1,17 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class CardClothCatalog : MonoBehaviour
 {
     [SerializeField] private RawImage clothImage; //Cloth image
     [SerializeField] private TextMeshProUGUI clothName; //Cloth name
+    [SerializeField] private TextMeshProUGUI clothPrice; //Cloth price
     [SerializeField] private GameObject cartElement; //Cart element prefab 
 
+    private float priceInFloat;
     private Transform cartClothes; //Container of cart clothes
     private string clothCategory; //Cloth category
 
@@ -17,6 +21,9 @@ public class CardClothCatalog : MonoBehaviour
     //Init some variables
     void Start()
     {
+        priceInFloat = Random.Range(100, 2000) / 10f;
+        clothPrice.text = $"Price: {priceInFloat.ToString("F2")}$";
+
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
     }
 
@@ -33,7 +40,8 @@ public class CardClothCatalog : MonoBehaviour
         //Instantiate the cart card in the shopping cart
         GameObject newCartElement = Instantiate(cartElement, cartClothes);
         //Complete that card putting the image and the cloth name
-        newCartElement.GetComponent<CartElement>().CompleteCartCard(this.clothName.text, clothCategory, auxTexture);
+        newCartElement.GetComponent<CartElement>()
+            .CompleteCartCard(this.clothName.text, clothCategory, auxTexture, priceInFloat);
     }
 
     //Put cloth of the card in the avatar
@@ -66,5 +74,10 @@ public class CardClothCatalog : MonoBehaviour
     public RawImage GetClothImage()
     {
         return clothImage;
+    }
+
+    public float GetPriceInFloat()
+    {
+        return priceInFloat;
     }
 }

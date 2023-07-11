@@ -122,4 +122,24 @@ public class SpawnCardClothesCatalog : MonoBehaviour
             category.gameObject.SetActive(category.name == selectedCategory);
         }
     }
+
+    public float GetPriceFromNameAndCategory(string name, string category)
+    {
+        foreach (Transform container in containers)
+        {
+            if (container.name == category)
+            {
+                foreach (Transform card in container)
+                {
+                    string cardName = card.GetComponent<CardClothCatalog>().GetClothName().text;
+                    if (cardName == name)
+                    {
+                        return card.GetComponent<CardClothCatalog>().GetPriceInFloat();
+                    }
+                }
+            }
+        }
+
+        return 0f;
+    }
 }

@@ -16,6 +16,7 @@ TagManager:
   - ShoppingCartMenu
   - ShoppingCartClothes
   - Cloth
+  - CatalogMenu
   layers:
   - Default
   - TransparentFX
