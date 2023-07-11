@@ -23,6 +23,8 @@ public class ManageRecommendedMenu : MonoBehaviour
     //Spawner
     private Spawner spawnerComponent;
 
+    private int numberOfUniqueRecommendNames = 0;
+
     void Start()
     {
         spawnerComponent = GameObject.Find("Spawner").GetComponent<Spawner>();
@@ -148,10 +150,12 @@ public class ManageRecommendedMenu : MonoBehaviour
     //Calculates the recommendation percentage based on the ratio of connected users to users who have recommended this particular outfit
     private float CalculatePercentage(string outfit)
     {
+        numberOfUniqueRecommendNames = GetNumberOfUniqueRecommendNames();
+
         //Users who have recommended this particular outfit
         float numUsersForOutfit = GetUsersNumberRecommendOutfit(outfit);
-        float connectedUsers = spawnerComponent.GetNumberOfConnectedClients(); //Number of connected users
-        float percentage = numUsersForOutfit / connectedUsers; //Ratio between them
+
+        float percentage = numUsersForOutfit / numberOfUniqueRecommendNames; //Ratio between them
 
         return percentage; //Return the percentage
     }
@@ -173,5 +177,19 @@ public class ManageRecommendedMenu : MonoBehaviour
     public Transform GetClothesContainer()
     {
         return clothesContainer;
+    }
+
+    public int GetNumberOfUniqueRecommendNames()
+    {
+        HashSet<string> uniqueNames = new();
+        foreach (List<Tuple<ulong, string>> listOfUser in recommendedClothesBy.Values)
+        {
+            foreach (Tuple<ulong, string> user in listOfUser)
+            {
+                uniqueNames.Add(user.Item2);
+            }
+        }
+
+        return uniqueNames.Count;
     }
 }

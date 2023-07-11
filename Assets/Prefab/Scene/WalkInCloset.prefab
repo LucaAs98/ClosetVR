@@ -2789,7 +2789,9 @@ GameObject:
   - component: {fileID: 1694695902397520271}
   - component: {fileID: 1694695902397520268}
   - component: {fileID: 1694695902397520269}
-  - component: {fileID: 4668518087842977180}
+  - component: {fileID: 5161772890830104928}
+  - component: {fileID: 612960797616709211}
+  - component: {fileID: 7860971540495005639}
   m_Layer: 8
   m_Name: Floor
   m_TagString: Floor
@@ -2871,12 +2873,25 @@ MeshCollider:
   m_GameObject: {fileID: 1694695902397520370}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4668518087842977180
+--- !u!65 &5161772890830104928
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694695902397520370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5078897, y: 2.220446e-16, z: 2.5577905}
+  m_Center: {x: -0.58840144, y: 0, z: -0.14709403}
+--- !u!114 &612960797616709211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2885,18 +2900,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1694695902397520370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 1694695902397520269}
+  m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
-  m_SelectMode: 1
+  m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
     m_PersistentCalls:
@@ -2955,12 +2969,18 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
-  m_Teleporting:
-    m_PersistentCalls:
-      m_Calls: []
+--- !u!114 &7860971540495005639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694695902397520370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f7cc356f98eee498eecfdfe4dbff31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1694695902451787306
 GameObject:
   m_ObjectHideFlags: 0

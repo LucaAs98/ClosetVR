@@ -139,6 +139,7 @@ public class ManageRecommendCard : MonoBehaviour
     {
         Destroy(this.gameObject);
         manageRecommendedMenu.RemoveOutfit(outfitClothesInString);
+        manageRecommendedMenu.UpdateEveryPercentage();
     }
 
     //Increase the number of person who recommend this outfit and update the name in the card
