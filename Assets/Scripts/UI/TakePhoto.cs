@@ -67,7 +67,7 @@ public class TakePhoto : MonoBehaviour
                     armatureManager.SetLegsForShoes(true);
 
                 cloth.gameObject.SetActive(true);
-                MoveClothInCamera(cloth);
+                //MoveClothInCamera(cloth);
                 PrepareCameraAndShoot(cloth.name);
                 cloth.gameObject.SetActive(false);
             }

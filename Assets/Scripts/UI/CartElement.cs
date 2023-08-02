@@ -17,16 +17,16 @@ public class CartElement : MonoBehaviour
     void Awake()
     {
         manageMirrorCards = this.transform.root.GetComponent<ManageMirrorCards>();
-        manageShoppingCartMenu =
-            GameObject.FindGameObjectWithTag("ShoppingCartMenu").GetComponent<ManageShoppingCartMenu>();
-
-        //Counter of elements in the cart
-        cartItemCounter = GameObject.FindGameObjectWithTag("CartItemCounter").GetComponent<TextMeshProUGUI>();
     }
 
     //Complete the cart card putting the image and the cloth name
     public void CompleteCartCard(string name, string category, Texture2D texture, float priceInFloat)
     {
+        //Counter of elements in the cart
+        cartItemCounter = GameObject.FindGameObjectWithTag("CartItemCounter").GetComponent<TextMeshProUGUI>();
+
+        manageShoppingCartMenu =
+            GameObject.FindGameObjectWithTag("ShoppingCartMenu").GetComponent<ManageShoppingCartMenu>();
         //Set the variable of this specific object
         clothNameTextMeshPro.text = name;
         clothCategory = category;
