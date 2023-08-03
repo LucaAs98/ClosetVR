@@ -302,9 +302,13 @@ public class ManageCloset : NetworkBehaviour
     //Returns the Hanger associated to the clothName passed
     public GameObject GetHangerFromClothName(string clothName)
     {
+        string toRemove = clothName.Split("_")[0];
+        string onlyClothName = clothName.Replace(toRemove + "_", "");
+        Debug.Log("GetHangerFromClothName " + onlyClothName);
+
         foreach (var currentHanger in hangerList)
         {
-            if (currentHanger.GetComponent<ManageHanger>().GetClothName() == clothName)
+            if (currentHanger.GetComponent<ManageHanger>().GetClothName() == onlyClothName)
             {
                 return currentHanger;
             }
