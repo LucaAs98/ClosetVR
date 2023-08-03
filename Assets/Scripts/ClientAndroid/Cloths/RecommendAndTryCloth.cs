@@ -28,7 +28,6 @@ public class RecommendAndTryCloth : NetworkBehaviour
     [ServerRpc]
     public void RecommendClothServerRpc(string clothNames, string userName, ulong id)
     {
-        Debug.Log($"clothNames {clothNames}");
         //Take the closet
         closet = GameObject.FindGameObjectWithTag("Closet");
 

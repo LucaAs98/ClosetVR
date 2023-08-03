@@ -88,9 +88,6 @@ public class ManageCloset : NetworkBehaviour
 
         foreach (Transform category in allCategories)
         {
-            Debug.Log($"Category: {category}");
-
-            Debug.Log($"index: {typeOfClothIndex}");
             //Take all the containers associated to the specific type of cloth
             clothContainers = GetAllChildren(clothsSpaces[typeOfClothIndex]);
 
@@ -302,9 +299,9 @@ public class ManageCloset : NetworkBehaviour
     //Returns the Hanger associated to the clothName passed
     public GameObject GetHangerFromClothName(string clothName)
     {
+        //Remove category from name
         string toRemove = clothName.Split("_")[0];
         string onlyClothName = clothName.Replace(toRemove + "_", "");
-        Debug.Log("GetHangerFromClothName " + onlyClothName);
 
         foreach (var currentHanger in hangerList)
         {
