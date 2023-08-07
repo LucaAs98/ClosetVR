@@ -20,7 +20,7 @@ Per favorire l’accessibilità e coinvolgere un pubblico più ampio, ClosetVR o
 ## Interazione sociale
 ClosetVR offre la possibilità di interazione e comunicazione tra la persona in Realtà Virtuale e gli utenti Android. La persona in VR potrà visualizzare la camera frontale dell'utente Android su un apposito muro dell'armadio virtuale, creando un'esperienza ancora più coinvolgente. Inoltre, grazie alla funzione di comunicazione vocale, la persona in VR potrà comunicare con l'utente Android tramite il microfono del visore, consentendo scambi di opinioni, suggerimenti e consigli sui capi di abbigliamento provati.
 
-##Vantaggi
+## Vantaggi
 La nostra applicazione porta con sé diversi vantaggi: 
 1. **Accessibilità**: offre un’esperienza di shopping virtuale più accessibile, poiché consente agli utenti di partecipare avendo a disposizione un solo visore VR, ma tanti smartphone Android. In questo modo, si supera la barriera dell’attrezzatura specifica, rendendo l’esperienza disponibile a un pubblico più ampio;
 2. **Utilizzabile in qualsiasi momento da qualsiasi parte del mondo**: grazie alla possibilità di utilizzare l’applicazione in qualsiasi momento e da qualsiasi parte del mondo, la persona in Realtà Virtuale ha accesso a consigli di moda immediati, mentre i consulenti possono fornire assistenza ovunque si trovino. Questa flessibilità contribuisce a rendere l’esperienza dell’armadio virtuale più pratica e coinvolgente;
